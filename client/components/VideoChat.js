@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ReactMediaRecorder } from "react-media-recorder";
+import { useReactMediaRecorder } from "react-media-recorder";
 
 import styled from "styled-components";
 
@@ -7,21 +7,16 @@ const VideoChat = () => {
   const [video, setVideo] = useState(null);
   useEffect(() => {}, []);
 
-  console.log();
+  const { status, startRecording, stopRecording, mediaBlobUrl } =
+    useReactMediaRecorder({ video: true });
+
   return (
-    <VideoContainer>
-      <ReactMediaRecorder
-        video
-        render={({ status, startRecording, stopRecording, mediaBlobUrl }) => (
-          <div>
-            <p>{status}</p>
-            <button onClick={startRecording}>Start Recording</button>
-            <button onClick={stopRecording}>Stop Recording</button>
-            <video src={mediaBlobUrl} controls autoPlay loop />
-          </div>
-        )}
-      />
-    </VideoContainer>
+    <div>
+      <p>{status}</p>
+      <button onClick={startRecording}>Start Recording</button>
+      <button onClick={stopRecording}>Stop Recording</button>
+      <video src={mediaBlobUrl} controls autoPlay loop />
+    </div>
   );
 };
 
