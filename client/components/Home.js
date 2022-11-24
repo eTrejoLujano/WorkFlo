@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import VideoChat from "./VideoChat";
 import styled from "styled-components";
-import socket from "../socket";
 import Classroom from "./Classroom";
 import { Link } from "react-router-dom";
 
@@ -14,8 +13,6 @@ const dummyClasses = ["Fullstack Academy", "History", "Math"];
 
 export const Home = (props) => {
   const { username } = props;
-  console.log("socket", socket);
-  socket.emit("new-message", `${username} is connected to the socket`);
 
   return (
     <div>

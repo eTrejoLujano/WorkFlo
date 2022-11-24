@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 import store from "./store";
-import { studentJoined, studentLeft } from "./store/classroom";
+import { studentJoined, studentLeft } from "./store/classroomSlice";
 // import store, { gotNewMessageFromServer } from "./store";
 
 const socket = io(window.location.origin);
