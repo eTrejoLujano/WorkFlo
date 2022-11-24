@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import socket from "../socket";
-import { studentJoined, studentLeft } from "../store/classroom";
+import { studentJoined, studentLeft } from "../store/classroomSlice";
+// import { studentJoined, studentLeft } from "../store/classroom";
+
 import VideoChat from "./VideoChat";
 // import { useParams } from "react-router-dom";
 
