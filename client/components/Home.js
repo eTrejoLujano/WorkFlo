@@ -6,7 +6,7 @@ import Classroom from "./Classroom";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-const dummyClasses = ["Fullstack Academy", "History", "Math"];
+const dummyCourses = ["Fullstack Academy", "History", "Math"];
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -18,23 +18,23 @@ export const Home = () => {
       {/* <VideoChat /> */}
       {role === "admin" && (
         <Link to="/courses/form">
-          <button>Start a new class!</button>
+          <button>Start a new course!</button>
         </Link>
       )}
-      <h2>Your classes</h2>
-      <ClassesContainer>
-        {dummyClasses.map((c, i) => (
+      <h2>Your courses</h2>
+      <CoursesContainer>
+        {dummyCourses.map((c, i) => (
           <Link key={i} to="/classroom">
             <p>{c}</p>
           </Link>
         ))}
-      </ClassesContainer>
+      </CoursesContainer>
     </div>
   );
 };
 
 export default Home;
 
-const ClassesContainer = styled.div`
+const CoursesContainer = styled.div`
   border: 1px solid black;
 `;
