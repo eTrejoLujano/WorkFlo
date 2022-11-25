@@ -12,9 +12,7 @@ const BrowseCourses = () => {
   }, []);
 
   const handleEnroll = () => {
-    window.alert(
-      "enrolling has not been implemented...and why does it redirect to home when you refresh the page?"
-    );
+    window.alert("enrolling has not been implemented.");
   };
   return (
     <div>
