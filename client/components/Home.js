@@ -16,7 +16,11 @@ export const Home = () => {
     <div>
       <h3>Welcome, {username}</h3>
       {/* <VideoChat /> */}
-      {role === "admin" && <button>Start a new class!</button>}
+      {role === "admin" && (
+        <Link to="/courses/form">
+          <button>Start a new class!</button>
+        </Link>
+      )}
       <h2>Your classes</h2>
       <ClassesContainer>
         {dummyClasses.map((c, i) => (

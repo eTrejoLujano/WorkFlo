@@ -5,6 +5,8 @@ import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import Classroom from "./components/Classroom";
 import { me } from "./store/authSlice";
+import CourseForm from "./components/CourseForm";
+import BrowseCourses from "./components/BrowseCourses";
 
 /**
  * COMPONENT
@@ -23,6 +25,8 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/classroom" component={Classroom} />
+            <Route path="/courses/browse" component={BrowseCourses} />
+            <Route path="/courses/form" component={CourseForm} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -30,6 +34,7 @@ class Routes extends Component {
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Redirect to="/" />
           </Switch>
         )}
       </div>
