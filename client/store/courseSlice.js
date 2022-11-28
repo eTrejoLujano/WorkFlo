@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import history from "../history";
-import { sendToken } from "./helperFunctions";
+// import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+// import axios from "axios";
+// import history from "../history";
+// import { sendToken } from "./helperFunctions";
 
 export const addCourse = createAsyncThunk(
   "course/addCourse",
