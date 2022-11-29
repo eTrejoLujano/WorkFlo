@@ -3,24 +3,33 @@
 const db = require("./db");
 
 const Project = require("./models/Project");
-const ToDo = require("./models/ToDo");
+const Card = require("./models/Card");
 const User = require("./models/User");
+const List = require("./models/List");
+const UserCards = require("./models/UserCards");
+const UserProjects = require("./models/UserProjects");
 
 //associations could go here!
-User.belongsToMany(Project, { through: "UserProjects" });
-Project.belongsToMany(User, { through: "UserProjects" });
+User.belongsToMany(Project, { through: UserProjects });
+Project.belongsToMany(User, { through: UserProjects });
 
-User.belongsToMany(ToDo, { through: "UserToDos" });
-ToDo.belongsToMany(User, { through: "UserToDos" });
+User.belongsToMany(Card, { through: UserCards });
+Card.belongsToMany(User, { through: UserCards });
 
-Project.hasMany(ToDo);
-ToDo.belongsTo(Project);
+Project.hasMany(List);
+List.belongsTo(Project);
+
+List.hasMany(Card);
+Card.belongsTo(List);
 
 module.exports = {
   db,
   models: {
     Project,
-    ToDo,
+    Card,
     User,
+    List,
+    UserCards,
+    UserProjects,
   },
 };

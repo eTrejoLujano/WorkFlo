@@ -1,75 +1,229 @@
 "use strict";
 
+const { green, red } = require("chalk");
 const {
   db,
-  models: { User },
+  models: { User, Project, List, Card, UserCards, UserProjects },
 } = require("../server/db");
 
-/**
- * seed - this function clears the database, updates tables to
- *      match the models, and populates the database.
- */
-async function seed() {
-  await db.sync({ force: true }); // clears db and matches models to tables
-  console.log("db synced!");
+const users = [
+  {
+    id: 1,
+    firstName: "cody",
+    lastName: "smith",
+    email: "cody@cody.com",
+    password: "123",
+    isAdmin: true,
+  },
+  {
+    id: 2,
+    firstName: "murphy",
+    lastName: "O'Neil",
+    email: "murphy@murphy.com",
+    password: "123",
+    isAdmin: false,
+  },
+];
 
-  // Creating Users
-  const users = await Promise.all([
-    // User.create({ username: 'cody', password: '123' }),
-    // User.create({ username: 'murphy', password: '123' }),
-    User.create({
-      firstName: "cody",
-      lastName: "smith",
-      email: "cody@cody.com",
-      password: "123",
-      isAdmin: true,
-    }),
-    User.create({
-      firstName: "murphy",
-      lastName: "O'Neil",
-      email: "murphy@murphy.com",
-      password: "123",
-      isAdmin: false,
-    }),
-  ]);
+const projects = [
+  {
+    id: 1,
+    title: "Project 1",
+    complete: false,
+  },
+  {
+    id: 2,
+    title: "Project 2",
+  },
+];
 
-  console.log(`seeded ${users.length} users`);
-  console.log(`seeded successfully`);
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1],
-    },
-  };
-}
+const lists = [
+  {
+    id: 1,
+    title: "Pre Work",
+    projectId: 1,
+  },
+  {
+    id: 2,
+    title: "Doing",
+    projectId: 1,
+  },
+  {
+    id: 3,
+    title: "Done",
+    projectId: 1,
+  },
+  {
+    id: 4,
+    title: "To do",
+    projectId: 1,
+  },
+  {
+    id: 5,
+    title: "Prep Work",
+    projectId: 2,
+  },
+  {
+    id: 6,
+    title: "In Progress",
+    projectId: 2,
+  },
+  {
+    id: 7,
+    title: "Post Work",
+    projectId: 2,
+  },
+];
 
-/*
- We've separated the `seed` function from the `runSeed` function.
- This way we can isolate the error handling and exit trapping.
- The `seed` function is concerned only with modifying the database.
-*/
-async function runSeed() {
-  console.log("seeding...");
+const cards = [
+  {
+    id: 1,
+    title: "card1",
+    description: "description1",
+    status: false,
+    listId: 1,
+  },
+  {
+    id: 2,
+    title: "card2",
+    description: "description2",
+    status: false,
+    listId: 2,
+  },
+  {
+    id: 3,
+    title: "card3",
+    description: "description3",
+    status: true,
+    listId: 3,
+  },
+  {
+    id: 4,
+    title: "card4",
+    description: "description4",
+    status: true,
+    listId: 4,
+  },
+  {
+    id: 5,
+    title: "card5",
+    description: "description5",
+    status: false,
+    listId: 5,
+  },
+  {
+    id: 6,
+    title: "card6",
+    description: "description6",
+    status: true,
+    listId: 6,
+  },
+  {
+    id: 7,
+    title: "card7",
+    description: "description7",
+    status: false,
+    listId: 7,
+  },
+];
+
+const seeduserCards = [
+  {
+    userId: 1,
+    cardId: 1,
+  },
+  {
+    userId: 1,
+    cardId: 2,
+  },
+  {
+    userId: 1,
+    cardId: 3,
+  },
+  {
+    userId: 2,
+    cardId: 4,
+  },
+  {
+    userId: 2,
+    cardId: 5,
+  },
+  {
+    userId: 2,
+    cardId: 6,
+  },
+];
+
+const seeduserProjects = [
+  {
+    userId: 1,
+    projectId: 1,
+  },
+  {
+    userId: 1,
+    projectId: 2,
+  },
+  {
+    userId: 2,
+    projectId: 1,
+  },
+  {
+    userId: 2,
+    projectId: 2,
+  },
+];
+
+const seed = async () => {
   try {
-    await seed();
+    await db.sync({ force: true });
+    await Promise.all(
+      users.map((user) => {
+        return User.create(user);
+      })
+    );
+    await Promise.all(
+      projects.map((project) => {
+        return Project.create(project);
+      })
+    );
+    await Promise.all(
+      lists.map((list) => {
+        return List.create(list);
+      })
+    );
+    await Promise.all(
+      cards.map((card) => {
+        return Card.create(card);
+      })
+    );
+    await Promise.all(
+      seeduserCards.map((userC) => {
+        return UserCards.create(userC);
+      })
+    );
+    await Promise.all(
+      seeduserProjects.map((userP) => {
+        return UserProjects.create(userP);
+      })
+    );
   } catch (err) {
     console.error(err);
-    process.exitCode = 1;
-  } finally {
-    console.log("closing db connection");
-    await db.close();
-    console.log("db connection closed");
   }
-}
+};
 
-/*
-  Execute the `seed` function, IF we ran this module directly (`node seed`).
-  `Async` functions always return a promise, so we can use `catch` to handle
-  any errors that might occur inside of `seed`.
-*/
-if (module === require.main) {
-  runSeed();
+if (require.main === module) {
+  seed()
+    .then(() => {
+      console.log(green("Seeding success!"));
+      db.close();
+    })
+    .catch((err) => {
+      console.error(red("Oh noes! Something went wrong!"));
+      console.error(err);
+      db.close();
+    });
 }
-
-// we export the seed function for testing purposes (see `./seed.spec.js`)
 module.exports = seed;
+// If this module is being required from another module, then we just export the
+// function, to be used as necessary. But it will run right away if the module
+// is executed directly (e.g. `node seed.js` or `npm run seed`)
