@@ -13,13 +13,13 @@ import { Link } from "react-router-dom";
 const dummyClasses = ["Fullstack Academy", "History", "Math"];
 
 export const Home = (props) => {
-  const { username } = props;
+  const { email } = props;
   console.log("socket", socket);
-  socket.emit("new-message", `${username} is connected to the socket`);
+  socket.emit("new-message", `${email} is connected to the socket`);
 
   return (
     <div>
-      <h3>Welcome, {username}</h3>
+      <h3>Welcome, {email}</h3>
       {/* <VideoChat /> */}
 
       <h2>Your classes</h2>
@@ -39,7 +39,7 @@ export const Home = (props) => {
  */
 const mapState = (state) => {
   return {
-    username: state.auth.username,
+    email: state.auth.email,
   };
 };
 

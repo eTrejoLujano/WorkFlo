@@ -3,14 +3,16 @@ const db = require('../db')
 const axios = require('axios');
 
 
-const Message = db.define('message', {
-  messageText: {
+const Project = db.define('project', {
+  title: {
     type: Sequelize.TEXT,
+    allowNull: false,
   },
-  read: {
+  complete: {
     type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
 })
 
-module.exports = Message
+module.exports = Project
 

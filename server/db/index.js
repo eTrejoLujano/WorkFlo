@@ -2,32 +2,26 @@
 
 const db = require('./db')
 
-const Class = require('./models/Class')
-const Event = require('./models/Event')
-const File = require('./models/File')
-const Message = require('./models/Message')
+const Project = require('./models/Project')
+const ToDo = require('./models/ToDo')
 const User = require('./models/User')
 
 //associations could go here!
-User.belongsToMany(Class, {through: 'UserClasses'})
-Class.belongsToMany(User, {through: 'UserClasses'})
+User.belongsToMany(Project, {through: 'UserProjects'})
+Project.belongsToMany(User, {through: 'UserProjects'})
 
-User.belongsToMany(Event, {through: 'UserEvents'})
-Event.belongsToMany(User, {through: 'UserEvents'})
+User.belongsToMany(ToDo, {through: 'UserToDos'})
+ToDo.belongsToMany(User, {through: 'UserToDos'})
 
-// User.hasMany(Message)
-// Message.belongsTo(User)
+Project.hasMany(ToDo)
+ToDo.belongsTo(Project)
 
-User.belongsToMany(File, {through: 'UserFiles'})
-File.belongsToMany(User, {through: 'UserFiles'})
 
 module.exports = {
   db,
   models: {
-    Class,
-    Event,
-    File,
-    Message,
+    Project,
+    ToDo,
     User,
   },
 }
