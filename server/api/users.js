@@ -1,8 +1,19 @@
 const router = require("express").Router();
 const {
   models: { User },
-} = require("../../db");
+} = require("../db");
 module.exports = router;
+
+const requireToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await User.findByToken(token);
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
 
 // router.get('/', async (req, res, next) => {
 //   try {
