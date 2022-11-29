@@ -4,6 +4,7 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
+import Workspace from "./components/Workspace";
 import { me } from "./store/authSlice";
 
 /**
@@ -15,6 +16,7 @@ class Routes extends Component {
   }
 
   render() {
+    console.log('this.props', this.props)
     const { isLoggedIn } = this.props;
 
     return (
@@ -22,6 +24,7 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
+            <Route path="/workspace" component={Workspace} />
             <Redirect to="/home" />
           </Switch>
         ) : (
