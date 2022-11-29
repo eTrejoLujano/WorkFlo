@@ -6,6 +6,7 @@ module.exports = router;
 //   router.use(`/${r}`, require("./routes/" + r))
 // );
 router.use("/users", require("./users"));
+router.use("/lists", require("./lists"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");

@@ -28,14 +28,3 @@ const requireToken = async (req, res, next) => {
 //     next(err)
 //   }
 // })
-
-router.get("/classes/:classid/users", async (req, res, next) => {
-  try {
-    const users = await User.findAll({
-      attributes: ["id", "email"],
-    });
-    res.json(users);
-  } catch (err) {
-    next(err);
-  }
-});
