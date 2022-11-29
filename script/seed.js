@@ -8,7 +8,6 @@ const {
 
 const users = [
   {
-    id: 1,
     firstName: "cody",
     lastName: "smith",
     email: "cody@cody.com",
@@ -16,7 +15,6 @@ const users = [
     isAdmin: true,
   },
   {
-    id: 2,
     firstName: "murphy",
     lastName: "O'Neil",
     email: "murphy@murphy.com",
