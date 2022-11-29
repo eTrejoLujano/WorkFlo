@@ -5,8 +5,7 @@ module.exports = router;
 // readdirSync("./server/api/routes").map((r) =>
 //   router.use(`/${r}`, require("./routes/" + r))
 // );
-router.use("/users", require("./routes/users"));
-router.use("/courses", require("./routes/courses"));
+router.use("/users", require("./users"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");
