@@ -1,50 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import VideoChat from "./VideoChat";
 import styled from "styled-components";
-import socket from "../socket";
-import Classroom from "./Classroom";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-/**
- * COMPONENT
- */
+const dummyCourses = ["Fullstack Academy", "History", "Math"];
 
-const dummyClasses = ["Fullstack Academy", "History", "Math"];
+export const Home = () => {
+  const dispatch = useDispatch();
+  const { email, role } = useSelector((state) => state.auth);
 
-export const Home = (props) => {
-  const { email } = props;
-  console.log("socket", socket);
-  socket.emit("new-message", `${email} is connected to the socket`);
-
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-      {/* <VideoChat /> */}
-
-      <h2>Your classes</h2>
-      <ClassesContainer>
-        {dummyClasses.map((c, i) => (
-          <Link key={i} to="/classroom">
-            <p>{c}</p>
-          </Link>
-        ))}
-      </ClassesContainer>
-    </div>
-  );
+  return <div></div>;
 };
 
-/**
- * CONTAINER
- */
-const mapState = (state) => {
-  return {
-    email: state.auth.email,
-  };
-};
-
-export default connect(mapState)(Home);
-
-const ClassesContainer = styled.div`
-  border: 1px solid black;
-`;
+export default Home;

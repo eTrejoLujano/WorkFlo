@@ -6,7 +6,6 @@ module.exports = (io) => {
     console.log(socket.id, " has made a persistent connection to the server!");
 
     socket.on("student-joined", (student) => {
-      console.log(student);
       socket.broadcast.emit("student-joined", student);
     });
 

@@ -1,7 +1,12 @@
 const router = require("express").Router();
+const { readdirSync } = require("fs");
 module.exports = router;
 
-router.use("/users", require("./users"));
+// readdirSync("./server/api/routes").map((r) =>
+//   router.use(`/${r}`, require("./routes/" + r))
+// );
+router.use("/users", require("./routes/users"));
+router.use("/courses", require("./routes/courses"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");

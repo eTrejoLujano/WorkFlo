@@ -1,15 +1,12 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
-import thunkMiddleware from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
-import auth from "./auth";
-import classroom from "./classroom";
+import { configureStore } from "@reduxjs/toolkit";
+import auth from "./authSlice";
 
-const reducer = combineReducers({ auth, classroom });
-const middleware = composeWithDevTools(
-  applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
-);
-const store = createStore(reducer, middleware);
+const store = configureStore({
+  reducer: { auth },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(createLogger({ collapsed: true })),
+});
 
 export default store;
-export * from "./auth";
+export * from "./authSlice";
