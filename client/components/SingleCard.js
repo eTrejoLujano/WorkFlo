@@ -1,17 +1,18 @@
 import React from "react";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
-const SingleCard = ({ text }) => {
-  return(
+const SingleCard = ({ title, description }) => {
+  return (
     <Card style={styles.cardContainer}>
       <CardContent>
-        <Typography gutterBottom>{text}</Typography>
+        <Typography gutterBottom>{title}</Typography>
+        {/* <Typography gutterBottom>{description}</Typography> */}
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
 const styles = {
   cardContainer: {
@@ -19,6 +20,6 @@ const styles = {
     alignItems: "center",
     marginBottom: 8,
     cursor: "pointer",
-  }
+  },
 };
 export default SingleCard;
