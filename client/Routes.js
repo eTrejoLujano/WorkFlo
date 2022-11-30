@@ -26,14 +26,14 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route path="/workspace" component={Workspace} />
             <Route path="/projects/:projectId" component={Project} />
-            <Redirect to="/home" />
+            {/* <Redirect to="/home" /> */}
           </Switch>
         ) : (
           <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Redirect to="/" />
+            {/* <Redirect to="/" /> */}
           </Switch>
         )}
       </div>
