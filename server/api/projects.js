@@ -33,9 +33,8 @@ const getProjectsByUser = async (req, res, next) => {
     const user = await User.findByPk(req.user.id, {
       include: Project,
     });
-    console.log("user :>> ", user);
 
-    res.json(projects);
+    res.json(user.projects);
   } catch (error) {
     next(error);
   }
@@ -50,5 +49,15 @@ const createProject = async (req, res, next) => {
   }
 };
 
+const getSingleProject = async (req, res, next) => {
+  try {
+    const project = await Project.findByPk(req.params.projectId);
+    res.send(project);
+  } catch (error) {
+    next(error);
+  }
+};
+
 router.get("/", allProjects);
 router.get("/user-projects", requireToken, getProjectsByUser);
+router.get("/:projectId", requireToken, getSingleProject);
