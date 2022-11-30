@@ -5,6 +5,9 @@ module.exports = router;
 // readdirSync("./server/api/routes").map((r) =>
 //   router.use(`/${r}`, require("./routes/" + r))
 // );
+
+router.use("/lists", require("./lists"));
+router.use("/projects", require("./projects"));
 router.use("/users", require("./users"));
 router.use("/projects", require("./projects"));
 

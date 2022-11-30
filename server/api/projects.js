@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Project, UserProjects, User },
+  models: { Project, UserProjects, User, List, Card },
 } = require("../db");
 
 module.exports = router;
@@ -33,9 +33,9 @@ const getProjectsByUser = async (req, res, next) => {
     const user = await User.findByPk(req.user.id, {
       include: Project,
     });
-    console.log("user :>> ", user);
+    const assigned = user.projects;
 
-    res.json(projects);
+    res.json(assigned);
   } catch (error) {
     next(error);
   }
@@ -50,5 +50,31 @@ const createProject = async (req, res, next) => {
   }
 };
 
+const getSingleProject = async (req, res, next) => {
+  try {
+    const project = await Project.findByPk(req.params.projectId);
+    res.send(project);
+  } catch (err) {
+    next(err);
+  }
+};
+// GET /api/:projectId/lists
+// GET all lists with their assigned cards
+router.get("/:projectId/lists", requireToken, async (req, res, next) => {
+  try {
+    const lists = await List.findAll({
+      where: {
+        projectId: req.params.projectId,
+      },
+      include: Card,
+    });
+    console.log("list proto>>>>", lists);
+    res.json(lists);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get("/", allProjects);
 router.get("/user-projects", requireToken, getProjectsByUser);
+router.get("/:projectId", requireToken, getSingleProject);

@@ -1,29 +1,38 @@
-import React, { useState } from "react";
-import CopyLinkModal from './CopyLinkModal'
-import SingleCard from './SingleCard'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchLists } from "../store/listSlice";
+import AddAnotherButton from "./AddAnotherButton";
+import List from "./List";
+import AddList from "./AddList";
 
 function Workspace() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [value, setValue] = useState('')
-
-  const inviteClicked = ()=> {
-    setModalOpen(true)
-    setValue(window.location.host)
-  }
-
+  const dispatch = useDispatch();
+  const lists = useSelector((state) => state.lists);
+  const params = useParams();
+  useEffect(() => {
+    dispatch(fetchLists(params.projectId));
+  }, []);
   return (
     <div>
-      <div className='invite'>
-        <button onClick={inviteClicked}>
-          + Invite
-        </button>
+      <h2>This Is The Workspace</h2>
+      <div style={styles.listsContainer}>
+        {lists.length &&
+          lists.map((list) => (
+            <List key={list.id} title={list.title} cards={list.cards} />
+          ))}
+        <AddList />
+        {/* <AddAnotherButton list /> */}
       </div>
-      {modalOpen && <CopyLinkModal setOpenModal={setModalOpen} value ={value}/>}
-      <SingleCard text="Here" />
-      <SingleCard text="We" />
-      <SingleCard text="Go" />
     </div>
-  )
+  );
 }
 
-export default Workspace
+const styles = {
+  listsContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+};
+
+export default Workspace;
