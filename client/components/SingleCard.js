@@ -15,7 +15,10 @@ const SingleCard = ({ text }) => {
 
 const styles = {
   cardContainer: {
+    display: "flex",
+    alignItems: "center",
     marginBottom: 8,
+    cursor: "pointer",
   }
 };
 export default SingleCard;

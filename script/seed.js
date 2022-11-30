@@ -31,6 +31,16 @@ const projects = [
   {
     title: "Project 2",
   },
+  {
+    id: 3,
+    title: "Project 3",
+    complete: false,
+  },
+  {
+    id: 4,
+    title: "Project 4",
+    complete: true
+  },
 ];
 
 const lists = [
@@ -68,43 +78,43 @@ const cards = [
   {
     title: "card1",
     description: "description1",
-    status: false,
+    complete: false,
     listId: 1,
   },
   {
     title: "card2",
     description: "description2",
-    status: false,
+    complete: false,
     listId: 2,
   },
   {
     title: "card3",
     description: "description3",
-    status: true,
+    complete: true,
     listId: 3,
   },
   {
     title: "card4",
     description: "description4",
-    status: true,
+    complete: true,
     listId: 4,
   },
   {
     title: "card5",
     description: "description5",
-    status: false,
+    complete: false,
     listId: 5,
   },
   {
     title: "card6",
     description: "description6",
-    status: true,
+    complete: true,
     listId: 6,
   },
   {
     title: "card7",
     description: "description7",
-    status: false,
+    complete: false,
     listId: 7,
   },
 ];

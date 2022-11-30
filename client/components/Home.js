@@ -4,14 +4,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProjects } from "../store/projectSlice";
-
-import AddList from "./AddList";
-
 const dummyCourses = ["Fullstack Academy", "History", "Math"];
 
 export const Home = () => {
   const dispatch = useDispatch();
-
   const { email, role } = useSelector((state) => state.auth);
   const { userProjects } = useSelector((state) => state.project);
 
@@ -20,24 +16,18 @@ export const Home = () => {
     console.log(userProjects);
   }, []);
 
-  return (
-    <div>
-      <div>
-        <AddList />
-      </div>
-
-      <HomeContainer>
-        <button>Start new Project</button>
-        <ProjectContainer>
-          {userProjects.length &&
-            userProjects.map((project) => (
-              <Link key={project.id} to={`/projects/${project.id}`}>
-                {project.title}
-              </Link>
-            ))}
-        </ProjectContainer>
-      </HomeContainer>
-    </div>
+  return (    
+    <HomeContainer>
+      <button>Start new Project</button>
+      <ProjectContainer>
+        {userProjects.length &&
+          userProjects.map((project) => (
+            <Link key={project.id} to={`/projects/${project.id}`}>
+              {project.title}
+            </Link>
+          ))}
+      </ProjectContainer>
+    </HomeContainer>
   );
 };
 
