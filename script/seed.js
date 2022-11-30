@@ -25,12 +25,10 @@ const users = [
 
 const projects = [
   {
-    id: 1,
     title: "Project 1",
     complete: false,
   },
   {
-    id: 2,
     title: "Project 2",
   },
   {
@@ -47,37 +45,30 @@ const projects = [
 
 const lists = [
   {
-    id: 1,
     title: "Pre Work",
     projectId: 1,
   },
   {
-    id: 2,
     title: "Doing",
     projectId: 1,
   },
   {
-    id: 3,
     title: "Done",
     projectId: 1,
   },
   {
-    id: 4,
     title: "To do",
     projectId: 1,
   },
   {
-    id: 5,
     title: "Prep Work",
     projectId: 2,
   },
   {
-    id: 6,
     title: "In Progress",
     projectId: 2,
   },
   {
-    id: 7,
     title: "Post Work",
     projectId: 2,
   },
@@ -85,49 +76,42 @@ const lists = [
 
 const cards = [
   {
-    id: 1,
     title: "card1",
     description: "description1",
     complete: false,
     listId: 1,
   },
   {
-    id: 2,
     title: "card2",
     description: "description2",
     complete: false,
     listId: 2,
   },
   {
-    id: 3,
     title: "card3",
     description: "description3",
     complete: true,
     listId: 3,
   },
   {
-    id: 4,
     title: "card4",
     description: "description4",
     complete: true,
     listId: 4,
   },
   {
-    id: 5,
     title: "card5",
     description: "description5",
     complete: false,
     listId: 5,
   },
   {
-    id: 6,
     title: "card6",
     description: "description6",
     complete: true,
     listId: 6,
   },
   {
-    id: 7,
     title: "card7",
     description: "description7",
     complete: false,

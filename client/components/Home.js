@@ -4,12 +4,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProjects } from "../store/projectSlice";
-
 const dummyCourses = ["Fullstack Academy", "History", "Math"];
 
 export const Home = () => {
   const dispatch = useDispatch();
-
   const { email, role } = useSelector((state) => state.auth);
   const { userProjects } = useSelector((state) => state.project);
 
