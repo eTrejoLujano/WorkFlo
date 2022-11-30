@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProjects } from "../store/projectSlice";
 
+import AddList from "./AddList";
+
+
 const dummyCourses = ["Fullstack Academy", "History", "Math"];
 
 export const Home = () => {
@@ -19,6 +22,10 @@ export const Home = () => {
   }, []);
 
   return (
+    <div>
+      <AddList />
+    </div>
+    
     <HomeContainer>
       <button>Start new Project</button>
       <ProjectContainer>
