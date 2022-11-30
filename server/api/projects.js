@@ -33,8 +33,9 @@ const getProjectsByUser = async (req, res, next) => {
     const user = await User.findByPk(req.user.id, {
       include: Project,
     });
+    const assigned = user.projects;
 
-    res.json(user.projects);
+    res.json(assigned);
   } catch (error) {
     next(error);
   }
