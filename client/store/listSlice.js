@@ -5,10 +5,12 @@ import { sendToken } from "./helperFunctions";
 
 export const fetchLists = createAsyncThunk(
   "project/fetchProjects",
-  async () => {
+  async (id) => {
     try {
-      const { data } = await axios.get("/api/lists", sendToken());
-
+      const { data } = await axios.get(
+        `/api/projects/${id}/lists`,
+        sendToken()
+      );
       return data;
     } catch (error) {
       console.log(error);
@@ -24,6 +26,23 @@ export const createList = createAsyncThunk("list/createList", async (value) => {
     console.error(err);
   }
 });
+
+const initialState = [];
+
+const listSlice = createSlice({
+  name: "list",
+  initialState,
+  reducers: {},
+  extraReducers: {
+    [createList.fulfilled]: (state, action) => {
+      console.log("action", action);
+      state.push(action.payload);
+    },
+    [fetchLists.fulfilled]: (state, action) => action.payload,
+  },
+});
+
+export default listSlice.reducer;
 
 const dummyData = [
   {
@@ -63,19 +82,3 @@ const dummyData = [
     ],
   },
 ];
-
-const initialState = [];
-
-const listSlice = createSlice({
-  name: "list",
-  initialState,
-  reducers: {},
-  extraReducers: {
-    [createList.fulfilled]: (state, action) => {
-      console.log("action", action);
-      state.push(action.payload);
-    },
-  },
-});
-
-export default listSlice.reducer;

@@ -54,8 +54,8 @@ const getSingleProject = async (req, res, next) => {
   try {
     const project = await Project.findByPk(req.params.projectId);
     res.send(project);
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 };
 // GET /api/:projectId/lists
