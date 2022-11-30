@@ -1,21 +1,41 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { createList } from "../store/listSlice";
 
 const AddList = () => {
-  const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [showAddList, setShowAddList] = useState(false);
+  const [showAddList, setShowAddList] = useState(true);
+  const [titleValue, setTitleValue] = useState({
+    title: "",
+  });
+
+  const handleChange = (event) => {
+    setTitleValue({ ...titleValue, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(createList(titleValue));
+  };
   return (
     <div>
       {showAddList ? (
         <div>
-          <input type="text"></input>
+          <form onSubmit={handleSubmit}>
+            <input
+              name="title"
+              value={titleValue.title}
+              onChange={handleChange}
+            />
+            <button type="submit">
+              {showAddList ? "Add List" : "Add Another List"}
+            </button>
+          </form>
         </div>
       ) : (
         <div></div>
       )}
-      <button onClick={() => setShowAddList(!showAddList)}>
+      <button onClick={() => setShowAddList(!showAddList)} type="submit">
         {showAddList ? "Add List" : "Add Another List"}
       </button>
     </div>
