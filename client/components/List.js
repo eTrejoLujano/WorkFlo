@@ -1,6 +1,6 @@
-import { createDraftSafeSelector } from '@reduxjs/toolkit';
 import React from 'react'
 import { useSelector } from 'react-redux';
+import AddAnotherButton from './AddAnotherButton';
 import SingleCard from './SingleCard';
 
 
@@ -14,13 +14,14 @@ function List(props) {
       { cards.map(card => (
         <SingleCard key={card.id} text={card.text} />
       ))}
+      <AddAnotherButton />
     </div>
   )
 }
 
 const styles = {
   container: {
-    backgroundColor: "#ccc",
+    backgroundColor: "lightblue",
     borderRadius: 5,
     width: 300,
     padding: 7,
