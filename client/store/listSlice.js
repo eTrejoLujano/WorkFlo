@@ -7,10 +7,7 @@ export const fetchLists = createAsyncThunk(
   "project/fetchProjects",
   async () => {
     try {
-      const { data } = await axios.get(
-        "/api/lists",
-        sendToken()
-      );
+      const { data } = await axios.get("/api/lists", sendToken());
 
       return data;
     } catch (error) {
@@ -35,17 +32,17 @@ const dummyData = [
     cards: [
       {
         id: 0,
-        text: "This is card 1A"
+        text: "This is card 1A",
       },
       {
         id: 1,
-        text: "This is card 2A"
+        text: "This is card 2A",
       },
       {
         id: 2,
-        text: "This is card 3A"
+        text: "This is card 3A",
       },
-    ]
+    ],
   },
   {
     title: "Title 2",
@@ -53,23 +50,21 @@ const dummyData = [
     cards: [
       {
         id: 0,
-        text: "This is card 1B"
+        text: "This is card 1B",
       },
       {
         id: 1,
-        text: "This is card 2B"
+        text: "This is card 2B",
       },
       {
         id: 2,
-        text: "This is card 3B"
+        text: "This is card 3B",
       },
-    ]
+    ],
   },
 ];
 
-const initialState = {
-  allLists: [],
-};
+const initialState = [];
 
 const listSlice = createSlice({
   name: "list",
@@ -78,11 +73,9 @@ const listSlice = createSlice({
   extraReducers: {
     [createList.fulfilled]: (state, action) => {
       console.log("action", action);
-      state.allLists.push(action.payload);
+      state.push(action.payload);
     },
   },
 });
 
 export default listSlice.reducer;
-
-
