@@ -5,17 +5,19 @@ import SingleCard from "./SingleCard";
 
 function List(props) {
   const { title, cards } = props;
-
+  console.log("PROPS>>>", props);
   return (
     <div style={styles.container}>
       <h4>{title}</h4>
-      {cards.map((card) => (
-        <SingleCard
-          key={card.id}
-          title={card.title}
-          description={card.description}
-        />
-      ))}
+
+      {cards &&
+        cards.map((card) => (
+          <SingleCard
+            key={card.id}
+            title={card.title}
+            description={card.description}
+          />
+        ))}
       <AddAnotherButton />
     </div>
   );

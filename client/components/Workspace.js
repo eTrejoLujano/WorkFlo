@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { fetchLists } from "../store/listSlice";
 import AddAnotherButton from "./AddAnotherButton";
 import List from "./List";
+import AddList from "./AddList";
 
 function Workspace() {
   const dispatch = useDispatch();
@@ -20,7 +21,8 @@ function Workspace() {
           lists.map((list) => (
             <List key={list.id} title={list.title} cards={list.cards} />
           ))}
-        <AddAnotherButton list />
+        <AddList />
+        {/* <AddAnotherButton list /> */}
       </div>
     </div>
   );

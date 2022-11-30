@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { createList } from "../store/listSlice";
 
@@ -9,12 +9,17 @@ const AddList = () => {
     title: "",
   });
 
+  // useEffect(() => {
+  //   setShowAddList(!showAddList);
+  // }, [titleValue.title]);
+
   const handleChange = (event) => {
     setTitleValue({ ...titleValue, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // setShowAddList
     dispatch(createList(titleValue));
   };
   return (
@@ -27,9 +32,7 @@ const AddList = () => {
               value={titleValue.title}
               onChange={handleChange}
             />
-            <button onClick={() => setShowAddList(!showAddList)} type="submit">
-              Add List
-            </button>
+            <button type="submit">Add List</button>
           </form>
         </div>
       ) : (
@@ -43,4 +46,4 @@ const AddList = () => {
   );
 };
 
-export default AddList;   
+export default AddList;
