@@ -11,7 +11,7 @@ const AddList = () => {
 
   // useEffect(() => {
   //   setShowAddList(!showAddList);
-  // }, [titleValue.title]);
+  // }, []);
 
   const handleChange = (event) => {
     setTitleValue({ ...titleValue, [event.target.name]: event.target.value });
@@ -19,7 +19,7 @@ const AddList = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // setShowAddList
+    setShowAddList(!showAddList);
     dispatch(createList(titleValue));
   };
   return (
