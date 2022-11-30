@@ -4,7 +4,7 @@ import { createList } from "../store/listSlice";
 
 const AddList = () => {
   const dispatch = useDispatch();
-  const [showAddList, setShowAddList] = useState(true);
+  const [showAddList, setShowAddList] = useState(false);
   const [titleValue, setTitleValue] = useState({
     title: "",
   });
@@ -27,17 +27,18 @@ const AddList = () => {
               value={titleValue.title}
               onChange={handleChange}
             />
-            <button type="submit">
-              {showAddList ? "Add List" : "Add Another List"}
+            <button onClick={() => setShowAddList(!showAddList)} type="submit">
+              Add List
             </button>
           </form>
         </div>
       ) : (
-        <div></div>
+        <div>
+          <button onClick={() => setShowAddList(!showAddList)}>
+            Add Another List
+          </button>
+        </div>
       )}
-      <button onClick={() => setShowAddList(!showAddList)} type="submit">
-        {showAddList ? "Add List" : "Add Another List"}
-      </button>
     </div>
   );
 };
