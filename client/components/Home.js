@@ -25,6 +25,7 @@ export const Home = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(createProject(titleValue));
+    // setTitleValue({ title: "" });
   };
   return (
     <HomeContainer>
