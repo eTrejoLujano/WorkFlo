@@ -3,15 +3,22 @@ import {FaCopy} from 'react-icons/fa';
 import {Tooltip} from '@mui/material'
 
 
-function Modal({ setOpenModal, value }) {
+function CopyLinkModal({ setOpenModal, value}) {
+
   const [copy, setCopy] = useState('')
+
+
+
+  const handleChange = () =>{
+
+  }
 
   const handleCopy = ()=>{
     setCopy(value)
      navigator.clipboard.writeText(copy)
   }
 
-  const handleChange = () =>{}
+
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -38,4 +45,6 @@ function Modal({ setOpenModal, value }) {
   );
 }
 
-export default Modal;
+export default CopyLinkModal;
+
+
