@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchLists } from "../store/listSlice";
-import AddAnotherButton from "./AddAnotherButton";
 import List from "./List";
 import AddList from "./AddList";
 import CopyLinkModal from "./CopyLinkModal";
 import { fetchSelectedProject } from "../store/projectSlice";
+import { fetchCards } from "../store/cardSlice";
 
 function Project() {
   const dispatch = useDispatch();
@@ -17,6 +17,7 @@ function Project() {
   useEffect(() => {
     dispatch(fetchLists(params.projectId));
     dispatch(fetchSelectedProject(params.projectId));
+    dispatch(fetchCards(params.projectId));
   }, []);
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -43,10 +44,14 @@ function Project() {
       <div style={styles.listsContainer}>
         {lists.length &&
           lists.map((list) => (
-            <List key={list.id} title={list.title} cards={list.cards} />
+            <List
+              key={list.id}
+              title={list.title}
+              cards={list.cards}
+              listid={list.id}
+            />
           ))}
         <AddList projectid={params.projectId} />
-        {/* <AddAnotherButton list /> */}
       </div>
     </div>
   );
