@@ -14,7 +14,6 @@ function Project() {
   useEffect(() => {
     dispatch(fetchLists(params.projectId));
   }, []);
-console.log('som,ething')
   const [modalOpen, setModalOpen] = useState(false);
   const [value, setValue] = useState('')
 
