@@ -2,16 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { createList } from "../store/listSlice";
 
-const AddList = () => {
+const AddList = ({ projectid }) => {
   const dispatch = useDispatch();
   const [showAddList, setShowAddList] = useState(false);
   const [titleValue, setTitleValue] = useState({
     title: "",
   });
-
-  // useEffect(() => {
-  //   setShowAddList(!showAddList);
-  // }, []);
 
   const handleChange = (event) => {
     setTitleValue({ ...titleValue, [event.target.name]: event.target.value });
@@ -20,7 +16,7 @@ const AddList = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setShowAddList(!showAddList);
-    dispatch(createList(titleValue));
+    dispatch(createList({ ...titleValue, projectId: projectid }));
   };
   return (
     <div>

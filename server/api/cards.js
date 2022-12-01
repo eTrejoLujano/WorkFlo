@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { List, User },
+  models: { List, User, Card },
 } = require("../db");
 module.exports = router;
 
@@ -15,29 +15,28 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-// POST /api/lists
-// Add a list
+// POST /api/cards
+// Add a card
 router.post("/", requireToken, async (req, res, next) => {
   try {
-    console.log("THE LIST BODY", req.body);
-    const list = await List.create(req.body);
-    res.json(list);
+    const card = await Card.create(req.body);
+    res.json(card);
   } catch (error) {
     next(error);
   }
 });
 
-// PUT /api/lists
-// Edit a lists name
+// PUT /api/cards
+// Edit a cards name
 router.put("/", requireToken, async (req, res, next) => {
   try {
-    const list = await List.update(
+    const card = await Card.update(
       { title: req.body.title },
       {
-        where: { id: req.body.id, projectId: req.body.projectId },
+        where: { id: req.body.id, listId: req.body.listId },
       }
     );
-    res.json(list);
+    res.json(card);
   } catch (error) {
     next(error);
   }
