@@ -66,9 +66,10 @@ router.get("/:projectId/lists", requireToken, async (req, res, next) => {
       where: {
         projectId: req.params.projectId,
       },
+      order: [["id", "ASC"]],
+      // ^^ MIGHT NOT WORK WAS WE INCORPORATE DRAG N DROP (beautiful)
       include: Card,
     });
-    console.log("list proto>>>>", lists);
     res.json(lists);
   } catch (error) {
     next(error);
@@ -87,7 +88,11 @@ router.post("/", requireToken, async (req, res, next) => {
       { title: "Doing", projectId: project.id },
       { title: "Done", projectId: project.id },
     ]);
-    res.json(project);
+    const assignProject = await UserProjects.create({
+      userId: req.user.id,
+      projectId: project.id,
+    });
+    res.json(assignProject);
   } catch (err) {
     next(err);
   }
