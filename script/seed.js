@@ -32,14 +32,12 @@ const projects = [
     title: "Project 2",
   },
   {
-    id: 3,
     title: "Project 3",
     complete: false,
   },
   {
-    id: 4,
     title: "Project 4",
-    complete: true
+    complete: true,
   },
 ];
 

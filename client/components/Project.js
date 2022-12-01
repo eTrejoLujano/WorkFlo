@@ -10,10 +10,13 @@ import CopyLinkModal from './CopyLinkModal'
 function Project() {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists);
+  const selectedProject = useSelector((state) => state.project);
   const params = useParams();
+
   useEffect(() => {
     dispatch(fetchLists(params.projectId));
   }, []);
+  
   const [modalOpen, setModalOpen] = useState(false);
   const [value, setValue] = useState('')
 
@@ -36,7 +39,7 @@ function Project() {
           lists.map((list) => (
             <List key={list.id} title={list.title} cards={list.cards} />
           ))}
-        <AddList />
+        <AddList projectid={params.projectId} />
         {/* <AddAnotherButton list /> */}
       </div>
     </div>

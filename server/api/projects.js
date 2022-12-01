@@ -75,6 +75,24 @@ router.get("/:projectId/lists", requireToken, async (req, res, next) => {
   }
 });
 
+// POST /api/projects
+// Create a project button
+router.post("/", requireToken, async (req, res, next) => {
+  try {
+    const project = await Project.create({
+      title: req.body.title,
+    });
+    await List.bulkCreate([
+      { title: "To Do", projectId: project.id },
+      { title: "Doing", projectId: project.id },
+      { title: "Done", projectId: project.id },
+    ]);
+    res.json(project);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/", allProjects);
 router.get("/user-projects", requireToken, getProjectsByUser);
 router.get("/:projectId", requireToken, getSingleProject);
