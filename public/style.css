@@ -57,7 +57,7 @@ form div {
   position: absolute;
   left: 50%;
 
-  transform: translate(-134%, 13%);
+  transform: translate(-50%, -50%);
   border-radius: 12px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
@@ -94,6 +94,15 @@ form div {
   text-align: center;
 }
 
+.workspace-heading{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
+.inviteBtn{
+  height: 20px;
+}
 
 
 
