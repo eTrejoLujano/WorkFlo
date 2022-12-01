@@ -7,7 +7,6 @@ import Home from "./components/Home";
 import Project from "./components/Project";
 import { me } from "./store/authSlice";
 
-
 /**
  * COMPONENT
  */
@@ -17,7 +16,6 @@ class Routes extends Component {
   }
 
   render() {
-    console.log('this.props', this.props)
     const { isLoggedIn } = this.props;
 
     return (
