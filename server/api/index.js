@@ -9,7 +9,7 @@ module.exports = router;
 router.use("/lists", require("./lists"));
 router.use("/projects", require("./projects"));
 router.use("/users", require("./users"));
-router.use("/projects", require("./projects"));
+router.use("/cards", require("./cards"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");

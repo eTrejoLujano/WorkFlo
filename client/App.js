@@ -1,21 +1,17 @@
-import React from 'react'
+import React from "react";
 
-import Navbar from './components/Navbar'
-import Routes from './Routes'
-import Footer from './components/Footer'
+import Navbar from "./components/Navbar";
+import Routes from "./Routes";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
     <div>
       <Navbar />
       <Routes />
-      <div className='footer-container'>
-        <div className='footer'>
-            <Footer />
-        </div>
-      </div>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

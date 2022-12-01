@@ -27,6 +27,14 @@ export const fetchSelectedProject = createAsyncThunk(
   }
 );
 
+export const createProject = createAsyncThunk(
+  "project/createProject",
+  async () => {
+    const { data } = await axios.post("/api/projects", sendToken());
+    return data;
+  }
+);
+
 const initialState = {
   userProjects: [],
   selectedProject: {},
@@ -41,6 +49,10 @@ const projectSlice = createSlice({
       state.userProjects = action.payload;
     },
     [fetchSelectedProject.fulfilled]: (state, action) => {
+      state.selectedProject = action.payload;
+    },
+    [createProject.fulfilled]: (state, action) => {
+      state.userProjects.push(action.payload);
       state.selectedProject = action.payload;
     },
   },

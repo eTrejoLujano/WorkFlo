@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProjects } from "../store/projectSlice";
+import { fetchProjects, fetchSelectedProject } from "../store/projectSlice";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -14,8 +14,7 @@ export const Home = () => {
     dispatch(fetchProjects());
     console.log(userProjects);
   }, []);
-
-  return (    
+  return (
     <HomeContainer>
       <button>Start new Project</button>
       <ProjectContainer>
@@ -27,7 +26,6 @@ export const Home = () => {
           ))}
       </ProjectContainer>
     </HomeContainer>
-    
   );
 };
 
