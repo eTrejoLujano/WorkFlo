@@ -25,8 +25,7 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            {/* <Route path="/workspace" component={Workspace} /> */}
-            <Route path="/projects/:projectId" component={Workspace} />
+            <Route path="/projects/:projectId" component={Project} />
             {/* <Redirect to="/home" /> */}
           </Switch>
         ) : (
