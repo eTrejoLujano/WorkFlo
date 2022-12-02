@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { List, User },
+  models: { List, User, Card },
 } = require("../db");
 module.exports = router;
 
@@ -14,6 +14,20 @@ const requireToken = async (req, res, next) => {
     next(error);
   }
 };
+
+// GET /api/lists/:listId/cards
+// Fetch cards of a specific list
+router.get("/:listId/cards", requireToken, async (req, res, next) => {
+  try {
+    console.log("hi");
+    const cards = await Card.findAll({
+      where: { listId: req.params.listId },
+    });
+    res.json(cards);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // POST /api/lists
 // Add a list

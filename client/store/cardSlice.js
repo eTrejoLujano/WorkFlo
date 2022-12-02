@@ -1,7 +1,27 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import history from "../history";
 import { sendToken } from "./helperFunctions";
+
+export const fetchCards = createAsyncThunk("card/fetchCards", async (id) => {
+  try {
+    const { data } = await axios.get(`/api/cards/${id}`, sendToken());
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// export const fetchSingleCards = createAsyncThunk(
+//   "card/fetchCards",
+//   async (id) => {
+//     try {
+//       const { data } = await axios.get(`/api/lists/${id}/cards`, sendToken());
+//       return data;
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// );
 
 export const createCard = createAsyncThunk("card/createCard", async (value) => {
   try {
@@ -14,7 +34,7 @@ export const createCard = createAsyncThunk("card/createCard", async (value) => {
 
 const initialState = [];
 
-const listSlice = createSlice({
+const cardSlice = createSlice({
   name: "card",
   initialState,
   reducers: {},
@@ -22,7 +42,9 @@ const listSlice = createSlice({
     [createCard.fulfilled]: (state, action) => {
       state.push(action.payload);
     },
+    [fetchCards.fulfilled]: (state, action) => action.payload,
+    // [fetchSingleCards.fulfilled]: (state, action) => action.payload,
   },
 });
 
-export default listSlice.reducer;
+export default cardSlice.reducer;

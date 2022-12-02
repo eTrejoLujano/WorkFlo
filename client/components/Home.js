@@ -1,21 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProjects, fetchSelectedProject } from "../store/projectSlice";
+import { createProject, fetchProjects } from "../store/projectSlice";
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const { email, role } = useSelector((state) => state.auth);
+  // const { email } = useSelector((state) => state.auth);
   const { userProjects } = useSelector((state) => state.project);
+  const [titleValue, setTitleValue] = useState({
+    title: "",
+  });
 
   useEffect(() => {
     dispatch(fetchProjects());
   }, []);
+
+  const handleChange = (event) => {
+    setTitleValue({ ...titleValue, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(createProject(titleValue));
+    // setTitleValue({ title: "" });
+  };
   return (
     <HomeContainer>
-      <button>Start new Project</button>
+      <form onSubmit={handleSubmit}>
+        <input name="title" value={titleValue.title} onChange={handleChange} />
+        <button type="submit">Start new Project</button>
+      </form>
       <ProjectContainer>
         {userProjects.length &&
           userProjects.map((project) => (

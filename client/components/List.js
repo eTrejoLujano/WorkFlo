@@ -1,24 +1,29 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import AddAnotherButton from "./AddAnotherButton";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import AddSingleCard from "./AddSingleCard";
 import SingleCard from "./SingleCard";
+import { fetchCards } from "../store/cardSlice";
 
 function List(props) {
-  const { title, cards } = props;
+  const { title, listid } = props;
+  const dispatch = useDispatch();
+  const cards = useSelector((state) => state.cards);
+
+  const filterCards = cards.filter((item) => item.listId === listid);
 
   return (
     <div style={styles.container}>
       <h4>{title}</h4>
 
-      {cards &&
-        cards.map((card) => (
+      {filterCards &&
+        filterCards.map((card) => (
           <SingleCard
             key={card.id}
             title={card.title}
             description={card.description}
           />
         ))}
-      <AddAnotherButton />
+      <AddSingleCard listid={listid} />
     </div>
   );
 }
