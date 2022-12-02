@@ -1,6 +1,6 @@
 import React from "react";
 import { FaGithub, FaLinkedin, FaRegCopyright } from "react-icons/fa";
-import M2 from "../MattModal";
+import Modal from "../MattModal";
 
 const teamInfo = {
   matt: {
@@ -16,7 +16,7 @@ const teamInfo = {
 };
 const TeamMemberModal = ({ member }) => {
   return (
-    <M2>
+    <Modal>
       <div style={{ display: "flex" }}>
         <img
           height="150px"
@@ -35,7 +35,7 @@ const TeamMemberModal = ({ member }) => {
           {teamInfo[member].content}
         </div>
       </div>
-    </M2>
+    </Modal>
   );
 };
 
