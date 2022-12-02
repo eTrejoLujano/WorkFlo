@@ -15,7 +15,6 @@ export const Home = () => {
 
   useEffect(() => {
     dispatch(fetchProjects());
-    console.log(userProjects);
   }, []);
 
   const handleChange = (event) => {

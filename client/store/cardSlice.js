@@ -40,7 +40,6 @@ const cardSlice = createSlice({
   reducers: {},
   extraReducers: {
     [createCard.fulfilled]: (state, action) => {
-      console.log("action", action);
       state.push(action.payload);
     },
     [fetchCards.fulfilled]: (state, action) => action.payload,

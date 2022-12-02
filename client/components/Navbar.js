@@ -4,7 +4,13 @@ import { Link } from "react-router-dom";
 import { logout } from "../store/authSlice";
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
-  <div>
+  <div
+    style={{
+      display: "flex",
+      padding: 5,
+      justifyContent: "space-between",
+    }}
+  >
     <h1>Hero App</h1>
     <nav>
       {isLoggedIn ? (
@@ -17,14 +23,13 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           </a>
         </div>
       ) : (
-        <div>
+        <div style={{ right: 0 }}>
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
         </div>
       )}
     </nav>
-    <hr />
   </div>
 );
 

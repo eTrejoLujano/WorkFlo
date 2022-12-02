@@ -10,6 +10,7 @@ function List(props) {
   const cards = useSelector((state) => state.cards);
 
   const filterCards = cards.filter((item) => item.listId === listid);
+
   return (
     <div style={styles.container}>
       <h4>{title}</h4>
