@@ -12,7 +12,6 @@ export const Home = () => {
 
   useEffect(() => {
     dispatch(fetchProjects());
-    console.log(userProjects);
   }, []);
 
   return (    

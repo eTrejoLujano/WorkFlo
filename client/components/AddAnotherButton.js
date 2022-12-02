@@ -3,13 +3,25 @@ import AddIcon from '@mui/icons-material/Add';
 
 
 
+// function AddAnotherButton(props) {
+//   const { list } = props 
+//   const buttonText = list ? "Add a List" : "Add a Card";
+
+//   return (
+//     <div style={styles.buttonContainer}>
+//       <AddIcon/>
+//       <p>{buttonText}</p>
+//     </div>
+//   )
+// }
+
 function AddAnotherButton(props) {
   const { list } = props 
   const buttonText = list ? "Add a List" : "Add a Card";
 
   return (
     <div style={styles.buttonContainer}>
-      <AddIcon>Add</AddIcon>
+      <AddIcon/>
       <p>{buttonText}</p>
     </div>
   )

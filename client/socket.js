@@ -6,9 +6,9 @@ import { studentJoined, studentLeft } from "./store/classroomSlice";
 const socket = io(window.location.origin);
 
 socket.on("connect", () => {
-  console.log("I am now connected to the server!");
+  // console.log("I am now connected to the server!");
   socket.on("student-joined", (student) => {
-    console.log("a student has joined the classroom:", student);
+    // console.log("a student has joined the classroom:", student);
     store.dispatch(studentJoined(student));
   });
   socket.on("student-left", (student) => {

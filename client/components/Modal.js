@@ -7,6 +7,7 @@ function Modal({ setOpenModal }) {
         <div className="titleCloseBtn">
           <button
             onClick={() => {
+              // console.log(setOpenModal)
               setOpenModal(false);
             }}
           >

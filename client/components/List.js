@@ -5,7 +5,6 @@ import SingleCard from "./SingleCard";
 
 function List(props) {
   const { title, cards } = props;
-  console.log("PROPS>>>", props);
   return (
     <div style={styles.container}>
       <h4>{title}</h4>
@@ -14,6 +13,7 @@ function List(props) {
         cards.map((card) => (
           <SingleCard
             key={card.id}
+            cardId={card.id}
             title={card.title}
             description={card.description}
           />

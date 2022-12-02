@@ -35,7 +35,6 @@ const listSlice = createSlice({
   reducers: {},
   extraReducers: {
     [createList.fulfilled]: (state, action) => {
-      console.log("action", action);
       state.push(action.payload);
     },
     [fetchLists.fulfilled]: (state, action) => action.payload,
@@ -44,41 +43,3 @@ const listSlice = createSlice({
 
 export default listSlice.reducer;
 
-const dummyData = [
-  {
-    title: "Title 1",
-    id: 0,
-    cards: [
-      {
-        id: 0,
-        text: "This is card 1A",
-      },
-      {
-        id: 1,
-        text: "This is card 2A",
-      },
-      {
-        id: 2,
-        text: "This is card 3A",
-      },
-    ],
-  },
-  {
-    title: "Title 2",
-    id: 1,
-    cards: [
-      {
-        id: 0,
-        text: "This is card 1B",
-      },
-      {
-        id: 1,
-        text: "This is card 2B",
-      },
-      {
-        id: 2,
-        text: "This is card 3B",
-      },
-    ],
-  },
-];
