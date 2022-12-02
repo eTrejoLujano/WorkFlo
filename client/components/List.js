@@ -19,6 +19,7 @@ function List(props) {
         filterCards.map((card) => (
           <SingleCard
             key={card.id}
+            cardId={card.id}
             title={card.title}
             description={card.description}
           />
