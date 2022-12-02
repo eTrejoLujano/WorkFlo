@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaGithub, FaLinkedin, FaRegCopyright } from "react-icons/fa";
 import Modal from "../MattModal";
 
@@ -10,8 +10,18 @@ const teamInfo = {
   },
   jerral: {
     content: "Hi, I am Jerral's content",
-    linkedIn: "https://www.linkedin.com/in/matt-bruer/",
-    github: "https://github.com/mattbruer",
+    linkedIn: "https://www.linkedin.com/in/jerral-graham/",
+    github: "https://github.com/jerrol3000",
+  },
+  erik: {
+    content: "Hi, I am Erik's content",
+    linkedIn: "https://www.linkedin.com/in/erik-trejo-lujano/",
+    github: "https://github.com/eTrejoLujano",
+  },
+  peter: {
+    content: "Hi, I am Peter's content",
+    linkedIn: "https://www.linkedin.com/in/peterrodocker/",
+    github: "https://github.com/PeterRodocker",
   },
 };
 const TeamMemberModal = ({ member }) => {
@@ -20,7 +30,7 @@ const TeamMemberModal = ({ member }) => {
       <div style={{ display: "flex" }}>
         <img
           height="150px"
-          width="120px"
+          width="150px"
           src={`/images/profilePic/${member}.jpeg`}
         />
         <div style={{ display: "flex", flexDirection: "column" }}>

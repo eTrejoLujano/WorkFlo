@@ -15,6 +15,7 @@ const MattModal = ({ children }) => {
         alignItems: "center",
       }}
       open={modalIsOpen}
+      onClose={() => dispatch(toggleModal())}
     >
       <div style={{ backgroundColor: "white", padding: 10 }}>
         <p

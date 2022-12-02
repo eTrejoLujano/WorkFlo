@@ -12,11 +12,16 @@ const AuthForm = (props) => {
   return (
     <div
       style={{
+        backgroundImage:
+          "url('https://live.staticflickr.com/1292/5179290237_63633e1bd7_b.jpg')",
+        backgroundSize: "cover",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         padding: "20px",
+        height: "calc(100vh - 200px)",
+        color: "white",
       }}
     >
       <form
@@ -28,6 +33,7 @@ const AuthForm = (props) => {
           border: "1px solid black",
           width: "80%",
           padding: "20px",
+          backgroundColor: "rgba(0,0,0,.5)",
         }}
         onSubmit={handleSubmit}
         name={name}
