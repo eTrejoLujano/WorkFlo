@@ -20,7 +20,6 @@ const listSlice = createSlice({
   reducers: {},
   extraReducers: {
     [createCard.fulfilled]: (state, action) => {
-      console.log("action", action);
       state.push(action.payload);
     },
   },

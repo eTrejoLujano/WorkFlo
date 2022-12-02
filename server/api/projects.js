@@ -68,7 +68,6 @@ router.get("/:projectId/lists", requireToken, async (req, res, next) => {
       },
       include: Card,
     });
-    console.log("list proto>>>>", lists);
     res.json(lists);
   } catch (error) {
     next(error);

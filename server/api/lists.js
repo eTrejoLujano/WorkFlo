@@ -19,7 +19,6 @@ const requireToken = async (req, res, next) => {
 // Add a list
 router.post("/", requireToken, async (req, res, next) => {
   try {
-    console.log("THE LIST BODY", req.body);
     const list = await List.create(req.body);
     res.json(list);
   } catch (error) {

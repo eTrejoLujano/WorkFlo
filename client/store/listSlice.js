@@ -35,7 +35,6 @@ const listSlice = createSlice({
   reducers: {},
   extraReducers: {
     [createList.fulfilled]: (state, action) => {
-      console.log("action", action);
       state.push(action.payload);
     },
     [fetchLists.fulfilled]: (state, action) => action.payload,

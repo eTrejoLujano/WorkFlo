@@ -5,7 +5,7 @@ import SingleCard from "./SingleCard";
 
 function List(props) {
   const { title, cards } = props;
-  console.log("PROPS>>>", props);
+
   return (
     <div style={styles.container}>
       <h4>{title}</h4>
