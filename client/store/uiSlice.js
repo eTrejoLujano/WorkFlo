@@ -4,18 +4,25 @@ import history from "../history";
 import { sendToken } from "./helperFunctions";
 
 const initialState = {
-  modalIsOpen: false,
+  modalIsOpen: {
+    card: false,
+    footer: false,
+  },
+  selectedCard: "",
 };
 
 const uiSlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    toggleModal: (state) => {
-      state.modalIsOpen = !state.modalIsOpen;
+    toggleModal: (state, action) => {
+      state.modalIsOpen[action.payload] = !state.modalIsOpen[action.payload];
+    },
+    selectedCard: (state, action) => {
+      state.selectedCard = action.payload;
     },
   },
 });
 
-export const { toggleModal } = uiSlice.actions;
+export const { toggleModal, selectedCard } = uiSlice.actions;
 export default uiSlice.reducer;
