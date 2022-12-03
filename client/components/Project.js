@@ -122,18 +122,30 @@ function Project() {
 
       <div style={styles.listsContainer}>
         <DragDropContext onDragEnd={onDragEnd}>
-          {lists.length &&
-            lists.map((list) => {
-              console.log("REDUX UPDATEED");
-              return (
-                <List
-                  key={list.id}
-                  title={list.title}
-                  cards={list.cards}
-                  listid={list.id}
-                />
-              );
-            })}
+          {state[0]
+            ? state.map((list) => {
+                console.log("REDUX UPDATEED");
+                return (
+                  <List
+                    key={list.id}
+                    title={list.title}
+                    cards={list.cards}
+                    listid={list.id}
+                  />
+                );
+              })
+            : lists.length &&
+              lists.map((list) => {
+                console.log("REDUX UPDATEED");
+                return (
+                  <List
+                    key={list.id}
+                    title={list.title}
+                    cards={list.cards}
+                    listid={list.id}
+                  />
+                );
+              })}
           <AddList projectid={params.projectId} />
         </DragDropContext>
       </div>
