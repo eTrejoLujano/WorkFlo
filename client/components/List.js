@@ -1,31 +1,43 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Droppable } from "react-beautiful-dnd";
+
 import AddSingleCard from "./AddSingleCard";
 import SingleCard from "./SingleCard";
 import { fetchCards } from "../store/cardSlice";
 
 function List(props) {
-  const { title, listid } = props;
+  const { title, listid, cards } = props;
   const dispatch = useDispatch();
-  const cards = useSelector((state) => state.cards);
+  // const cards = useSelector((state) => state.cards);
 
   const filterCards = cards.filter((item) => item.listId === listid);
 
   return (
-    <div style={styles.container}>
-      <h4>{title}</h4>
+    <Droppable droppableId={listid.toString()}>
+      {(provided) => (
+        <div
+          style={styles.container}
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+        >
+          <h4>{title}</h4>
 
-      {filterCards &&
-        filterCards.map((card) => (
-          <SingleCard
-            key={card.id}
-            cardId={card.id}
-            title={card.title}
-            description={card.description}
-          />
-        ))}
-      <AddSingleCard listid={listid} />
-    </div>
+          {filterCards &&
+            filterCards.map((card, index) => (
+              <SingleCard
+                key={card.id}
+                cardId={card.id}
+                title={card.title}
+                description={card.description}
+                index={index}
+              />
+            ))}
+          {provided.placeholder}
+          <AddSingleCard listid={listid} />
+        </div>
+      )}
+    </Droppable>
   );
 }
 
