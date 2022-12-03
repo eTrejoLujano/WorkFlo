@@ -1,36 +1,41 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Modal from "@mui/material/Modal";
+import MUIModal from "@mui/material/Modal";
 import styled from "styled-components";
 import { toggleModal } from "../store/uiSlice";
 
-const MattModal = ({ children }) => {
+const ReusableModal = ({ children, modalName }) => {
   const dispatch = useDispatch();
   const { modalIsOpen } = useSelector((state) => state.ui);
+
+  const styles = {
+    root: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+  };
+
   return (
-    <Modal
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      open={modalIsOpen}
-      onClose={() => dispatch(toggleModal())}
+    <MUIModal
+      style={styles.root}
+      open={modalIsOpen[modalName]}
+      onClose={() => dispatch(toggleModal(modalName))}
     >
       <div style={{ backgroundColor: "white", padding: 10 }}>
         <p
           style={{ textAlign: "right" }}
-          onClick={() => dispatch(toggleModal())}
+          onClick={() => dispatch(toggleModal(modalName))}
         >
           X
         </p>
         <Children>{children}</Children>
       </div>
-    </Modal>
+    </MUIModal>
   );
 };
 
-export default MattModal;
+export default ReusableModal;
 
 const Children = styled.div`
   display: flex;
