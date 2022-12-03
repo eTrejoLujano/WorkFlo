@@ -2,44 +2,43 @@ import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import EditIcon from '@mui/icons-material/Edit';
+import { Draggable } from "react-beautiful-dnd";
 
-import CardModal from './CardModal'
+import CardModal from "./CardModal";
 
-
-
-const SingleCard = ({ cardId, title, description }) => {
-
+const SingleCard = ({ cardId, title, description, index }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleClick = () => setModalOpen(true)
+  // const handleClick = () => setModalOpen(true);
 
   return (
-    <Card style={styles.cardContainer} onClick={handleClick}>
-      {modalOpen && <CardModal 
-        setOpenModal={setModalOpen} 
-        cardId={cardId}
-        title={title} 
-        description={description}/>}
-      <CardContent style={styles.cardContent}>
-        <Typography>{title}</Typography>
-      </CardContent>
-    </Card>
+    <Draggable draggableId={cardId.toString()} index={index}>
+      {(provided) => (
+        <Card
+          // style={styles.cardContainer}
+          // onClick={handleClick}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        >
+          {/* {modalOpen && (
+        <CardModal
+          setOpenModal={setModalOpen}
+          cardId={cardId}
+          title={title}
+          description={description}
+        />
+      )} */}
+          {/* <CardContent style={styles.cardContent}> */}
+          {/* <Typography> */}
+          {title}
+          {/* </Typography> */}
+          {/* </CardContent> */}
+        </Card>
+      )}
+    </Draggable>
   );
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const styles = {
   cardContainer: {
@@ -61,6 +60,6 @@ const styles = {
     height: 18,
     width: 18,
     // justifyContent: "flex-end"
-  }
+  },
 };
 export default SingleCard;

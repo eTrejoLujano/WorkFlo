@@ -67,10 +67,10 @@ router.get("/:projectId/lists", requireToken, async (req, res, next) => {
         projectId: req.params.projectId,
       },
       include: [{ model: Card }],
-      order: [
-        ["id", "ASC"],
-        [Card, "id", "ASC"],
-      ],
+      // order: [
+      //   ["id", "ASC"],
+      //   [Card, "id", "ASC"],
+      // ],
       // ^^ MIGHT NOT WORK WAS WE INCORPORATE DRAG N DROP (beautiful)
     });
     res.json(lists);
