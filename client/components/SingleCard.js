@@ -1,15 +1,20 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+
 import { Draggable } from "react-beautiful-dnd";
 
 import CardModal from "./CardModal";
 
 const SingleCard = ({ cardId, title, description, index }) => {
   const [modalOpen, setModalOpen] = useState(false);
-
-  // const handleClick = () => setModalOpen(true);
+  
+  const handleClick = (e) => {
+    dispatch(selectedCard({ title, description }));
+    dispatch(toggleModal("card"));
+  };
 
   return (
     <Draggable draggableId={cardId.toString()} index={index}>

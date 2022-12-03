@@ -11,7 +11,7 @@ function Footer() {
 
   return (
     <Container>
-      <TeamMemberModal member={member} />
+      <TeamMemberModal modalName="footer" member={member} />
       <FaRegCopyright /> Copyright 2022, Team H
       <PhotoBox>
         {["matt", "jerral", "erik", "peter"].map((memb) => {
@@ -20,7 +20,7 @@ function Footer() {
               key={memb}
               onClick={() => {
                 setMember(memb);
-                dispatch(toggleModal());
+                dispatch(toggleModal("footer"));
               }}
               src={`/images/profilePic/${memb}.jpeg`}
               height="50px"
