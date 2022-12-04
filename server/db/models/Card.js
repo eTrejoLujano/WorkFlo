@@ -15,6 +15,9 @@ const Card = db.define("card", {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  cardindex: {
+    type: Sequelize.INTEGER,
+  },
 });
 
 module.exports = Card;

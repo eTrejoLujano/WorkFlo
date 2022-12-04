@@ -23,14 +23,33 @@ export const fetchCards = createAsyncThunk("card/fetchCards", async (id) => {
 //   }
 // );
 
-export const createCard = createAsyncThunk("card/createCard", async (value) => {
-  try {
-    const { data } = await axios.post(`/api/cards`, value, sendToken());
-    return data;
-  } catch (err) {
-    console.error(err);
+export const createCard = createAsyncThunk(
+  "card/createCard",
+  async (newCard) => {
+    try {
+      const { data } = await axios.post(`/api/cards`, newCard, sendToken());
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
   }
-});
+);
+
+export const updateCardIndex = createAsyncThunk(
+  "card/updateCardIndex",
+  async (cardIndex) => {
+    try {
+      const { data } = await axios.put(
+        `/api/cards/cardIndex`,
+        cardIndex,
+        sendToken()
+      );
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+);
 
 const initialState = [];
 
@@ -43,6 +62,7 @@ const cardSlice = createSlice({
       state.push(action.payload);
     },
     [fetchCards.fulfilled]: (state, action) => action.payload,
+    [updateCardIndex.fulfilled]: (state, action) => action.payload,
     // [fetchSingleCards.fulfilled]: (state, action) => action.payload,
   },
 });

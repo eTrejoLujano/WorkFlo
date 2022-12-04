@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { Sequelize } = require("sequelize");
 const {
   models: { List, User, Card, Project },
 } = require("../db");
@@ -34,7 +35,21 @@ router.get("/:projectId", requireToken, async (req, res, next) => {
 // Add a card
 router.post("/", requireToken, async (req, res, next) => {
   try {
-    const card = await Card.create(req.body);
+    const totalCardsInList = await Card.findAll({
+      where: { listId: req.body.listId },
+    });
+
+    let theIndex = 0;
+
+    if (totalCardsInList.length > 0) {
+      let increaseOne = totalCardsInList.length;
+      theIndex = increaseOne;
+    }
+    const card = await Card.create({
+      title: req.body.title,
+      listId: req.body.listId,
+      cardindex: theIndex,
+    });
     res.json(card);
   } catch (error) {
     next(error);
@@ -56,3 +71,121 @@ router.put("/", requireToken, async (req, res, next) => {
     next(error);
   }
 });
+
+// PUT /api/cards/cardIndex
+// Edit a cards Index in a list
+router.put("/cardIndex", requireToken, async (req, res, next) => {
+  try {
+    const theDifference = req.body.startingIndex - req.body.finishingIndex;
+    console.log("the difference>>>", theDifference);
+    if (theDifference < 0) {
+      for (
+        let i = req.body.startingIndex + 1;
+        i <= req.body.finishingIndex;
+        i++
+      ) {
+        const card = await Card.findOne({
+          where: { cardindex: i, listId: req.body.listId },
+        });
+        await Card.update(
+          {
+            cardindex: Sequelize.literal("cardIndex - 1"),
+          },
+          { where: { id: card.id } }
+        );
+      }
+      const movingCard = await Card.update(
+        { cardindex: req.body.finishingIndex },
+        { where: { id: req.body.cardDragId } }
+      );
+      res.json(movingCard);
+    }
+    if (theDifference > 0) {
+      for (
+        let i = req.body.startingIndex - 1;
+        i >= req.body.finishingIndex;
+        i--
+      ) {
+        // if (i < 0) {
+        //   i = 0;
+        // }
+        const card = await Card.findOne({
+          where: { cardindex: i, listId: req.body.listId },
+        });
+        console.log("welogging>>>>>", i, card.title);
+        await Card.update(
+          {
+            cardindex: Sequelize.literal("cardIndex + 1"),
+          },
+          { where: { id: card.id } }
+        );
+      }
+      const movingCard = await Card.update(
+        { cardindex: req.body.finishingIndex },
+        { where: { id: req.body.cardDragId } }
+      );
+      res.json(movingCard);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+// console.log("THE REQ BODY>>>>>", req.body);
+// const originalCardWithIndex = await Card.findOne({
+//   where: { cardindex: req.body.finishingIndex, listId: req.body.listId },
+// });
+// const allCards = await Card.findAll({ where: { listId: req.body.listId } });
+
+// const card = await Card.update(
+//   { cardindex: req.body.finishingIndex },
+//   {
+//     where: { id: req.body.cardId, listId: req.body.listId },
+//   }
+// );
+// // console.log("ALL CARDS LENGTH >>>>>", allCards.length);
+// // console.log("REQ BODY CARDINDEX + 1", req.body.cardIndex + 1);
+
+// if (req.body.finishingIndex + 1 !== allCards.length) {
+//   console.log("THE IF HAPPENED");
+//   for (let i = req.body.finishingIndex; i < allCards.length; i++) {
+//     console.log("CARD INDEX FOR I>>>>", i);
+//     const aCard = await Card.findOne({
+//       where: { cardindex: i, listId: req.body.listId },
+//     });
+
+//     await Card.update(
+//       {
+//         cardindex: i,
+//       },
+//       { where: { id: aCard.id } }
+//     );
+//   }
+//   console.log("THE ORIGINAL>>>>", originalCardWithIndex);
+// await Card.update(
+//   {
+//     cardindex: Sequelize.literal("cardIndex - 1"),
+//   },
+//   { where: { id: originalCardWithIndex.id } }
+// );
+// }
+// // else {
+// //   for (let i = req.body.cardIndex + 1; i < allCards.length; i++) {
+// //     console.log("CARD INDEX FOR I>>>>", i);
+// //     const aCard = await Card.findOne({
+// //       where: { cardindex: i, listId: req.body.listId },
+// //     });
+// //     await Card.update(
+// //       {
+// //         cardindex: Sequelize.literal("cardIndex + 1"),
+// //       },
+// //       { where: { id: aCard.id } }
+// //     );
+// //   }
+// //   await Card.update(
+// //     {
+// //       cardindex: Sequelize.literal("cardIndex + 1"),
+// //     },
+// //     { where: { id: originalCardWithIndex.id } }
+// //   );
+// // }

@@ -23,8 +23,8 @@ function List(props) {
         >
           <h4>{title}</h4>
 
-          {filterCards &&
-            filterCards.map((card, index) => (
+          {cards &&
+            cards.map((card, index) => (
               <SingleCard
                 key={card.id}
                 cardId={card.id}

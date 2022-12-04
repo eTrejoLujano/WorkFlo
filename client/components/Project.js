@@ -8,7 +8,7 @@ import List from "./List";
 import AddList from "./AddList";
 import CopyLinkModal from "./CopyLinkModal";
 import { fetchSelectedProject } from "../store/projectSlice";
-import { fetchCards } from "../store/cardSlice";
+import { fetchCards, updateCardIndex } from "../store/cardSlice";
 
 function Project() {
   const dispatch = useDispatch();
@@ -22,12 +22,6 @@ function Project() {
     dispatch(fetchSelectedProject(params.projectId));
     dispatch(fetchCards(params.projectId));
   }, []);
-
-  // useEffect(() => {
-  //   dispatch(fetchLists(params.projectId));
-  //   dispatch(fetchSelectedProject(params.projectId));
-  //   dispatch(fetchCards(params.projectId));
-  // }, [state]);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [value, setValue] = useState("");
@@ -65,16 +59,34 @@ function Project() {
     const [aList] = lists.filter((item) => item.id === +source.droppableId);
     const [aCardDrag] = cards.filter((item) => item.id === +draggableId);
 
+    console.log("A CARD DRAG", aCardDrag);
+
     const newCardIds = aList.cards.map((item) => item);
 
-    console.log("SOURCE >>>", source);
-    console.log("DESTINATION >>>>", destination);
+    // console.log("A LIST>>>>", aList);
+
+    // console.log("NEW CARD IDS>>>>", newCardIds);
+
+    // console.log("SOURCE >>>", source);
+    // console.log("DESTINATION >>>>", destination);
 
     newCardIds.splice(source.index, 1);
+    // console.log("NEW CARD IDS AFTER SOURCE>>>>", newCardIds);
     newCardIds.splice(destination.index, 0, aCardDrag);
+    // console.log("NEW CARD IDS AFTER DESTINATION>>>>", newCardIds);
 
-    console.log("SOURCE - after splice >>>", source);
-    console.log("DESTINATION - after splice >>>>", destination);
+    console.log("SOURCE ID >>>", aCardDrag.id);
+    console.log("DESTINATION INDEX", destination.index);
+    console.log("A LIST ID", aList.id);
+
+    dispatch(
+      updateCardIndex({
+        cardDragId: aCardDrag.id,
+        startingIndex: source.index,
+        finishingIndex: destination.index,
+        listId: aList.id,
+      })
+    );
 
     const newList = {
       ...aList,
