@@ -4,11 +4,14 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import EditIcon from "@mui/icons-material/Edit";
-import CardModal from "./CardModal";
-import { toggleModal, selectedCard } from "../store/uiSlice";
 
-const SingleCard = ({ cardId, title, description, users }) => {
-  const dispatch = useDispatch();
+import { toggleModal, selectedCard } from "../store/uiSlice";
+import { Draggable } from "react-beautiful-dnd";
+import CardModal from "./CardModal";
+
+const SingleCard = ({ cardId, title, description, index, users }) => {
+
+ const dispatch = useDispatch();
 
   const handleClick = () => {
     dispatch(selectedCard({ cardId, title, description, users }));
@@ -16,14 +19,30 @@ const SingleCard = ({ cardId, title, description, users }) => {
   };
 
   return (
-    <div>
-      <CardModal cardId={cardId} title={title} description={description}/>
-      <Card onClick={handleClick} style={styles.cardContainer}>
-        <CardContent style={styles.cardContent}>
-          <Typography>{title}</Typography>
-        </CardContent>
-      </Card>
-    </div>
+    <Draggable draggableId={cardId.toString()} index={index}>
+      {(provided) => (
+        <Card
+          // style={styles.cardContainer}
+          // onClick={handleClick}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        >
+          {/* {modalOpen && (
+        <CardModal
+          cardId={cardId}
+          title={title}
+          description={description}
+        />
+      )} */}
+          {/* <CardContent style={styles.cardContent}> */}
+          {/* <Typography> */}
+          {title}
+          {/* </Typography> */}
+          {/* </CardContent> */}
+        </Card>
+      )}
+    </Draggable>
   );
 };
 

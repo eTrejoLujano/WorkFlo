@@ -15,6 +15,13 @@ const AddList = ({ projectid }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("TITLEVALUE>>>>", titleValue);
+    if (titleValue === "") {
+      console.log("TITLEVALUE IN>>>>", titleValue);
+      setShowAddList(!showAddList);
+      console.log("hello");
+      return;
+    }
     setShowAddList(!showAddList);
     dispatch(createList({ ...titleValue, projectId: projectid }));
   };

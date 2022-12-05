@@ -36,6 +36,7 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "pg": "^8.5.1",
+    "react-beautiful-dnd": "^13.1.1",
     "react-hook-form": "^7.39.7",
     "react-icons": "^4.7.1",
     "react-text": "^3.2.5",
