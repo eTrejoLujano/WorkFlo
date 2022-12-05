@@ -8,7 +8,7 @@ import List from "./List";
 import AddList from "./AddList";
 import CopyLinkModal from "./CopyLinkModal";
 import { fetchSelectedProject } from "../store/projectSlice";
-import { fetchCards, updateCardIndex } from "../store/cardSlice";
+import { fetchCards, updateCardIndex, updateCards } from "../store/cardSlice";
 
 function Project() {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function Project() {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [value, setValue] = useState("");
-  const [state, setState] = useState(lists);
+  // const [state, setState] = useState(lists);
   // const [state, setState] = useState();
 
   const buttonClicked = () => {
@@ -48,76 +48,85 @@ function Project() {
     ) {
       return;
     }
-    // console.log("lists>>>>>", lists);
-    // const [start] = lists.filter((item) => item.id === +source.droppableId);
-    // const [finish] = lists.filter(
-    //   (item) => item.id === +destination.droppableId
-    // );
 
-    // if (start === finish) {
-
-    const [aList] = lists.filter((item) => item.id === +source.droppableId);
+    const [startingList] = lists.filter(
+      (item) => item.id === +source.droppableId
+    );
+    const [finishingList] = lists.filter(
+      (item) => item.id === +destination.droppableId
+    );
     const [aCardDrag] = cards.filter((item) => item.id === +draggableId);
 
-    console.log("A CARD DRAG", aCardDrag);
+    if (startingList === finishingList) {
+      const newCardIds = startingList.cards.map((item) => item);
 
-    const newCardIds = aList.cards.map((item) => item);
+      newCardIds.splice(source.index, 1);
+      newCardIds.splice(destination.index, 0, aCardDrag);
 
-    // console.log("A LIST>>>>", aList);
+      const newList = {
+        ...startingList,
+        cards: newCardIds,
+      };
 
-    // console.log("NEW CARD IDS>>>>", newCardIds);
+      const index = lists.findIndex((object) => {
+        return object.id === newList.id;
+      });
 
-    // console.log("SOURCE >>>", source);
-    // console.log("DESTINATION >>>>", destination);
+      const arrangedList = lists.map((item) => item);
 
-    newCardIds.splice(source.index, 1);
-    // console.log("NEW CARD IDS AFTER SOURCE>>>>", newCardIds);
-    newCardIds.splice(destination.index, 0, aCardDrag);
-    // console.log("NEW CARD IDS AFTER DESTINATION>>>>", newCardIds);
+      arrangedList.splice(index, 1, newList);
 
-    console.log("SOURCE ID >>>", aCardDrag.id);
-    console.log("DESTINATION INDEX", destination.index);
-    console.log("A LIST ID", aList.id);
+      const newState = {
+        lists: { ...arrangedList },
+      };
 
-    dispatch(
-      updateCardIndex({
-        cardDragId: aCardDrag.id,
-        startingIndex: source.index,
-        finishingIndex: destination.index,
-        listId: aList.id,
-      })
-    );
+      const arrayOfObj = Object.keys(newState.lists).map(
+        (key) => (newState.lists[key] = newState.lists[key])
+      );
 
-    const newList = {
-      ...aList,
-      cards: newCardIds,
+      // console.log("newState>>>>", arrayOfObj);
+      // setState(arrayOfObj);
+
+      dispatch(
+        updateCardIndex({
+          cardDragId: aCardDrag.id,
+          startingIndex: source.index,
+          finishingIndex: destination.index,
+          listId: startingList.id,
+        })
+      );
+      dispatch(updateList(arrayOfObj));
+      // dispatch(updateCards(newCard
+      // console.log("AFTER SETSTATE >>>>", state);
+      // }
+      return;
+    }
+    const startCardIds = startingList.cards.map((item) => item);
+    startCardIds.splice(source.index, 1);
+
+    const newStart = {
+      ...startingList,
+      cards: startCardIds,
     };
 
-    const index = lists.findIndex((object) => {
-      return object.id === newList.id;
-    });
+    const finishCardIds = finishingList.cards.map((item) => item);
+    finishCardIds.splice(destination.index, 0, aCardDrag);
 
-    const arrangedList = lists.map((item) => item);
-
-    arrangedList.splice(index, 1, newList);
-
-    const newState = {
-      ...state,
-      lists: { ...arrangedList },
+    const newFinish = {
+      ...finishingList,
+      cards: finishCardIds,
     };
 
-    const arrayOfObj = Object.keys(newState.lists).map(
-      (key) => (newState.lists[key] = newState.lists[key])
-    );
-
-    // console.log("newState>>>>", arrayOfObj);
-    setState(arrayOfObj);
-    dispatch(updateList(arrayOfObj));
-    // console.log("AFTER SETSTATE >>>>", state);
-    // }
+    // const index = newCardIds.findIndex((object) => {
+    //   return object.id === aCardDrag.id;
+    // });
+    // console.log("a CARD DRAG", aCardDrag);
+    // console.log("NEW CARD IDS", newCardIds);
+    // console.log("the index", index);
+    // newCardIds.splice(index, 1);
   };
   console.log("THE LIST FROM REDUX", lists);
-  console.log("THE LIST FROM STATE", state);
+  // console.log("THE LIST FROM STATE", state);
 
   return (
     <div>
@@ -134,30 +143,17 @@ function Project() {
 
       <div style={styles.listsContainer}>
         <DragDropContext onDragEnd={onDragEnd}>
-          {state[0]
-            ? state.map((list) => {
-                console.log("REDUX UPDATEED");
-                return (
-                  <List
-                    key={list.id}
-                    title={list.title}
-                    cards={list.cards}
-                    listid={list.id}
-                  />
-                );
-              })
-            : lists.length &&
-              lists.map((list) => {
-                console.log("REDUX UPDATEED");
-                return (
-                  <List
-                    key={list.id}
-                    title={list.title}
-                    cards={list.cards}
-                    listid={list.id}
-                  />
-                );
-              })}
+          {lists.length &&
+            lists.map((list) => {
+              return (
+                <List
+                  key={list.id}
+                  title={list.title}
+                  cards={list.cards}
+                  listid={list.id}
+                />
+              );
+            })}
           <AddList projectid={params.projectId} />
         </DragDropContext>
       </div>

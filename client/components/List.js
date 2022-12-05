@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Droppable } from "react-beautiful-dnd";
+import { useParams } from "react-router-dom";
 
 import AddSingleCard from "./AddSingleCard";
 import SingleCard from "./SingleCard";
@@ -9,9 +10,14 @@ import { fetchCards } from "../store/cardSlice";
 function List(props) {
   const { title, listid, cards } = props;
   const dispatch = useDispatch();
+  const params = useParams();
   // const cards = useSelector((state) => state.cards);
 
-  const filterCards = cards.filter((item) => item.listId === listid);
+  // const filterCards = cards.filter((item) => item.listId === listid);
+
+  // useEffect(() => {
+  //   dispatch(fetchCards(params.projectId));
+  // }, [cards]);
 
   return (
     <Droppable droppableId={listid.toString()}>
