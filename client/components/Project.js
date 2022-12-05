@@ -8,7 +8,11 @@ import List from "./List";
 import AddList from "./AddList";
 import CopyLinkModal from "./CopyLinkModal";
 import { fetchSelectedProject } from "../store/projectSlice";
-import { fetchCards, updateCardIndex, updateCards } from "../store/cardSlice";
+import {
+  fetchCards,
+  movingCardLists,
+  updateCardIndex,
+} from "../store/cardSlice";
 
 function Project() {
   const dispatch = useDispatch();
@@ -25,8 +29,6 @@ function Project() {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [value, setValue] = useState("");
-  // const [state, setState] = useState(lists);
-  // const [state, setState] = useState();
 
   const buttonClicked = () => {
     setModalOpen(true);
@@ -55,7 +57,7 @@ function Project() {
     );
     const [aCardDrag] = cards.filter((item) => item.id === +draggableId);
 
-    if (startingList === finishingList) {
+    if (startingList.id === finishingList.id) {
       const newCardIds = startingList.cards.map((item) => item);
 
       newCardIds.splice(source.index, 1);
@@ -82,9 +84,6 @@ function Project() {
         (key) => (newState.lists[key] = newState.lists[key])
       );
 
-      // console.log("newState>>>>", arrayOfObj);
-      // setState(arrayOfObj);
-
       dispatch(
         updateCardIndex({
           cardDragId: aCardDrag.id,
@@ -94,37 +93,17 @@ function Project() {
         })
       );
       dispatch(updateList(arrayOfObj));
-      // dispatch(updateCards(newCardIds));
-      // console.log("AFTER SETSTATE >>>>", state);
-      // }
       return;
     }
-    const startCardIds = startingList.cards.map((item) => item);
-    startCardIds.splice(source.index, 1);
-
-    const newStart = {
-      ...startingList,
-      cards: startCardIds,
-    };
-
-    const finishCardIds = finishingList.cards.map((item) => item);
-    finishCardIds.splice(destination.index, 0, aCardDrag);
-
-    const newFinish = {
-      ...finishingList,
-      cards: finishCardIds,
-    };
-
-    // const index = newCardIds.findIndex((object) => {
-    //   return object.id === aCardDrag.id;
-    // });
-    // console.log("a CARD DRAG", aCardDrag);
-    // console.log("NEW CARD IDS", newCardIds);
-    // console.log("the index", index);
-    // newCardIds.splice(index, 1);
+    dispatch(
+      movingCardLists({
+        startingIndex: source.index,
+        finishingIndex: destination.index,
+        startingListId: startingList.id,
+        finishingListId: finishingList.id,
+      })
+    );
   };
-  console.log("THE LIST FROM REDUX", lists);
-  // console.log("THE LIST FROM STATE", state);
 
   return (
     <div>

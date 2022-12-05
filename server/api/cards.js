@@ -76,21 +76,6 @@ router.post("/", requireToken, async (req, res, next) => {
 //   }
 // });
 
-router.put("/", requireToken, async (req, res, next) => {
-  try {
-    const card = await Card.update(
-      { title: req.body.title, description: req.body.description },
-      {
-        where: { id: req.body.cardId },
-      }
-    );
-    const allCards = await Card.findAll();
-    res.json(allCards);
-  } catch (error) {
-    next(error);
-  }
-});
-
 // PUT /api/cards/cardIndex
 // Edit a cards Index in a list
 router.put("/cardIndex", requireToken, async (req, res, next) => {
@@ -155,6 +140,64 @@ router.put("/cardIndex", requireToken, async (req, res, next) => {
       });
       res.json(cards);
     }
+  } catch (error) {
+    next(error);
+  }
+});
+
+// PUT /api/cards/cardindex/lists
+// moving cards to different lists
+router.put("/cardindex/lists", requireToken, async (req, res, next) => {
+  try {
+    const movingCard = await Card.findOne({
+      where: {
+        listId: req.body.startingListId,
+        cardindex: req.body.startingIndex,
+      },
+    });
+    const allCardsStarting = await Card.findAll({
+      where: { listId: req.body.startingListId },
+    });
+    for (let i = req.body.startingIndex + 1; i < allCardsStarting.length; i++) {
+      const cardsFromStarting = await Card.findOne({
+        where: { cardindex: i, listId: req.body.startingListId },
+      });
+      await Card.update(
+        {
+          cardindex: Sequelize.literal("cardIndex - 1"),
+        },
+        { where: { id: cardsFromStarting.id } }
+      );
+    }
+
+    const allCardsFinishing = await Card.findAll({
+      where: { listId: req.body.finishingListId },
+    });
+    for (let i = req.body.finishingIndex; i < allCardsFinishing.length; i++) {
+      const cardsFromFinishing = await Card.findOne({
+        where: { cardindex: i, listId: req.body.finishingListId },
+      });
+      await Card.update(
+        {
+          cardindex: Sequelize.literal("cardIndex + 1"),
+        },
+        { where: { id: cardsFromFinishing.id } }
+      );
+    }
+
+    await Card.update(
+      { cardindex: req.body.finishingIndex, listId: req.body.finishingListId },
+      { where: { id: movingCard.id } }
+    );
+    const allOfCardsInOrder = await Card.findAll({
+      include: [{ model: List }],
+      order: [
+        ["listId", "ASC"],
+        ["cardindex", "ASC"],
+      ],
+    });
+
+    res.json(allOfCardsInOrder);
   } catch (error) {
     next(error);
   }
