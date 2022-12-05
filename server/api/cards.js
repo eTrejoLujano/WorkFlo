@@ -149,12 +149,55 @@ router.put("/cardIndex", requireToken, async (req, res, next) => {
 // moving cards to different lists
 router.put("/cardindex/lists", requireToken, async (req, res, next) => {
   try {
-    const startingCard = await Card.findOne({
+    const movingCard = await Card.findOne({
       where: {
         listId: req.body.startingListId,
         cardindex: req.body.startingIndex,
       },
     });
+    const allCardsStarting = await Card.findAll({
+      where: { listId: req.body.startingListId },
+    });
+    for (let i = req.body.startingIndex + 1; i < allCardsStarting.length; i++) {
+      const cardsFromStarting = await Card.findOne({
+        where: { cardindex: i, listId: req.body.startingListId },
+      });
+      await Card.update(
+        {
+          cardindex: Sequelize.literal("cardIndex - 1"),
+        },
+        { where: { id: cardsFromStarting.id } }
+      );
+    }
+
+    const allCardsFinishing = await Card.findAll({
+      where: { listId: req.body.finishingListId },
+    });
+    for (let i = req.body.finishingIndex; i < allCardsFinishing.length; i++) {
+      const cardsFromFinishing = await Card.findOne({
+        where: { cardindex: i, listId: req.body.finishingListId },
+      });
+      await Card.update(
+        {
+          cardindex: Sequelize.literal("cardIndex + 1"),
+        },
+        { where: { id: cardsFromFinishing.id } }
+      );
+    }
+
+    await Card.update(
+      { cardindex: req.body.finishingIndex, listId: req.body.finishingListId },
+      { where: { id: movingCard.id } }
+    );
+    const allOfCardsInOrder = await Card.findAll({
+      include: [{ model: List }],
+      order: [
+        ["listId", "ASC"],
+        ["cardindex", "ASC"],
+      ],
+    });
+
+    res.json(allOfCardsInOrder);
   } catch (error) {
     next(error);
   }

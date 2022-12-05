@@ -39,18 +39,46 @@ export const updateCardIndex = createAsyncThunk(
   }
 );
 
+export const updateCard = createAsyncThunk("card/updateCard", async (value) => {
+  try {
+    const { data } = await axios.put(`/api/cards`, value, sendToken());
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+export const movingCardLists = createAsyncThunk(
+  "card/movingCardLists",
+  async (movingInfo) => {
+    try {
+      const { data } = await axios.put(
+        "/api/cards/cardIndex/lists",
+        movingInfo,
+        sendToken()
+      );
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+);
+
 const initialState = [];
 
 const cardSlice = createSlice({
   name: "card",
   initialState,
-  reducers: {},
+  reducers: {
+    updateCards: (state, action) => action.payload,
+  },
   extraReducers: {
     [createCard.fulfilled]: (state, action) => {
       state.push(action.payload);
     },
     [fetchCards.fulfilled]: (state, action) => action.payload,
     [updateCardIndex.fulfilled]: (state, action) => action.payload,
+    [movingCardLists.fulfilled]: (state, action) => action.payload,
   },
 });
 

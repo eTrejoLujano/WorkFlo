@@ -8,7 +8,11 @@ import List from "./List";
 import AddList from "./AddList";
 import CopyLinkModal from "./CopyLinkModal";
 import { fetchSelectedProject } from "../store/projectSlice";
-import { fetchCards, updateCardIndex } from "../store/cardSlice";
+import {
+  fetchCards,
+  movingCardLists,
+  updateCardIndex,
+} from "../store/cardSlice";
 
 function Project() {
   const dispatch = useDispatch();
@@ -91,26 +95,15 @@ function Project() {
       dispatch(updateList(arrayOfObj));
       return;
     }
-    const startCardIds = startingList.cards.map((item) => item);
-    startCardIds.splice(source.index, 1);
-
-    const newStart = {
-      ...startingList,
-      cards: startCardIds,
-    };
-
-    const finishCardIds = finishingList.cards.map((item) => item);
-    finishCardIds.splice(destination.index, 0, aCardDrag);
-
-    const newFinish = {
-      ...finishingList,
-      cards: finishCardIds,
-    };
-
-    console.log("THE NEW START >>>>>", newStart);
-    console.log("THE NEW FINISH >>>>>", newFinish);
+    dispatch(
+      movingCardLists({
+        startingIndex: source.index,
+        finishingIndex: destination.index,
+        startingListId: startingList.id,
+        finishingListId: finishingList.id,
+      })
+    );
   };
-  console.log("THE LIST FROM REDUX", lists);
 
   return (
     <div>
