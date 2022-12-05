@@ -13,15 +13,15 @@ const CardModal = () => {
   const selectedProject = useSelector((state) => state.project.selectedProject)
   const projectUsers = selectedProject.users
   
+  useEffect(() => {
+    setFormVals(selectedCard)
+  }, [selectedCard]) 
+
   const [formVals, setFormVals] = useState({
     title: selectedCard.title,
     description: selectedCard.description,
     cardId: selectedCard.cardId,
-  });
-
-  useEffect(() => {
-    setFormVals(selectedCard)
-  }, [selectedCard])                             
+  });                            
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,45 +42,59 @@ const CardModal = () => {
     dispatch(removeFromCard({userId: user.id, cardId: selectedCard.cardId})); 
   };
 
+  let assignedUserIds
+  if (selectedCard.users) {
+    assignedUserIds = selectedCard.users.map((user) => user.id)
+  } 
+
   return (
     <div>
-      <Modal modalName="card">
+      <Modal  modalName="card">
         <form onSubmit={handleSubmit}>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <label htmlFor="title">title</label>
+            <label htmlFor="title">Title</label>
             <TextareaAutosize
-              placeholder={selectedCard.title}
               style={styles.titleTextArea}
               name="title"
               value={formVals.title}
               onChange={handleChange}
-              styles={styles.descriptionTextArea}
             />
-            <label htmlFor="title">description</label>
+            <label htmlFor="title">Description</label>
             <TextareaAutosize
               style={styles.descriptionTextArea}
               name="description"
               value={formVals.description} 
               onChange={handleChange}
-              styles={styles.descriptionTextArea}
             />
           </div>
 
-          <p>Assigned Team Members</p>
-          <div>
+          <p>Assigned</p>
+          <div style={styles.usersContainer}>
             {selectedCard.users && selectedCard.users.map((user) => (
-                <div key={user.id} style={styles.projectMembers}>
-                  {user.fullName}
+                <div key={user.id} style={styles.userContainer}>
+                  <img
+                    src={user.avatarURL}
+                    height="50px"
+                    width="50px"
+                    style={styles.avatar}
+                  />
+                  <div style={styles.assignedUserName}>{user.fullName}</div>
                   <button onClick={() => handleRemove(user)}>Remove</button>
                 </div>
             ))}
           </div>
           
-          <p>Assign Team Members</p>
-          <div>
-            {projectUsers && projectUsers.map((user) => (
-                <div key={user.id} style={styles.projectMembers}>
-                  {user.fullName}
+          <p>Team Members</p>
+          <div style={styles.UsersContainer}>
+            {projectUsers && projectUsers.filter((user) => assignedUserIds && !assignedUserIds.includes(user.id)).map((user) => (
+                <div key={user.id} style={styles.userContainer}>
+                  <img
+                    src={user.avatarURL}
+                    height="50px"
+                    width="50px"
+                    style={styles.avatar}
+                  />
+                  <div>{user.fullName}</div>
                   <button onClick={() => handleAssign(user)}>Assign</button>
                 </div>
             ))}
@@ -93,20 +107,38 @@ const CardModal = () => {
 };
 
 const styles = {
+  avatar: { 
+    borderRadius: "100px", 
+    marginLeft: 4 
+  },
   descriptionTextArea: {
     resize: "none",
     width: "100%",
   },
+  form: { 
+    // display: "flex", 
+    // flexDirection: "column" 
+  },
   projectMembers: {
-    cursor: "pointer"
+    // display: "flex",
+    // flexDirection: "column",
+    // flexWrap: "wrap",
   },
   titleTextArea: {
     resize: "none",
     width: "100%",
   },
-  assignedUsers: {
+  userContainer: {
+    alignItems: "center",
     display: "flex",
     flexWrap: "wrap",
+  },
+  usersContainer: {
+    display: "flex",
+    flexDirection: "column",
+    flexWrap: "wrap",
+  },
+  userName: {
   },
 };
 

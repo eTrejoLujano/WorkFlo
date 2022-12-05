@@ -6,10 +6,9 @@ import lists from "./listSlice";
 import project from "./projectSlice";
 import cards from "./cardSlice";
 import ui from "./uiSlice";
-import userCard from "./userCardSlice";
 
 const store = configureStore({
-  reducer: { auth, project, lists, cards, ui, userCard },
+  reducer: { auth, project, lists, cards, ui },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(createLogger({ collapsed: true })),
 });

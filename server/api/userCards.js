@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { List, User, Card, Project, UserCard },
+  models: { User, Card },
 } = require("../db");
 module.exports = router;
 
@@ -28,7 +28,7 @@ router.post("/", requireToken, async (req, res, next) => {
   }
 });
 
-// POST /api/userCards
+// PUT /api/userCards
 // Remove user from card
 router.put("/", requireToken, async (req, res, next) => {
   try {

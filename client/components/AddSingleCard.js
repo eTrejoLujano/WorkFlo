@@ -10,6 +10,7 @@ function AddSingleCard(props) {
   const [showAddCard, setShowAddCard] = useState(false);
   const [titleValue, setTitleValue] = useState({
     title: "",
+    description: "",
   });
 
   const handleChange = (event) => {

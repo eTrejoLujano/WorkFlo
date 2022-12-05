@@ -13,6 +13,7 @@ const users = [
     email: "cody@cody.com",
     password: "123",
     isAdmin: true,
+    avatarURL: "/images/profilePic/erik.jpeg",
   },
   {
     firstName: "murphy",
@@ -20,6 +21,7 @@ const users = [
     email: "murphy@murphy.com",
     password: "123",
     isAdmin: false,
+    avatarURL: "/images/profilePic/jerral.jpeg",
   },
 ];
 
