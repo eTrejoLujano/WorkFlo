@@ -23,23 +23,14 @@ function Project() {
     dispatch(fetchCards(params.projectId));
   }, []);
 
-  // useEffect(() => {
-  //   dispatch(fetchLists(params.projectId));
-  //   dispatch(fetchSelectedProject(params.projectId));
-  //   dispatch(fetchCards(params.projectId));
-  // }, [state]);
-
   const [modalOpen, setModalOpen] = useState(false);
   const [value, setValue] = useState("");
   const [state, setState] = useState(lists);
-  // const [state, setState] = useState();
 
   const buttonClicked = () => {
     setModalOpen(true);
     setValue(window.location.href);
   };
-
-  // console.log("STATE>>>>", state);
 
   const onDragEnd = async (result) => {
     const { destination, source, draggableId } = result;
@@ -54,27 +45,14 @@ function Project() {
     ) {
       return;
     }
-    // console.log("lists>>>>>", lists);
-    // const [start] = lists.filter((item) => item.id === +source.droppableId);
-    // const [finish] = lists.filter(
-    //   (item) => item.id === +destination.droppableId
-    // );
-
-    // if (start === finish) {
 
     const [aList] = lists.filter((item) => item.id === +source.droppableId);
     const [aCardDrag] = cards.filter((item) => item.id === +draggableId);
 
     const newCardIds = aList.cards.map((item) => item);
 
-    console.log("SOURCE >>>", source);
-    console.log("DESTINATION >>>>", destination);
-
     newCardIds.splice(source.index, 1);
     newCardIds.splice(destination.index, 0, aCardDrag);
-
-    console.log("SOURCE - after splice >>>", source);
-    console.log("DESTINATION - after splice >>>>", destination);
 
     const newList = {
       ...aList,
@@ -98,14 +76,9 @@ function Project() {
       (key) => (newState.lists[key] = newState.lists[key])
     );
 
-    // console.log("newState>>>>", arrayOfObj);
     setState(arrayOfObj);
     dispatch(updateList(arrayOfObj));
-    // console.log("AFTER SETSTATE >>>>", state);
-    // }
   };
-  console.log("THE LIST FROM REDUX", lists);
-  console.log("THE LIST FROM STATE", state);
 
   return (
     <div>
@@ -124,7 +97,6 @@ function Project() {
         <DragDropContext onDragEnd={onDragEnd}>
           {state[0]
             ? state.map((list) => {
-                console.log("REDUX UPDATEED");
                 return (
                   <List
                     key={list.id}
@@ -136,7 +108,6 @@ function Project() {
               })
             : lists.length &&
               lists.map((list) => {
-                console.log("REDUX UPDATEED");
                 return (
                   <List
                     key={list.id}

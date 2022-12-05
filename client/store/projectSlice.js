@@ -3,6 +3,17 @@ import axios from "axios";
 import history from "../history";
 import { sendToken } from "./helperFunctions";
 
+export const startWhiteboard = createAsyncThunk(
+  "project/startWhiteboard",
+  async (values, thunkAPI) => {
+    try {
+      const { data } = await axios.post("/api/whiteboard", values, sendToken());
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 export const fetchProjects = createAsyncThunk(
   "project/fetchProjects",
   async () => {

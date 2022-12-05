@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Project, UserProjects, User, List, Card },
+  models: { Project, UserProjects, User, List, Card, Whiteboard },
 } = require("../db");
 
 module.exports = router;
@@ -16,20 +16,11 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-const allProjects = async (req, res, next) => {
-  try {
-    const allProjects = await Project.findAll();
-    res.json(allProjects);
-  } catch (error) {
-    next(error);
-  }
-};
-
 const getProjectsByUser = async (req, res, next) => {
   try {
-    const projects = await UserProjects.findAll({
-      where: { userId: req.user.id },
-    });
+    // const projects = await UserProjects.findAll({
+    //   where: { userId: req.user.id },
+    // });
     const user = await User.findByPk(req.user.id, {
       include: Project,
     });
@@ -41,18 +32,11 @@ const getProjectsByUser = async (req, res, next) => {
   }
 };
 
-const createProject = async (req, res, next) => {
-  try {
-    const project = await Project.create({ ...req.body, id: req.user.id });
-    res.json(project);
-  } catch (error) {
-    next(error);
-  }
-};
-
 const getSingleProject = async (req, res, next) => {
   try {
-    const project = await Project.findByPk(req.params.projectId);
+    const project = await Project.findByPk(req.params.projectId, {
+      include: Whiteboard,
+    });
     res.send(project);
   } catch (err) {
     next(err);
@@ -101,6 +85,5 @@ router.post("/", requireToken, async (req, res, next) => {
   }
 });
 
-router.get("/", allProjects);
 router.get("/user-projects", requireToken, getProjectsByUser);
 router.get("/:projectId", requireToken, getSingleProject);
