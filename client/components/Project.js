@@ -33,8 +33,6 @@ function Project() {
     setValue(window.location.href);
   };
 
-  // console.log("STATE>>>>", state);
-
   const onDragEnd = async (result) => {
     const { destination, source, draggableId } = result;
 
