@@ -19,7 +19,6 @@ const requireToken = async (req, res, next) => {
 // Fetch cards of a specific list
 router.get("/:listId/cards", requireToken, async (req, res, next) => {
   try {
-    console.log("hi");
     const cards = await Card.findAll({
       where: { listId: req.params.listId },
     });

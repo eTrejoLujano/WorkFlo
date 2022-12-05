@@ -22,7 +22,6 @@ function List(props) {
           {...provided.droppableProps}
         >
           <h4>{title}</h4>
-
           {filterCards &&
             filterCards.map((card, index) => (
               <SingleCard

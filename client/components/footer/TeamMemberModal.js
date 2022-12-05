@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaGithub, FaLinkedin, FaRegCopyright } from "react-icons/fa";
+
 import Modal from "../ReusableModal";
 
 const teamInfo = {
