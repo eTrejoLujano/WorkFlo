@@ -23,14 +23,8 @@ const ReusableModal = ({ children, modalName }) => {
       onClose={() => dispatch(toggleModal(modalName))}
     >
       <div style={{ backgroundColor: "white", padding: 10 }}>
-        <p
-          style={{ textAlign: "right" }}
-          
-          // onClick={() => dispatch(toggleModal(modalName))}
-        >
-          <button onClick={() => dispatch(toggleModal(modalName))}>
-          X
-          </button>
+        <p style={{ textAlign: "right" }}>
+          <button onClick={() => dispatch(toggleModal(modalName))}>X</button>
         </p>
         <Children>{children}</Children>
       </div>
