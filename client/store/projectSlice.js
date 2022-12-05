@@ -31,7 +31,6 @@ export const createProject = createAsyncThunk(
   "project/createProject",
   async (title) => {
     const { data } = await axios.post("/api/projects", title, sendToken());
-    // console.log("DATA>>>>>>", data);
     history.push(`/projects/${data.projectId}`);
     return data;
   }

@@ -18,7 +18,7 @@ export const fetchCards = createAsyncThunk("card/fetchCards", async (id) => {
 //       const { data } = await axios.get(`/api/lists/${id}/cards`, sendToken());
 //       return data;
 //     } catch (error) {
-//       console.log(error);
+//       (error);
 //     }
 //   }
 // );
@@ -50,6 +50,15 @@ export const updateCardIndex = createAsyncThunk(
     }
   }
 );
+
+export const updateCard = createAsyncThunk("card/updateCard", async (value) => {
+  try {
+    const { data } = await axios.put(`/api/cards`, value, sendToken());
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 const initialState = [];
 
