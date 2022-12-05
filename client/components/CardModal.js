@@ -1,75 +1,113 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import TextareaAutosize from 'react-textarea-autosize';
+import React, { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import TextareaAutosize from "react-textarea-autosize";
 
+import Modal from "./ReusableModal";
+import { toggleModal } from "../store/uiSlice";
+import { fetchCards, updateCard } from "../store/cardSlice";
+import { assignToCard, removeFromCard } from "../store/userCardSlice";
 
-function CardModal({ setOpenModal, cardId, title, description }) {
-  const [titleValue, setTitleValue] = useState({title: title,});
-  const [descriptionValue, setDescriptionValue] = useState({description: description,});
-  const dispatch = useDispatch()
+const CardModal = () => {
+  const dispatch = useDispatch();
+  const { selectedCard } = useSelector((state) => state.ui)
+  const selectedProject = useSelector((state) => state.project.selectedProject)
+  const projectUsers = selectedProject.users
+  
+  const [formVals, setFormVals] = useState({
+    title: selectedCard.title,
+    description: selectedCard.description,
+    cardId: selectedCard.cardId,
+  });
 
-  const handleTitleChange = (event) => {
-    setTitleValue({ ...titleValue, [event.target.name]: event.target.value });
+  useEffect(() => {
+    setFormVals(selectedCard)
+  }, [selectedCard])                             
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateCard({ ...formVals, title: formVals.title, description: formVals.description, cardId: formVals.cardId }));
+    dispatch(toggleModal("card"));
+    dispatch(fetchCards(selectedProject.id));
   };
 
-  const handleDescriptionChange = (event) => {
-    setDescriptionValue({ ...descriptionValue, [event.target.name]: event.target.value });
+  const handleChange = (e) => {
+    setFormVals({ ...formVals, [e.target.name]: e.target.value });
+  };
+
+  const handleAssign = (user) => {
+    dispatch(assignToCard({userId: user.id, cardId: selectedCard.cardId})); 
+  };
+
+  const handleRemove = (user) => {
+    dispatch(removeFromCard({userId: user.id, cardId: selectedCard.cardId})); 
   };
 
   return (
-    <div className="cardModalBackground">
-      <div className="cardModalContainer">
-        <div className="titleCloseBtn">
-          <button
-            onClick={() => {
-              // Write to database
-              setOpenModal(false);
-              // console.log('WORKING')
-              // dispatch thunk to add new title and description to db
-              // passing in titleValue, descriptionValue, cardId
-              
-            }}
-          >
-            X
-          </button>
-        </div>
-        <div>
-          <form onChange={handleTitleChange}>
+    <div>
+      <Modal modalName="card">
+        <form onSubmit={handleSubmit}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label htmlFor="title">title</label>
             <TextareaAutosize
+              placeholder={selectedCard.title}
               style={styles.titleTextArea}
               name="title"
-              value={titleValue.title}
-              // onChange={handleChange}
+              value={formVals.title}
+              onChange={handleChange}
+              styles={styles.descriptionTextArea}
             />
-          </form>
-        </div>
-        <div>
-        <form onChange={handleDescriptionChange}>
+            <label htmlFor="title">description</label>
             <TextareaAutosize
               style={styles.descriptionTextArea}
               name="description"
-              value={descriptionValue.description}
-              // onChange={handleChange}
+              value={formVals.description} 
+              onChange={handleChange}
+              styles={styles.descriptionTextArea}
             />
-          </form>
-        </div>
-        <div>
-          <p>Members Assigned</p>
-        </div>
-      </div>
+          </div>
+
+          <p>Assigned Team Members</p>
+          <div>
+            {selectedCard.users && selectedCard.users.map((user) => (
+                <div key={user.id} style={styles.projectMembers}>
+                  {user.fullName}
+                  <button onClick={() => handleRemove(user)}>Remove</button>
+                </div>
+            ))}
+          </div>
+          
+          <p>Assign Team Members</p>
+          <div>
+            {projectUsers && projectUsers.map((user) => (
+                <div key={user.id} style={styles.projectMembers}>
+                  {user.fullName}
+                  <button onClick={() => handleAssign(user)}>Assign</button>
+                </div>
+            ))}
+          </div>
+          <button type="submit">Save</button>
+        </form>
+      </Modal>
     </div>
   );
-}
+};
 
 const styles = {
   descriptionTextArea: {
-    resize: 'none',
-    width: '100%',
+    resize: "none",
+    width: "100%",
+  },
+  projectMembers: {
+    cursor: "pointer"
   },
   titleTextArea: {
-    resize: 'none',
-    width: '100%',
-  }
-}
+    resize: "none",
+    width: "100%",
+  },
+  assignedUsers: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+};
 
 export default CardModal;

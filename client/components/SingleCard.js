@@ -4,31 +4,26 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import EditIcon from "@mui/icons-material/Edit";
-import CardModal from "./CardModal2";
+import CardModal from "./CardModal";
 import { toggleModal, selectedCard } from "../store/uiSlice";
 
-const SingleCard = ({ cardId, title, description }) => {
+const SingleCard = ({ cardId, title, description, users }) => {
   const dispatch = useDispatch();
-  // const {}=useSelector(state=>state)
 
-  const handleClick = (e) => {
-    dispatch(selectedCard({ title, description }));
+  const handleClick = () => {
+    dispatch(selectedCard({ cardId, title, description, users }));
     dispatch(toggleModal("card"));
   };
 
   return (
-    <Card style={styles.cardContainer}>
-      <CardModal />
-
-      {/* {modalOpen && <CardModal
-        setOpenModal={setModalOpen}
-        cardId={cardId}
-        title={title}
-        description={description}/>} */}
-      <CardContent onClick={handleClick} style={styles.cardContent}>
-        <Typography>{title}</Typography>
-      </CardContent>
-    </Card>
+    <div>
+      <CardModal cardId={cardId} title={title} description={description}/>
+      <Card onClick={handleClick} style={styles.cardContainer}>
+        <CardContent style={styles.cardContent}>
+          <Typography>{title}</Typography>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
@@ -42,6 +37,7 @@ const styles = {
     // backgroundColor: "red",
   },
   cardContent: {
+    cursor: "pointer",
     display: "flex",
     justifyContent: "space-between",
     // justifyContent: "flex-end",

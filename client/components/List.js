@@ -22,6 +22,7 @@ function List(props) {
             cardId={card.id}
             title={card.title}
             description={card.description}
+            users={card.users}
           />
         ))}
       <AddSingleCard listid={listid} />
