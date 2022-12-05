@@ -50,15 +50,6 @@ const createProject = async (req, res, next) => {
   }
 };
 
-// const getSingleProject = async (req, res, next) => {
-//   try {
-//     const project = await Project.findByPk(req.params.projectId);
-//     res.send(project);
-//   } catch (err) {
-//     next(err);
-//   }
-// };
-
 const getSingleProject = async (req, res, next) => {
   try {
     const userProject = await UserProjects.findOne({
@@ -87,7 +78,6 @@ router.get("/:projectId/lists", requireToken, async (req, res, next) => {
         ["id", "ASC"],
         [Card, "cardindex", "ASC"],
       ],
-      // ^^ MIGHT NOT WORK WAS WE INCORPORATE DRAG N DROP (beautiful)
     });
     res.json(lists);
   } catch (error) {

@@ -76,21 +76,6 @@ router.post("/", requireToken, async (req, res, next) => {
 //   }
 // });
 
-router.put("/", requireToken, async (req, res, next) => {
-  try {
-    const card = await Card.update(
-      { title: req.body.title, description: req.body.description },
-      {
-        where: { id: req.body.cardId },
-      }
-    );
-    const allCards = await Card.findAll();
-    res.json(allCards);
-  } catch (error) {
-    next(error);
-  }
-});
-
 // PUT /api/cards/cardIndex
 // Edit a cards Index in a list
 router.put("/cardIndex", requireToken, async (req, res, next) => {
@@ -155,6 +140,21 @@ router.put("/cardIndex", requireToken, async (req, res, next) => {
       });
       res.json(cards);
     }
+  } catch (error) {
+    next(error);
+  }
+});
+
+// PUT /api/cards/cardindex/lists
+// moving cards to different lists
+router.put("/cardindex/lists", requireToken, async (req, res, next) => {
+  try {
+    const startingCard = await Card.findOne({
+      where: {
+        listId: req.body.startingListId,
+        cardindex: req.body.startingIndex,
+      },
+    });
   } catch (error) {
     next(error);
   }
