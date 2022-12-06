@@ -13,6 +13,7 @@ const users = [
     email: "cody@cody.com",
     password: "123",
     isAdmin: true,
+    avatarURL: "/images/profilePic/erik.jpeg",
   },
   {
     firstName: "murphy",
@@ -20,6 +21,7 @@ const users = [
     email: "murphy@murphy.com",
     password: "123",
     isAdmin: false,
+    avatarURL: "/images/profilePic/jerral.jpeg",
   },
 ];
 
@@ -77,42 +79,49 @@ const cards = [
     title: "card1",
     description: "description1",
     complete: false,
+    cardindex: 0,
     listId: 1,
   },
   {
     title: "card2",
     description: "description2",
     complete: false,
+    cardindex: 0,
     listId: 2,
   },
   {
     title: "card3",
     description: "description3",
     complete: true,
+    cardindex: 0,
     listId: 3,
   },
   {
     title: "card4",
     description: "description4",
     complete: true,
+    cardindex: 0,
     listId: 4,
   },
   {
     title: "card5",
     description: "description5",
     complete: false,
+    cardindex: 0,
     listId: 5,
   },
   {
     title: "card6",
     description: "description6",
     complete: true,
+    cardindex: 0,
     listId: 6,
   },
   {
     title: "card7",
     description: "description7",
     complete: false,
+    cardindex: 0,
     listId: 7,
   },
 ];

@@ -26,7 +26,9 @@ const initialState = [];
 const listSlice = createSlice({
   name: "list",
   initialState,
-  reducers: {},
+  reducers: {
+    updateList: (state, action) => action.payload,
+  },
   extraReducers: {
     [createList.fulfilled]: (state, action) => {
       state.push(action.payload);
@@ -36,3 +38,4 @@ const listSlice = createSlice({
 });
 
 export default listSlice.reducer;
+export const { updateList } = listSlice.actions;

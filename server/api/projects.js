@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Project, UserProjects, User, List, Card, Invite },
+  models: { Project, UserProjects, User, List, Card, Whiteboard, Invite },
 } = require("../db");
 
 module.exports = router;
@@ -16,20 +16,11 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-const allProjects = async (req, res, next) => {
-  try {
-    const allProjects = await Project.findAll();
-    res.json(allProjects);
-  } catch (error) {
-    next(error);
-  }
-};
-
 const getProjectsByUser = async (req, res, next) => {
   try {
-    const projects = await UserProjects.findAll({
-      where: { userId: req.user.id },
-    });
+    // const projects = await UserProjects.findAll({
+    //   where: { userId: req.user.id },
+    // });
     const user = await User.findByPk(req.user.id, {
       include: Project,
     });
@@ -52,8 +43,15 @@ const createProject = async (req, res, next) => {
 
 const getSingleProject = async (req, res, next) => {
   try {
-    const project = await Project.findByPk(req.params.projectId);
+    const userProject = await UserProjects.findOne({
+      where: { projectId: req.params.projectId },
+    });
+    const project = await Project.findByPk(req.params.projectId, {
+      include: User,
+      where: { userId: userProject.userId },
+    });
     res.redirect("/login");
+    res.send(project);
   } catch (err) {
     next(err);
   }
@@ -95,9 +93,8 @@ router.get("/:projectId/lists", requireToken, async (req, res, next) => {
       include: [{ model: Card }],
       order: [
         ["id", "ASC"],
-        [Card, "id", "ASC"],
+        [Card, "cardindex", "ASC"],
       ],
-      // ^^ MIGHT NOT WORK WAS WE INCORPORATE DRAG N DROP (beautiful)
     });
     res.json(lists);
   } catch (error) {
@@ -127,6 +124,5 @@ router.post("/", requireToken, async (req, res, next) => {
   }
 });
 
-router.get("/", allProjects);
 router.get("/user-projects", requireToken, getProjectsByUser);
 router.get("/:projectId", requireToken, getSingleProject);

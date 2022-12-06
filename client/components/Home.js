@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { createProject, fetchProjects } from "../store/projectSlice";
 import { addInvitedUser } from "../store/copyLinkSlice";
 import { compareHash } from "../store/copyLinkSlice";
+import socket from "../socket";
 
 export const Home = () => {
   const user = useSelector((state) => state.auth);
@@ -36,7 +37,8 @@ export const Home = () => {
   // }
 
   const dispatch = useDispatch();
-  // const { email } = useSelector((state) => state.auth);
+  const { firstName } = useSelector((state) => state.auth);
+
   const { userProjects } = useSelector((state) => state.project);
   const [titleValue, setTitleValue] = useState({
     title: "",
@@ -44,6 +46,7 @@ export const Home = () => {
 
   useEffect(() => {
     dispatch(fetchProjects());
+    socket.emit("user-joined", firstName);
   }, []);
 
   const handleChange = (event) => {

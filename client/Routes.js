@@ -5,6 +5,7 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import Project from "./components/Project";
+import Whiteboard from "./components/Whiteboard/Whiteboard";
 import { me } from "./store/authSlice";
 
 /**
@@ -24,6 +25,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/projects/:projectId" component={Project} />
+            <Route path="/Whiteboard/:projectId" component={Whiteboard} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -31,7 +33,9 @@ class Routes extends Component {
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Redirect to="/" />
+
+            {/* <Redirect to="/" /> */}
+
           </Switch>
         )}
       </div>

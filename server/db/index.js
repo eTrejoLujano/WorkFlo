@@ -9,6 +9,7 @@ const List = require("./models/List");
 const UserCards = require("./models/UserCards");
 const UserProjects = require("./models/UserProjects");
 const Invite = require("./models/Invite");
+const Whiteboard = require("./models/Whiteboard");
 
 //associations could go here!
 User.belongsToMany(Project, { through: UserProjects });
@@ -23,8 +24,13 @@ List.belongsTo(Project);
 List.hasMany(Card);
 Card.belongsTo(List);
 
+
 Project.hasMany(Invite);
 Invite.belongsTo(Project);
+
+Whiteboard.belongsTo(Project);
+Project.hasMany(Whiteboard);
+
 
 module.exports = {
   db,
@@ -36,5 +42,6 @@ module.exports = {
     UserCards,
     UserProjects,
     Invite,
+    Whiteboard,
   },
 };

@@ -64,6 +64,17 @@ form div {
   margin-top: 10px;
 }
 
+
+.cardModalBackground {
+  width: 100vw;
+  height: 100vh;
+  /* position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+  background-color: black;
+}
+
 .cardModalContainer {
   width: 250px;
   height: 200px;

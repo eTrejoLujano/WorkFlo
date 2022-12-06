@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaGithub, FaLinkedin, FaRegCopyright } from "react-icons/fa";
-import Modal from "../MattModal";
+
+import Modal from "../ReusableModal";
 
 const teamInfo = {
   matt: {
@@ -26,7 +27,7 @@ const teamInfo = {
 };
 const TeamMemberModal = ({ member }) => {
   return (
-    <Modal>
+    <Modal modalName="footer">
       <div style={{ display: "flex" }}>
         <img
           height="150px"
