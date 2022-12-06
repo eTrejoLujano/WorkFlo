@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-
+import history from "./history";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import Project from "./components/Project";
 import Whiteboard from "./components/Whiteboard/Whiteboard";
+import Chat from "./components/Chat";
 import { me } from "./store/authSlice";
-
+import Footer from "./components/footer/Footer";
 /**
  * COMPONENT
  */
@@ -15,7 +16,6 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
   }
-
   render() {
     const { isLoggedIn } = this.props;
 
@@ -26,6 +26,7 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route path="/projects/:projectId" component={Project} />
             <Route path="/Whiteboard/:projectId" component={Whiteboard} />
+            <Route path="/chat/:projectId" component={Chat} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -37,6 +38,7 @@ class Routes extends Component {
             {/* <Redirect to="/" /> */}
           </Switch>
         )}
+        {!history.location.pathname.startsWith("/chat") && <Footer />}
       </div>
     );
   }

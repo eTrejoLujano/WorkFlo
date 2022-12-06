@@ -28,6 +28,7 @@
     "@mui/material": "^5.10.16",
     "@mui/styled-engine-sc": "^5.10.16",
     "@reduxjs/toolkit": "^1.9.0",
+    "antd": "^5.0.4",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "compression": "^1.7.3",

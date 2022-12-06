@@ -9,7 +9,7 @@ const initialState = {
     footer: false,
     whiteboard: false,
   },
-  selectedCard: "",
+  selectedCard: {},
 };
 
 const uiSlice = createSlice({

@@ -126,12 +126,6 @@ form div {
   text-align: center;
 }
 
-.workspace-heading {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  justify-content: space-between;
-}
 .inviteBtn {
   height: 20px;
 }

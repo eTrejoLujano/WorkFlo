@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import EditIcon from "@mui/icons-material/Edit";
 
 import { toggleModal, selectedCard } from "../store/uiSlice";
 import { Draggable } from "react-beautiful-dnd";
-import CardModal from "./CardModal";
+import CardModal from "./CardModal2";
 
 const SingleCard = ({ cardId, title, description, index, users }) => {
+  // const { modalIsOpen } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -20,30 +17,25 @@ const SingleCard = ({ cardId, title, description, index, users }) => {
   // const cards = useSelector((state) => state.cards);
 
   return (
-    <Draggable draggableId={cardId.toString()} index={index}>
-      {(provided) => (
-        <Card
-          // style={styles.cardContainer}
-          // onClick={handleClick}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-        >
-          {/* {modalOpen && (
-        <CardModal
-          cardId={cardId}
-          title={title}
-          description={description}
-        />
-      )} */}
-          {/* <CardContent style={styles.cardContent}> */}
-          {/* <Typography> */}
-          {title}
-          {/* </Typography> */}
-          {/* </CardContent> */}
-        </Card>
-      )}
-    </Draggable>
+    <div>
+      {/* <CardModal modalName="card" /> */}
+      <Draggable draggableId={cardId.toString()} index={index}>
+        {(provided) => {
+          return (
+            <div
+              onClick={handleClick}
+              // style={styles.cardContainer}
+
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              ref={provided.innerRef}
+            >
+              <div>{title}</div>
+            </div>
+          );
+        }}
+      </Draggable>
+    </div>
   );
 };
 

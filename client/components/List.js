@@ -33,6 +33,7 @@ function List(props) {
                 title={card.title}
                 description={card.description}
                 index={index}
+                users={card.users}
               />
             ))}
           {provided.placeholder}
