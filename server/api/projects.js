@@ -35,6 +35,7 @@ const getProjectsByUser = async (req, res, next) => {
 const createProject = async (req, res, next) => {
   try {
     const project = await Project.create({ ...req.body, id: req.user.id });
+    console.log('projects.js project****', project)
     res.json(project);
   } catch (error) {
     next(error);

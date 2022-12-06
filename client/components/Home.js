@@ -21,7 +21,7 @@ export const Home = () => {
   // if (window.localStorage.invite && window.localStorage.projectId) {
   useEffect(() => {
     if (hash) {
-      console.log("one", window.localStorage.invite, hash);
+      // console.log("one", window.localStorage.invite, hash);
       dispatch(
         addInvitedUser({
           userId: user.id,
@@ -31,7 +31,7 @@ export const Home = () => {
       window.localStorage.removeItem("invite");
       window.localStorage.removeItem("projectId");
     } else {
-      console.log("invite link invalid");
+      ("invite link invalid");
     }
   }, [hash]);
   // }
@@ -42,6 +42,7 @@ export const Home = () => {
   const { userProjects } = useSelector((state) => state.project);
   const [titleValue, setTitleValue] = useState({
     title: "",
+    // description: ""
   });
 
   useEffect(() => {
