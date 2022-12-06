@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { DragDropContext, onDragEnd } from "react-beautiful-dnd";
+
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Drawer from "../components/Drawer";
-import { fetchLists, updateList } from "../store/listSlice";
+import { fetchLists, updateList, movingList } from "../store/listSlice";
 import List from "./List";
 import AddList from "./AddList";
 import CopyLinkModal from "./CopyLinkModal";
-import { fetchSelectedProject } from "../store/projectSlice";
-import { fetchCards, updateCardIndex, updateCards } from "../store/cardSlice";
+import { fetchProjects, fetchSelectedProject } from "../store/projectSlice";
 import CardModal2 from "./CardModal2";
+import {
+  fetchCards,
+  movingCardLists,
+  updateCardIndex,
+  updateCards 
+} from "../store/cardSlice";
+
 
 function Project() {
   const dispatch = useDispatch();
@@ -19,15 +26,14 @@ function Project() {
   const params = useParams();
 
   useEffect(() => {
-    dispatch(fetchLists(params.projectId));
+    dispatch(fetchProjects());
     dispatch(fetchSelectedProject(params.projectId));
+    dispatch(fetchLists(params.projectId));
     dispatch(fetchCards(params.projectId));
   }, []);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [value, setValue] = useState("");
-  // const [state, setState] = useState(lists);
-  // const [state, setState] = useState();
 
   const buttonClicked = () => {
     setModalOpen(true);
@@ -35,7 +41,7 @@ function Project() {
   };
 
   const onDragEnd = async (result) => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
 
     if (!destination) {
       return;
@@ -48,15 +54,35 @@ function Project() {
       return;
     }
 
+    console.log("TYPE>>>", type);
+
+    if (type === "list") {
+      const [aListDrag] = lists.filter(
+        (item) => item.listHashId === draggableId
+      );
+      console.log("A LIST DRAG", aListDrag);
+      dispatch(
+        movingList({
+          listDragId: aListDrag.id,
+          startingIndex: source.index,
+          finishingIndex: destination.index,
+          projectId: params.projectId,
+        })
+      );
+      return;
+    }
+
+    console.log("ON DRAG END IS CALLED");
+
     const [startingList] = lists.filter(
-      (item) => item.id === +source.droppableId
+      (item) => item.listHashId === source.droppableId
     );
     const [finishingList] = lists.filter(
-      (item) => item.id === +destination.droppableId
+      (item) => item.listHashId === destination.droppableId
     );
-    const [aCardDrag] = cards.filter((item) => item.id === +draggableId);
+    const [aCardDrag] = cards.filter((item) => item.cardHashId === draggableId);
 
-    if (startingList === finishingList) {
+    if (startingList.id === finishingList.id) {
       const newCardIds = startingList.cards.map((item) => item);
 
       newCardIds.splice(source.index, 1);
@@ -83,9 +109,6 @@ function Project() {
         (key) => (newState.lists[key] = newState.lists[key])
       );
 
-      // console.log("newState>>>>", arrayOfObj);
-      // setState(arrayOfObj);
-
       dispatch(
         updateCardIndex({
           cardDragId: aCardDrag.id,
@@ -95,76 +118,75 @@ function Project() {
         })
       );
       dispatch(updateList(arrayOfObj));
-      // dispatch(updateCards(newCardIds));
-      // console.log("AFTER SETSTATE >>>>", state);
-      // }
       return;
     }
-    const startCardIds = startingList.cards.map((item) => item);
-    startCardIds.splice(source.index, 1);
-
-    const newStart = {
-      ...startingList,
-      cards: startCardIds,
-    };
-
-    const finishCardIds = finishingList.cards.map((item) => item);
-    finishCardIds.splice(destination.index, 0, aCardDrag);
-
-    const newFinish = {
-      ...finishingList,
-      cards: finishCardIds,
-    };
-
-    // const index = newCardIds.findIndex((object) => {
-    //   return object.id === aCardDrag.id;
-    // });
-    // console.log("a CARD DRAG", aCardDrag);
-    // console.log("NEW CARD IDS", newCardIds);
-    // console.log("the index", index);
-    // newCardIds.splice(index, 1);
+    dispatch(
+      movingCardLists({
+        startingIndex: source.index,
+        finishingIndex: destination.index,
+        startingListId: startingList.id,
+        finishingListId: finishingList.id,
+      })
+    );
   };
-  console.log("THE LIST FROM REDUX", lists);
-  // console.log("THE LIST FROM STATE", state);
 
   return (
+
     <div>
       <CardModal2 modalName="card" />
       <Drawer />
       <div>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className="workspace-heading">
         <h2>{projects.selectedProject?.title}</h2>
         <button className="inviteBtn" onClick={buttonClicked}>
           + Invite
         </button>
         <AddList projectid={params.projectId} />
         {modalOpen && (
-          <CopyLinkModal setOpenModal={setModalOpen} value={value} />
+          <CopyLinkModal
+            setOpenModal={setModalOpen}
+            value={value}
+            projectId={params.projectId}
+          />
         )}
       </div>
-
-      <div style={styles.listsContainer}>
-        <DragDropContext onDragEnd={onDragEnd}>
-          {lists.length &&
-            lists.map((list) => {
-              return (
-                <List
-                  key={list.id}
-                  title={list.title}
-                  cards={list.cards}
-                  listid={list.id}
-                />
-              );
-            })}
-        </DragDropContext>
-      </div>
+      <Droppable droppableId="all-lists" direction="horizontal" type="list">
+        {(provided) => (
+          <div
+            style={styles.listsContainer}
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {lists.length &&
+              lists.map((list, index) => {
+                return (
+                  <List
+                    key={list.id}
+                    title={list.title}
+                    listid={list.id}
+                    listHashId={list.listHashId}
+                    index={index}
+                  />
+                );
+              })}
+            {provided.placeholder}
+            <AddList projectid={params.projectId} />
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
+          </div>
     </div>
+
   );
 }
 
 const styles = {
   listsContainer: {
+    height: "92%",
     display: "flex",
-    flexDirection: "row",
+    overflowX: "auto",
   },
 };
 

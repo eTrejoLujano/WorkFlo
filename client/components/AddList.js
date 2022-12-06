@@ -15,18 +15,18 @@ const AddList = ({ projectid }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("TITLEVALUE>>>>", titleValue);
+    // console.log("TITLEVALUE>>>>", titleValue);
     if (titleValue === "") {
-      console.log("TITLEVALUE IN>>>>", titleValue);
+      // console.log("TITLEVALUE IN>>>>", titleValue);
       setShowAddList(!showAddList);
-      console.log("hello");
+      // console.log("hello");
       return;
     }
     setShowAddList(!showAddList);
     dispatch(createList({ ...titleValue, projectId: projectid }));
   };
   return (
-    <div>
+    <div style={styles.addList}>
       {showAddList ? (
         <div>
           <form onSubmit={handleSubmit}>
@@ -47,6 +47,22 @@ const AddList = ({ projectid }) => {
       )}
     </div>
   );
+};
+
+const styles = {
+  addList: {
+    backgroundColor: "rgba(0, 0, 0, 0.12)",
+    borderRadius: "10px",
+    cursor: "pointer",
+    // color: #fff,
+    display: " flex",
+    alignItems: "center",
+    minHeight: "32px",
+    padding: "5px 8px",
+    // transition: background-color 85ms ease-in, opacity 40ms ease-in,
+    //   border-color 85ms ease-in;
+    height: "fit-content",
+  },
 };
 
 export default AddList;

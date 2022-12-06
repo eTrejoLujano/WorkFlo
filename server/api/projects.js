@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Project, UserProjects, User, List, Card, Whiteboard },
+  models: { Project, UserProjects, User, List, Card, Whiteboard, Invite },
 } = require("../db");
 
 module.exports = router;
@@ -35,20 +35,12 @@ const getProjectsByUser = async (req, res, next) => {
 const createProject = async (req, res, next) => {
   try {
     const project = await Project.create({ ...req.body, id: req.user.id });
+    console.log('projects.js project****', project)
     res.json(project);
   } catch (error) {
     next(error);
   }
 };
-
-// const getSingleProject = async (req, res, next) => {
-//   try {
-//     const project = await Project.findByPk(req.params.projectId);
-//     res.send(project);
-//   } catch (err) {
-//     next(err);
-//   }
-// };
 
 const getSingleProject = async (req, res, next) => {
   try {
@@ -59,11 +51,37 @@ const getSingleProject = async (req, res, next) => {
       include: User,
       where: { userId: userProject.userId },
     });
+    res.redirect("/login");
     res.send(project);
   } catch (err) {
     next(err);
   }
 };
+
+//hash get route
+router.get("/:projectId/invite/:hash", requireToken, async (req, res, next) => {
+  try {
+    const invite = await Invite.findAll({
+      where: {
+        hash: req.params.hash,
+      },
+    });
+    res.json(invite);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//POST route
+router.post("/:projectId/invite", requireToken, async (req, res, next) => {
+  try {
+    const invite = await UserProjects.create(req.body);
+    console.log("invite", invite);
+    res.json(invite);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // GET /api/:projectId/lists
 // GET all lists with their assigned cards
@@ -75,10 +93,9 @@ router.get("/:projectId/lists", requireToken, async (req, res, next) => {
       },
       include: [{ model: Card }],
       order: [
-        ["id", "ASC"],
+        ["listindex", "ASC"],
         [Card, "cardindex", "ASC"],
       ],
-      // ^^ MIGHT NOT WORK WAS WE INCORPORATE DRAG N DROP (beautiful)
     });
     res.json(lists);
   } catch (error) {

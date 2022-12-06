@@ -36,6 +36,7 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
 
             {/* <Redirect to="/" /> */}
+
           </Switch>
         )}
         {!history.location.pathname.startsWith("/chat") && <Footer />}

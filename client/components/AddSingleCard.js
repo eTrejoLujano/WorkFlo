@@ -5,7 +5,7 @@ import { createCard } from "../store/cardSlice";
 
 function AddSingleCard(props) {
   const { listid } = props;
-  
+
   const dispatch = useDispatch();
   const [showAddCard, setShowAddCard] = useState(false);
   const [titleValue, setTitleValue] = useState({
@@ -38,7 +38,10 @@ function AddSingleCard(props) {
         </div>
       ) : (
         <div>
-          <button onClick={() => setShowAddCard(!showAddCard)}>
+          <button
+            onClick={() => setShowAddCard(!showAddCard)}
+            style={styles.toggleAddCard}
+          >
             Add Another Card
           </button>
         </div>
@@ -55,6 +58,14 @@ const styles = {
     borderRadius: 5,
     height: 36,
     width: 272,
+  },
+  toggleAddCard: {
+    cursor: "pointer",
+    padding: "10px",
+    color: "#6b808c",
+    borderRadius: "0 0 10px 10px",
+    display: "flex",
+    alignItems: "center",
   },
 };
 

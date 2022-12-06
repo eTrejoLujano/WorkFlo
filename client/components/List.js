@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Droppable } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
 
 import AddSingleCard from "./AddSingleCard";
@@ -8,7 +8,7 @@ import SingleCard from "./SingleCard";
 import { fetchCards } from "../store/cardSlice";
 
 function List(props) {
-  const { title, listid } = props;
+  const { title, listid, index, listHashId } = props;
   const dispatch = useDispatch();
   const params = useParams();
   const cards = useSelector((state) => state.cards);
@@ -16,41 +16,73 @@ function List(props) {
   const filterCards = cards.filter((item) => item.listId === listid);
 
   return (
-    <Droppable droppableId={listid.toString()}>
-      {(provided) => (
+    // <div style={styles.lists}>
+    <Draggable draggableId={listHashId} index={index}>
+      {(provided, snapshot) => (
         <div
-          style={styles.container}
           ref={provided.innerRef}
-          {...provided.droppableProps}
+          {...provided.draggableProps}
+          style={styles.lists}
         >
-          <h4>{title}</h4>
-
-          {filterCards &&
-            filterCards.map((card, index) => (
-              <SingleCard
-                key={card.id}
-                cardId={card.id}
-                title={card.title}
-                description={card.description}
-                index={index}
-                users={card.users}
-              />
-            ))}
-          {provided.placeholder}
-          <AddSingleCard listid={listid} />
+          <div style={styles.ListTitle} {...provided.dragHandleProps}>
+            {title}
+          </div>
+          <Droppable droppableId={listHashId} type="card">
+            {(provided) => (
+              <div
+                style={styles.container}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {filterCards &&
+                  filterCards.map((card, index) => (
+                    <SingleCard
+                      key={card.id}
+                      cardId={card.id}
+                      title={card.title}
+                      description={card.description}
+                      cardHashId={card.cardHashId}
+                      index={index}
+                      users={card.users}
+                    />
+                  ))}
+                <AddSingleCard listid={listid} />
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </div>
       )}
-    </Droppable>
+    </Draggable>
+    // </div>
   );
 }
 
 const styles = {
   container: {
     backgroundColor: "lightblue",
-    borderRadius: 5,
-    width: 300,
-    padding: 7,
-    marginRight: 8,
+    // borderRadius: 5,
+    minHeight: "100",
+    padding: "8px",
+    // flexGrow: ,
+    // marginRight: 8,
+    // position: "static",
+  },
+  lists: {
+    background: "#dfe3e6",
+    flexShrink: 0,
+    width: "272px",
+    height: "fit-content",
+    margin: "10px",
+    marginRight: 0,
+    borderRadius: "10px",
+    border: "1px solid rgba(0, 0, 0, 0.12)",
+    flexGrow: 1,
+  },
+  ListTitle: {
+    cursor: "pointer",
+    padding: "10px",
+    overflowWrap: "breakWord",
   },
 };
 
