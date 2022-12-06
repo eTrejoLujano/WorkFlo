@@ -15,11 +15,11 @@ const AddList = ({ projectid }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("TITLEVALUE>>>>", titleValue);
+    // console.log("TITLEVALUE>>>>", titleValue);
     if (titleValue === "") {
-      console.log("TITLEVALUE IN>>>>", titleValue);
+      // console.log("TITLEVALUE IN>>>>", titleValue);
       setShowAddList(!showAddList);
-      console.log("hello");
+      // console.log("hello");
       return;
     }
     setShowAddList(!showAddList);

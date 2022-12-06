@@ -7,7 +7,7 @@ import { fetchLists, updateList } from "../store/listSlice";
 import List from "./List";
 import AddList from "./AddList";
 import CopyLinkModal from "./CopyLinkModal";
-import { fetchSelectedProject } from "../store/projectSlice";
+import { fetchProjects, fetchSelectedProject } from "../store/projectSlice";
 import {
   fetchCards,
   movingCardLists,
@@ -22,8 +22,9 @@ function Project() {
   const params = useParams();
 
   useEffect(() => {
-    dispatch(fetchLists(params.projectId));
+    dispatch(fetchProjects());
     dispatch(fetchSelectedProject(params.projectId));
+    dispatch(fetchLists(params.projectId));
     dispatch(fetchCards(params.projectId));
   }, []);
 
