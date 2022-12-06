@@ -14,9 +14,25 @@ export const startWhiteboard = createAsyncThunk(
   }
 );
 
+export const fetchWhiteboards = createAsyncThunk(
+  "project/fetchWhiteboards",
+  async (projectId, thunkAPI) => {
+    try {
+      const { data } = await axios.get(
+        `/api/whiteboard/${projectId}`,
+        sendToken()
+      );
+      thunkAPI.dispatch(loadWhiteboards(data));
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const fetchProjects = createAsyncThunk(
   "project/fetchProjects",
-  async () => {
+  async (_, thunkAPI) => {
     try {
       const { data } = await axios.get(
         "/api/projects/user-projects",
@@ -32,8 +48,9 @@ export const fetchProjects = createAsyncThunk(
 
 export const fetchSelectedProject = createAsyncThunk(
   "project/fetchSelectedProject",
-  async (id) => {
+  async (id, thunkAPI) => {
     const { data } = await axios.get(`/api/projects/${id}`, sendToken());
+    thunkAPI.dispatch(fetchWhiteboards(id));
     return data;
   }
 );
@@ -50,12 +67,17 @@ export const createProject = createAsyncThunk(
 const initialState = {
   userProjects: [],
   selectedProject: {},
+  whiteboards: [],
 };
 
 const projectSlice = createSlice({
   name: "project",
   initialState,
-  reducers: {},
+  reducers: {
+    loadWhiteboards: (state, action) => {
+      state.whiteboards = action.payload;
+    },
+  },
   extraReducers: {
     [fetchProjects.fulfilled]: (state, action) => {
       state.userProjects = action.payload;
@@ -70,5 +92,5 @@ const projectSlice = createSlice({
   },
 });
 
-// export const {  } = courseSlice.actions;
+export const { loadWhiteboards } = projectSlice.actions;
 export default projectSlice.reducer;

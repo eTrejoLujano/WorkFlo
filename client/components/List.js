@@ -43,9 +43,9 @@ function List(props) {
                       description={card.description}
                       cardHashId={card.cardHashId}
                       index={index}
+                      users={card.users}
                     />
                   ))}
-
                 <AddSingleCard listid={listid} />
                 {provided.placeholder}
               </div>

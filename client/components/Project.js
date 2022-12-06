@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Drawer from "../components/Drawer";
 import { fetchLists, updateList, movingList } from "../store/listSlice";
 import List from "./List";
 import AddList from "./AddList";
 import CopyLinkModal from "./CopyLinkModal";
 import { fetchProjects, fetchSelectedProject } from "../store/projectSlice";
+import CardModal2 from "./CardModal2";
 import {
   fetchCards,
   movingCardLists,
   updateCardIndex,
+  updateCards 
 } from "../store/cardSlice";
+
 
 function Project() {
   const dispatch = useDispatch();
@@ -127,13 +131,18 @@ function Project() {
   };
 
   return (
+
+    <div>
+      <CardModal2 modalName="card" />
+      <Drawer />
+      <div>
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="workspace-heading">
         <h2>{projects.selectedProject?.title}</h2>
         <button className="inviteBtn" onClick={buttonClicked}>
           + Invite
         </button>
-
+        <AddList projectid={params.projectId} />
         {modalOpen && (
           <CopyLinkModal
             setOpenModal={setModalOpen}
@@ -167,6 +176,9 @@ function Project() {
         )}
       </Droppable>
     </DragDropContext>
+          </div>
+    </div>
+
   );
 }
 
