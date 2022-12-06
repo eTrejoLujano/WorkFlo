@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Project, UserProjects, User, List, Card },
+  models: { Project, UserProjects, User, List, Card, Invite },
 } = require("../db");
 
 module.exports = router;
@@ -53,11 +53,37 @@ const createProject = async (req, res, next) => {
 const getSingleProject = async (req, res, next) => {
   try {
     const project = await Project.findByPk(req.params.projectId);
-    res.send(project);
+    res.redirect("/login");
   } catch (err) {
     next(err);
   }
 };
+
+//hash get route
+router.get("/:projectId/invite/:hash", requireToken, async (req, res, next) => {
+  try {
+    const invite = await Invite.findAll({
+      where: {
+        hash: req.params.hash,
+      },
+    });
+    res.json(invite);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//POST route
+router.post("/:projectId/invite", requireToken, async (req, res, next) => {
+  try {
+    const invite = await UserProjects.create(req.body);
+    console.log("invite", invite);
+    res.json(invite);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // GET /api/:projectId/lists
 // GET all lists with their assigned cards
 router.get("/:projectId/lists", requireToken, async (req, res, next) => {

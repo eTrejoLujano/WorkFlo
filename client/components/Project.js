@@ -37,7 +37,11 @@ function Project() {
         </button>
 
         {modalOpen && (
-          <CopyLinkModal setOpenModal={setModalOpen} value={value} />
+          <CopyLinkModal
+            setOpenModal={setModalOpen}
+            value={value}
+            projectId={params.projectId}
+          />
         )}
       </div>
 

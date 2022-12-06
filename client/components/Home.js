@@ -4,8 +4,37 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createProject, fetchProjects } from "../store/projectSlice";
+import { addInvitedUser } from "../store/copyLinkSlice";
+import { compareHash } from "../store/copyLinkSlice";
 
 export const Home = () => {
+  const user = useSelector((state) => state.auth);
+
+  const projectId = window.localStorage.projectId;
+
+  const { hash } = useSelector((state) => state.link);
+  useEffect(() => {
+    dispatch(compareHash(projectId));
+  }, []);
+
+  // if (window.localStorage.invite && window.localStorage.projectId) {
+  useEffect(() => {
+    if (hash) {
+      console.log("one", window.localStorage.invite, hash);
+      dispatch(
+        addInvitedUser({
+          userId: user.id,
+          projectId: +localStorage.getItem("projectId"),
+        })
+      );
+      window.localStorage.removeItem("invite");
+      window.localStorage.removeItem("projectId");
+    } else {
+      console.log("invite link invalid");
+    }
+  }, [hash]);
+  // }
+
   const dispatch = useDispatch();
   // const { email } = useSelector((state) => state.auth);
   const { userProjects } = useSelector((state) => state.project);
