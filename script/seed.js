@@ -47,30 +47,37 @@ const lists = [
   {
     title: "Pre Work",
     projectId: 1,
+    listindex: 0,
   },
   {
     title: "Doing",
     projectId: 1,
+    listindex: 1,
   },
   {
     title: "Done",
     projectId: 1,
+    listindex: 2,
   },
   {
     title: "To do",
     projectId: 1,
+    listindex: 3,
   },
   {
     title: "Prep Work",
     projectId: 2,
+    listindex: 0,
   },
   {
     title: "In Progress",
     projectId: 2,
+    listindex: 1,
   },
   {
     title: "Post Work",
     projectId: 2,
+    listindex: 2,
   },
 ];
 

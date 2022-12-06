@@ -7,6 +7,9 @@ const List = db.define("list", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  listindex: {
+    type: Sequelize.INTEGER,
+  },
 });
 
 module.exports = List;

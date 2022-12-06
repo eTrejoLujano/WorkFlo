@@ -21,6 +21,22 @@ export const createList = createAsyncThunk("list/createList", async (value) => {
   }
 });
 
+export const movingList = createAsyncThunk(
+  "list/movingList",
+  async (movingInfo) => {
+    try {
+      const { data } = await axios.put(
+        "/api/lists/order",
+        movingInfo,
+        sendToken()
+      );
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+);
+
 const initialState = [];
 
 const listSlice = createSlice({
@@ -34,6 +50,7 @@ const listSlice = createSlice({
       state.push(action.payload);
     },
     [fetchLists.fulfilled]: (state, action) => action.payload,
+    [movingList.fulfilled]: (state, action) => action.payload,
   },
 });
 
