@@ -93,7 +93,7 @@ router.get("/:projectId/lists", requireToken, async (req, res, next) => {
       },
       include: [{ model: Card }],
       order: [
-        ["id", "ASC"],
+        ["listindex", "ASC"],
         [Card, "cardindex", "ASC"],
       ],
     });
