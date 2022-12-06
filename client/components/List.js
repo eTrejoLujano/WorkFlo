@@ -22,10 +22,11 @@ function List(props) {
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
           style={styles.lists}
         >
-          <div style={styles.ListTitle}>{title}</div>
+          <div style={styles.ListTitle} {...provided.dragHandleProps}>
+            {title}
+          </div>
           <Droppable droppableId={listid.toString()} type="card">
             {(provided) => (
               <div
@@ -43,8 +44,9 @@ function List(props) {
                       index={index}
                     />
                   ))}
-                {provided.placeholder}
+
                 <AddSingleCard listid={listid} />
+                {provided.placeholder}
               </div>
             )}
           </Droppable>
@@ -61,7 +63,7 @@ const styles = {
     // borderRadius: 5,
     minHeight: "100",
     padding: "8px",
-    flexGrow: 1,
+    // flexGrow: ,
     // marginRight: 8,
     // position: "static",
   },
@@ -74,11 +76,12 @@ const styles = {
     marginRight: 0,
     borderRadius: "10px",
     border: "1px solid rgba(0, 0, 0, 0.12)",
+    flexGrow: 1,
   },
   ListTitle: {
     cursor: "pointer",
     padding: "10px",
-    overflowWrap: "break-word",
+    overflowWrap: "breakWord",
   },
 };
 

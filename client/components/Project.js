@@ -52,7 +52,8 @@ function Project() {
     console.log("TYPE>>>", type);
 
     if (type === "list") {
-      const [aListDrag] = lists.filter((item) => item.id === +draggableId);
+      const [aListDrag] = lists.filter((item) => item.id === draggableId);
+      console.log("A LIST DRAG", aListDrag);
       dispatch(
         movingList({
           listDragId: aListDrag.id,
@@ -147,7 +148,6 @@ function Project() {
                   <List
                     key={list.id}
                     title={list.title}
-                    cards={list.cards}
                     listid={list.id}
                     index={index}
                   />

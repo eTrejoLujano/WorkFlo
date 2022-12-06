@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {
   models: { List, User, Card, Project },
 } = require("../db");
+const { Sequelize } = require("sequelize");
 module.exports = router;
 
 const requireToken = async (req, res, next) => {

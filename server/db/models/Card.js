@@ -20,4 +20,6 @@ const Card = db.define("card", {
   },
 });
 
+Card.beforeCreate;
+
 module.exports = Card;
