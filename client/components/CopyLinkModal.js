@@ -1,23 +1,40 @@
-import React, { useState } from "react";
-import {FaCopy} from 'react-icons/fa';
-import {Tooltip} from '@mui/material'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { FaCopy } from "react-icons/fa";
+import { Tooltip } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
+import { copyLink } from "../store/copyLinkSlice";
 
+function CopyLinkModal({ setOpenModal, value, projectId }) {
+  const dispatch = useDispatch();
+  const [copy, setCopy] = useState("");
 
-function CopyLinkModal({ setOpenModal, value}) {
+  const [hashValue, setHashValue] = useState({
+    hash: "",
+  });
 
-  const [copy, setCopy] = useState('')
+  const [disable, setDisable] = useState(false);
 
+  const handleChange = () => {};
 
+  const newHash = uuidv4().split("-").slice(-1)[0];
+  useEffect(() => {
+    if (hashValue.hash) {
+      setCopy(`${value}/invite/${hashValue.hash}`);
+    }
+  }, [hashValue]);
 
-  const handleChange = () =>{
+  useEffect(() => {
+    if (copy.length > 0) {
+      dispatch(copyLink({ ...hashValue, projectId: projectId }));
+      navigator.clipboard.writeText(copy);
+    }
+  }, [copy]);
 
-  }
-
-  const handleCopy = ()=>{
-    setCopy(value)
-     navigator.clipboard.writeText(copy)
-  }
-
+  const handleCopy = async () => {
+    setHashValue({ hash: newHash });
+    setDisable(true);
+  };
 
   return (
     <div className="modalBackground">
@@ -26,19 +43,21 @@ function CopyLinkModal({ setOpenModal, value}) {
           <button
             onClick={() => {
               setOpenModal(false);
-            }}>
+            }}
+          >
             X
           </button>
         </div>
         <div className="title">
           <h1>Invite</h1>
         </div>
-        <div className="body" >
-          <input value={value} onChange={handleChange}/>
+        <div className="body">
+          <input value={value} onChange={handleChange} />
           <Tooltip title="Copy">
-             <button onClick={handleCopy}><FaCopy /></button>
-        </Tooltip>
-
+            <button onClick={handleCopy} disabled={disable}>
+              <FaCopy />
+            </button>
+          </Tooltip>
         </div>
       </div>
     </div>
@@ -46,5 +65,3 @@ function CopyLinkModal({ setOpenModal, value}) {
 }
 
 export default CopyLinkModal;
-
-
