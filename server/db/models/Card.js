@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 const axios = require("axios");
+const { v4: uuidv4 } = require("uuid");
 
 const Card = db.define("card", {
   title: {
@@ -18,8 +19,12 @@ const Card = db.define("card", {
   cardindex: {
     type: Sequelize.INTEGER,
   },
+  cardHashId: {
+    type: Sequelize.UUID,
+    unique: true,
+    isUUID: 4,
+    defaultValue: Sequelize.UUIDV4,
+  },
 });
-
-Card.beforeCreate;
 
 module.exports = Card;

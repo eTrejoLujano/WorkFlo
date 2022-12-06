@@ -84,7 +84,7 @@ router.put("/order", requireToken, async (req, res, next) => {
         i++
       ) {
         const list = await List.findOne({
-          where: { cardindex: i, projectId: req.body.projectId },
+          where: { listindex: i, projectId: req.body.projectId },
         });
         await List.update(
           {
@@ -98,6 +98,7 @@ router.put("/order", requireToken, async (req, res, next) => {
         { where: { id: req.body.listDragId } }
       );
       const lists = await List.findAll({
+        where: { projectId: req.body.projectId },
         include: [{ model: Project }],
         order: [
           ["projectId", "ASC"],
@@ -127,6 +128,7 @@ router.put("/order", requireToken, async (req, res, next) => {
         { where: { id: req.body.listDragId } }
       );
       const lists = await List.findAll({
+        where: { projectId: req.body.projectId },
         include: [{ model: Project }],
         order: [
           ["projectId", "ASC"],

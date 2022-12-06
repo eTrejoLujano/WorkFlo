@@ -9,7 +9,14 @@ import { toggleModal, selectedCard } from "../store/uiSlice";
 import { Draggable } from "react-beautiful-dnd";
 import CardModal from "./CardModal";
 
-const SingleCard = ({ cardId, title, description, index, users }) => {
+const SingleCard = ({
+  cardId,
+  title,
+  description,
+  index,
+  users,
+  cardHashId,
+}) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -17,10 +24,8 @@ const SingleCard = ({ cardId, title, description, index, users }) => {
     dispatch(toggleModal("card"));
   };
 
-  // const cards = useSelector((state) => state.cards);
-
   return (
-    <Draggable draggableId={cardId.toString()} index={index}>
+    <Draggable draggableId={cardHashId} index={index}>
       {(provided) => (
         <div
           ref={provided.innerRef}

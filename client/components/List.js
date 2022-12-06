@@ -8,7 +8,7 @@ import SingleCard from "./SingleCard";
 import { fetchCards } from "../store/cardSlice";
 
 function List(props) {
-  const { title, listid, index } = props;
+  const { title, listid, index, listHashId } = props;
   const dispatch = useDispatch();
   const params = useParams();
   const cards = useSelector((state) => state.cards);
@@ -17,7 +17,7 @@ function List(props) {
 
   return (
     // <div style={styles.lists}>
-    <Draggable draggableId={listid.toString()} index={index}>
+    <Draggable draggableId={listHashId} index={index}>
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
@@ -27,7 +27,7 @@ function List(props) {
           <div style={styles.ListTitle} {...provided.dragHandleProps}>
             {title}
           </div>
-          <Droppable droppableId={listid.toString()} type="card">
+          <Droppable droppableId={listHashId} type="card">
             {(provided) => (
               <div
                 style={styles.container}
@@ -41,6 +41,7 @@ function List(props) {
                       cardId={card.id}
                       title={card.title}
                       description={card.description}
+                      cardHashId={card.cardHashId}
                       index={index}
                     />
                   ))}

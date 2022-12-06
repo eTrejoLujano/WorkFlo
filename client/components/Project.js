@@ -52,7 +52,9 @@ function Project() {
     console.log("TYPE>>>", type);
 
     if (type === "list") {
-      const [aListDrag] = lists.filter((item) => item.id === draggableId);
+      const [aListDrag] = lists.filter(
+        (item) => item.listHashId === draggableId
+      );
       console.log("A LIST DRAG", aListDrag);
       dispatch(
         movingList({
@@ -68,12 +70,12 @@ function Project() {
     console.log("ON DRAG END IS CALLED");
 
     const [startingList] = lists.filter(
-      (item) => item.id === +source.droppableId
+      (item) => item.listHashId === source.droppableId
     );
     const [finishingList] = lists.filter(
-      (item) => item.id === +destination.droppableId
+      (item) => item.listHashId === destination.droppableId
     );
-    const [aCardDrag] = cards.filter((item) => item.id === +draggableId);
+    const [aCardDrag] = cards.filter((item) => item.cardHashId === draggableId);
 
     if (startingList.id === finishingList.id) {
       const newCardIds = startingList.cards.map((item) => item);
@@ -149,6 +151,7 @@ function Project() {
                     key={list.id}
                     title={list.title}
                     listid={list.id}
+                    listHashId={list.listHashId}
                     index={index}
                   />
                 );

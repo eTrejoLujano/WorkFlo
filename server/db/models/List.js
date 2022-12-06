@@ -10,6 +10,12 @@ const List = db.define("list", {
   listindex: {
     type: Sequelize.INTEGER,
   },
+  listHashId: {
+    type: Sequelize.UUID,
+    unique: true,
+    isUUID: 4,
+    defaultValue: Sequelize.UUIDV4,
+  },
 });
 
 module.exports = List;
