@@ -14,9 +14,8 @@ import {
   fetchCards,
   movingCardLists,
   updateCardIndex,
-  updateCards 
+  updateCards,
 } from "../store/cardSlice";
-
 
 function Project() {
   const dispatch = useDispatch();
@@ -131,54 +130,51 @@ function Project() {
   };
 
   return (
-
     <div>
       <CardModal2 modalName="card" />
       <Drawer />
       <div>
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className="workspace-heading">
-        <h2>{projects.selectedProject?.title}</h2>
-        <button className="inviteBtn" onClick={buttonClicked}>
-          + Invite
-        </button>
-        <AddList projectid={params.projectId} />
-        {modalOpen && (
-          <CopyLinkModal
-            setOpenModal={setModalOpen}
-            value={value}
-            projectId={params.projectId}
-          />
-        )}
+        <DragDropContext onDragEnd={onDragEnd}>
+          <div className="workspace-heading">
+            <h2>{projects.selectedProject?.title}</h2>
+            <button className="inviteBtn" onClick={buttonClicked}>
+              + Invite
+            </button>
+            {modalOpen && (
+              <CopyLinkModal
+                setOpenModal={setModalOpen}
+                value={value}
+                projectId={params.projectId}
+              />
+            )}
+          </div>
+          <Droppable droppableId="all-lists" direction="horizontal" type="list">
+            {(provided) => (
+              <div
+                style={styles.listsContainer}
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {lists.length &&
+                  lists.map((list, index) => {
+                    return (
+                      <List
+                        key={list.id}
+                        title={list.title}
+                        listid={list.id}
+                        listHashId={list.listHashId}
+                        index={index}
+                      />
+                    );
+                  })}
+                {provided.placeholder}
+                <AddList projectid={params.projectId} />
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
-      <Droppable droppableId="all-lists" direction="horizontal" type="list">
-        {(provided) => (
-          <div
-            style={styles.listsContainer}
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
-            {lists.length &&
-              lists.map((list, index) => {
-                return (
-                  <List
-                    key={list.id}
-                    title={list.title}
-                    listid={list.id}
-                    listHashId={list.listHashId}
-                    index={index}
-                  />
-                );
-              })}
-            {provided.placeholder}
-            <AddList projectid={params.projectId} />
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
-          </div>
     </div>
-
   );
 }
 
