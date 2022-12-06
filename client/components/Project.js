@@ -64,6 +64,8 @@ function Project() {
       return;
     }
 
+    console.log("ON DRAG END IS CALLED");
+
     const [startingList] = lists.filter(
       (item) => item.id === +source.droppableId
     );

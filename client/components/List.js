@@ -16,14 +16,13 @@ function List(props) {
   const filterCards = cards.filter((item) => item.listId === listid);
 
   return (
-    <div>
+    <div style={styles.lists}>
       <Draggable draggableId={listid.toString()} index={index}>
         {(provided) => (
           <div
             {...provided.draggableProps}
             ref={provided.innerRef}
             {...provided.dragHandleProps}
-            style={styles.lists}
           >
             <h4>{title}</h4>
             <Droppable droppableId={listid.toString()} type="card">
@@ -61,15 +60,12 @@ const styles = {
     borderRadius: 5,
     width: 300,
     padding: 7,
-    marginRight: 8,
+    // marginRight: 8,
     // position: "static",
   },
   lists: {
     display: "flex",
     flexDirection: "column",
-  },
-  listindex: {
-    zIndex: -1,
   },
 };
 

@@ -23,7 +23,7 @@ const SingleCard = ({ cardId, title, description, index, users }) => {
     <Draggable draggableId={cardId.toString()} index={index}>
       {(provided) => (
         <Card
-          // style={styles.cardContainer}
+          style={styles.cardContainer}
           // onClick={handleClick}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
@@ -36,11 +36,11 @@ const SingleCard = ({ cardId, title, description, index, users }) => {
           description={description}
         />
       )} */}
-          {/* <CardContent style={styles.cardContent}> */}
-          {/* <Typography> */}
-          {title}
-          {/* </Typography> */}
-          {/* </CardContent> */}
+          <CardContent style={styles.cardContent}>
+            {/* <Typography> */}
+            {title}
+            {/* </Typography> */}
+          </CardContent>
         </Card>
       )}
     </Draggable>
