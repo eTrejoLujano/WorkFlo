@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { DragDropContext, onDragEnd } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-import { fetchLists, updateList } from "../store/listSlice";
+import { fetchLists, updateList, movingList } from "../store/listSlice";
 import List from "./List";
 import AddList from "./AddList";
 import CopyLinkModal from "./CopyLinkModal";
@@ -36,7 +36,7 @@ function Project() {
   };
 
   const onDragEnd = async (result) => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
 
     if (!destination) {
       return;
@@ -49,13 +49,33 @@ function Project() {
       return;
     }
 
+    console.log("TYPE>>>", type);
+
+    if (type === "list") {
+      const [aListDrag] = lists.filter(
+        (item) => item.listHashId === draggableId
+      );
+      console.log("A LIST DRAG", aListDrag);
+      dispatch(
+        movingList({
+          listDragId: aListDrag.id,
+          startingIndex: source.index,
+          finishingIndex: destination.index,
+          projectId: params.projectId,
+        })
+      );
+      return;
+    }
+
+    console.log("ON DRAG END IS CALLED");
+
     const [startingList] = lists.filter(
-      (item) => item.id === +source.droppableId
+      (item) => item.listHashId === source.droppableId
     );
     const [finishingList] = lists.filter(
-      (item) => item.id === +destination.droppableId
+      (item) => item.listHashId === destination.droppableId
     );
-    const [aCardDrag] = cards.filter((item) => item.id === +draggableId);
+    const [aCardDrag] = cards.filter((item) => item.cardHashId === draggableId);
 
     if (startingList.id === finishingList.id) {
       const newCardIds = startingList.cards.map((item) => item);
@@ -106,7 +126,7 @@ function Project() {
   };
 
   return (
-    <div>
+    <DragDropContext onDragEnd={onDragEnd}>
       <div className="workspace-heading">
         <h2>{projects.selectedProject?.title}</h2>
         <button className="inviteBtn" onClick={buttonClicked}>
@@ -121,31 +141,39 @@ function Project() {
           />
         )}
       </div>
-
-      <div style={styles.listsContainer}>
-        <DragDropContext onDragEnd={onDragEnd}>
-          {lists.length &&
-            lists.map((list) => {
-              return (
-                <List
-                  key={list.id}
-                  title={list.title}
-                  cards={list.cards}
-                  listid={list.id}
-                />
-              );
-            })}
-          <AddList projectid={params.projectId} />
-        </DragDropContext>
-      </div>
-    </div>
+      <Droppable droppableId="all-lists" direction="horizontal" type="list">
+        {(provided) => (
+          <div
+            style={styles.listsContainer}
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {lists.length &&
+              lists.map((list, index) => {
+                return (
+                  <List
+                    key={list.id}
+                    title={list.title}
+                    listid={list.id}
+                    listHashId={list.listHashId}
+                    index={index}
+                  />
+                );
+              })}
+            {provided.placeholder}
+            <AddList projectid={params.projectId} />
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 }
 
 const styles = {
   listsContainer: {
+    height: "92%",
     display: "flex",
-    flexDirection: "row",
+    overflowX: "auto",
   },
 };
 
