@@ -22,12 +22,12 @@ const SingleCard = ({ cardId, title, description, index, users }) => {
   return (
     <Draggable draggableId={cardId.toString()} index={index}>
       {(provided) => (
-        <Card
+        <div
+          ref={provided.innerRef}
           style={styles.cardContainer}
           // onClick={handleClick}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          ref={provided.innerRef}
         >
           {/* {modalOpen && (
         <CardModal
@@ -41,7 +41,7 @@ const SingleCard = ({ cardId, title, description, index, users }) => {
             {title}
             {/* </Typography> */}
           </CardContent>
-        </Card>
+        </div>
       )}
     </Draggable>
   );
@@ -49,6 +49,17 @@ const SingleCard = ({ cardId, title, description, index, users }) => {
 
 const styles = {
   cardContainer: {
+    // position: "relative",
+    // cursor: "pointer",
+    // background: " white",
+    // margin: "5px",
+    // padding: "10px",
+    // borderRadius: "5px",
+    // border: "1px solid rgba(0, 0, 0, 0.12)",
+    // boxShadow: "0 1px 0 rgba(9, 45, 66, 0.25)",
+    // fontSize: "15px",
+    // overflowWrap: "break-word",
+    // minHeight: "18px",
     cursor: "pointer",
     display: "flex",
     alignItems: "center",

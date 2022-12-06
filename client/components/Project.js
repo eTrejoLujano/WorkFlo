@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import { fetchLists, updateList, movingList } from "../store/listSlice";
 import List from "./List";
@@ -123,51 +123,50 @@ function Project() {
   };
 
   return (
-    <div>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <div className="workspace-heading">
-          <h2>{projects.selectedProject?.title}</h2>
-          <button className="inviteBtn" onClick={buttonClicked}>
-            + Invite
-          </button>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className="workspace-heading">
+        <h2>{projects.selectedProject?.title}</h2>
+        <button className="inviteBtn" onClick={buttonClicked}>
+          + Invite
+        </button>
 
-          {modalOpen && (
-            <CopyLinkModal setOpenModal={setModalOpen} value={value} />
-          )}
-        </div>
-        <Droppable droppableId="all-columns" direction="horizontal" type="list">
-          {(provided) => (
-            <div
-              style={styles.listsContainer}
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {lists.length &&
-                lists.map((list, index) => {
-                  return (
-                    <List
-                      key={list.id}
-                      title={list.title}
-                      cards={list.cards}
-                      listid={list.id}
-                      index={index}
-                    />
-                  );
-                })}
-              {provided.placeholder}
-              <AddList projectid={params.projectId} />
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </div>
+        {modalOpen && (
+          <CopyLinkModal setOpenModal={setModalOpen} value={value} />
+        )}
+      </div>
+      <Droppable droppableId="all-lists" direction="horizontal" type="list">
+        {(provided) => (
+          <div
+            style={styles.listsContainer}
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {lists.length &&
+              lists.map((list, index) => {
+                return (
+                  <List
+                    key={list.id}
+                    title={list.title}
+                    cards={list.cards}
+                    listid={list.id}
+                    index={index}
+                  />
+                );
+              })}
+            {provided.placeholder}
+            <AddList projectid={params.projectId} />
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 }
 
 const styles = {
   listsContainer: {
+    height: "92%",
     display: "flex",
-    // flexDirection: "column",
+    overflowX: "auto",
   },
 };
 
