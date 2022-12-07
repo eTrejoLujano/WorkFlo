@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
 import { createProject, fetchProjects } from "../store/projectSlice";
 import { addInvitedUser } from "../store/copyLinkSlice";
 import { compareHash } from "../store/copyLinkSlice";
 import socket from "../socket";
+import { Button, Typography } from "@mui/material";
+import { ClassNames } from "@emotion/react";
 
 export const Home = () => {
-  const user = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.auth);
+  const { firstName } = useSelector((state) => state.auth);
+  const { userProjects } = useSelector((state) => state.project);
   const projectId = window.localStorage.projectId;
 
   const { hash } = useSelector((state) => state.link);
@@ -36,35 +43,52 @@ export const Home = () => {
   }, [hash]);
   // }
 
-  const dispatch = useDispatch();
-  const { firstName } = useSelector((state) => state.auth);
-
-  const { userProjects } = useSelector((state) => state.project);
-  const [titleValue, setTitleValue] = useState({
-    title: "",
-    // description: ""
-  });
-
   useEffect(() => {
     dispatch(fetchProjects());
     socket.emit("user-joined", firstName);
   }, []);
 
+  // Add New Project
+  const [titleValue, setTitleValue] = useState({
+    title: "",
+  });
+
   const handleChange = (event) => {
     setTitleValue({ ...titleValue, [event.target.name]: event.target.value });
   };
 
+  const [titleError, setTitleError] = useState(false)
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    setTitleError(false)
+
+    if (titleValue.title === '') {
+      setTitleError(true)
+      return;
+    }
     dispatch(createProject(titleValue));
-    // setTitleValue({ title: "" });
+    console.log('handleSubmit titleValue', titleValue)
   };
-  return (
+
+  return ( 
     <HomeContainer>
-      <form onSubmit={handleSubmit}>
-        <input name="title" value={titleValue.title} onChange={handleChange} />
-        <button type="submit">Start new Project</button>
-      </form>
+
+      <NewTitleContainer>
+        <Typography variant="h6" component="h2">Project Title</Typography>
+        <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+          <TextField 
+            onChange={(event) => setTitleValue({...titleValue, [event.target.name]: event.target.value})}
+            name="title"
+            variant="outlined"
+            placeholder="Project Title"
+            required
+            error={titleError}
+          />
+          <Button type="submit" variant="contained">Add a New Project</Button>
+        </form>
+      </NewTitleContainer>
+
       <ProjectContainer>
         {userProjects.length &&
           userProjects.map((project) => (
@@ -86,6 +110,24 @@ const HomeContainer = styled.div`
   align-items: center;
 `;
 
+const InputSubmit = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+
+const NewTitleContainer = styled.div`
+  display: flex;
+  // flex-direction: column;
+  border: 1px solid black;
+  height: 200px;
+  width: 80%;
+  border-radius: 10px;
+  padding: 10px;
+`;
+
 const ProjectContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -95,3 +137,6 @@ const ProjectContainer = styled.div`
   border-radius: 10px;
   padding: 10px;
 `;
+
+
+

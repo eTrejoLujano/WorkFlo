@@ -13,9 +13,9 @@ const ProjectMenu = () => {
   const dispatch = useDispatch();
   // const projectUsers = selectedProject.users
   
-  useEffect(() => {
-    // setFormVals(selectedCard)
-  }, [userProjects]) 
+  // useEffect(() => {
+  //   setFormVals(selectedCard)
+  // }, [userProjects]) 
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);

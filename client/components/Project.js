@@ -26,7 +26,7 @@ function Project() {
     dispatch(fetchSelectedProject(params.projectId));
     dispatch(fetchLists(params.projectId));
     dispatch(fetchCards(params.projectId));
-  }, []);
+  }, [params.projectId]);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [value, setValue] = useState("");
