@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import "../styles/list.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Drawer from "../components/Drawer";
 import { fetchLists, updateList, movingList } from "../store/listSlice";
