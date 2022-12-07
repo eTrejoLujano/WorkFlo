@@ -27,26 +27,24 @@ const SingleCard = ({
   return (
     <Draggable draggableId={cardHashId} index={index}>
       {(provided) => (
-        <div
+        <Card
           ref={provided.innerRef}
           style={styles.cardContainer}
-          // onClick={handleClick}
+          onClick={handleClick}
           {...provided.draggableProps}
-          // {...provided.dragHandleProps}
+          {...provided.dragHandleProps}
         >
-          {/* {modalOpen && (
-        <CardModal
-          cardId={cardId}
-          title={title}
-          description={description}
-        />
-      )} */}
-          <CardContent style={styles.cardContent} {...provided.dragHandleProps}>
-            {/* <Typography> */}
-            {title}
-            {/* </Typography> */}
+          {
+            <CardModal
+              cardId={cardId}
+              title={title}
+              description={description}
+            />
+          }
+          <CardContent style={styles.cardContent}>
+            <Typography>{title}</Typography>
           </CardContent>
-        </div>
+        </Card>
       )}
     </Draggable>
   );

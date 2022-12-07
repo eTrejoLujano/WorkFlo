@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
 
+import "../styles/list.css";
 import AddSingleCard from "./AddSingleCard";
 import SingleCard from "./SingleCard";
 import { fetchCards } from "../store/cardSlice";
