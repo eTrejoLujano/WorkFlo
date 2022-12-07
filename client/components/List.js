@@ -22,7 +22,7 @@ function List(props) {
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          style={styles.lists}
+          className="List"
         >
           <div style={styles.ListTitle} {...provided.dragHandleProps}>
             {title}
@@ -77,7 +77,6 @@ const styles = {
     marginRight: 0,
     borderRadius: "10px",
     border: "1px solid rgba(0, 0, 0, 0.12)",
-    flexGrow: 1,
   },
   ListTitle: {
     cursor: "pointer",
