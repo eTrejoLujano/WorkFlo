@@ -51,7 +51,7 @@ const getSingleProject = async (req, res, next) => {
       include: User,
       where: { userId: userProject.userId },
     });
-    res.redirect("/login");
+    // res.redirect("/login");
     res.send(project);
   } catch (err) {
     next(err);
