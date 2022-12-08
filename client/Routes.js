@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import history from "./history";
-import { Login, Signup } from "./components/Signin";
+import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import Project from "./components/Project";
 import Whiteboard from "./components/Whiteboard/Whiteboard";
