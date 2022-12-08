@@ -11,6 +11,8 @@ import AddList from "./AddList";
 import CopyLinkModal from "./CopyLinkModal";
 import { fetchProjects, fetchSelectedProject } from "../store/projectSlice";
 import CardModal2 from "./CardModal2";
+import CreateProjectModal from "./CreateProjectModal";
+
 import {
   fetchCards,
   movingCardLists,
@@ -133,6 +135,7 @@ function Project() {
   return (
     <div>
       <CardModal2 modalName="card" />
+      <CreateProjectModal modalName="createProject" />
       <Drawer />
       <div>
         <DragDropContext onDragEnd={onDragEnd}>
