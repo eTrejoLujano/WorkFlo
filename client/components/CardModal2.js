@@ -17,8 +17,10 @@ const CardModal2 = () => {
   );
 
   const userCard = useSelector((state) => state.userCard);
-  const indexUserCard = userCard.length - 1;
-  const users2 = userCard[indexUserCard]?.users;
+
+  const filterUserCard = userCard.filter((card) => card.id === cardId);
+  let filterIndex = filterUserCard.length - 1;
+  const filterUsers = filterUserCard[filterIndex]?.users;
 
   const [cardVals, setCardVals] = useState({
     title: title,
@@ -28,7 +30,9 @@ const CardModal2 = () => {
     setCardVals({ ...cardVals, [e.target.name]: e.target.value });
   };
 
-  const usersOnTask = (users2 ? users2 : users)?.map((user) => user.id);
+  const usersOnTask = (filterUsers ? filterUsers : users)?.map(
+    (user) => user.id
+  );
 
   const handleClick = (e, userId) => {
     const userCard = { userId, cardId };
@@ -57,7 +61,7 @@ const CardModal2 = () => {
         />
         <p>Assignees</p>
         <AssigneeBox>
-          {(users2 ? users2 : users)?.map((u) => (
+          {(filterUsers ? filterUsers : users)?.map((u) => (
             <Assignee key={u.id}>
               <Frame>
                 <img height="60px" width="60px" src={u.avatarURL} />
