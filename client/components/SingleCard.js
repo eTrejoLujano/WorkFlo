@@ -35,11 +35,11 @@ const SingleCard = ({
           {...provided.dragHandleProps}
         >
           {
-            <CardModal
-              cardId={cardId}
-              title={title}
-              description={description}
-            />
+            // <CardModal
+            //   cardId={cardId}
+            //   title={title}
+            //   description={description}
+            // />
           }
           <CardContent style={styles.cardContent}>
             <Typography>{title}</Typography>

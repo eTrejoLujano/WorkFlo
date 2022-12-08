@@ -42,6 +42,7 @@ export const updateCardIndex = createAsyncThunk(
 export const updateCard = createAsyncThunk("card/updateCard", async (value) => {
   try {
     const { data } = await axios.put(`/api/cards`, value, sendToken());
+
     return data;
   } catch (err) {
     console.error(err);
