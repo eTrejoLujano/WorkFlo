@@ -35,7 +35,7 @@ const getProjectsByUser = async (req, res, next) => {
 const createProject = async (req, res, next) => {
   try {
     const project = await Project.create({ ...req.body, id: req.user.id });
-    console.log('projects.js project****', project)
+    console.log("projects.js project****", project);
     res.json(project);
   } catch (error) {
     next(error);
@@ -111,9 +111,9 @@ router.post("/", requireToken, async (req, res, next) => {
       title: req.body.title,
     });
     await List.bulkCreate([
-      { title: "To Do", projectId: project.id },
-      { title: "Doing", projectId: project.id },
-      { title: "Done", projectId: project.id },
+      { title: "To Do", projectId: project.id, listindex: 0 },
+      { title: "Doing", projectId: project.id, listindex: 1 },
+      { title: "Done", projectId: project.id, listindex: 2 },
     ]);
     const assignProject = await UserProjects.create({
       userId: req.user.id,
