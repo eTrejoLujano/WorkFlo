@@ -19,18 +19,14 @@ const requireToken = async (req, res, next) => {
 // Assign user to card
 router.post("/", requireToken, async (req, res, next) => {
   try {
-    const card = await Card.findOne({ where: { id: req.body.cardId } });
+    let card = await Card.findOne({ where: { id: req.body.cardId } });
     await card.addUsers(req.body.userId);
-    // const userCard = await UserCards.findOne({
-    //   where: { cardId: req.body.cardId, userId: req.body.userId },
-    // });
-    const users = await card.getUsers();
-    console.log("users :>> ", users[0].dataValues);
-
-    ///can we send back a selectedCard here?
-    // dispatch(selectedCard({ cardId, title, description, users }));
-
-    res.json();
+    card = await Card.findOne({ 
+      where: { id: req.body.cardId }, 
+      // attributes: ['id', 'cardId'],
+      include: User
+    });
+    res.json(card);
   } catch (error) {
     next(error);
   }
@@ -40,10 +36,14 @@ router.post("/", requireToken, async (req, res, next) => {
 // Remove user from card
 router.put("/", requireToken, async (req, res, next) => {
   try {
-    console.log("apiUserCardPut");
-    const card = await Card.findOne({ where: { id: req.body.cardId } });
+    let card = await Card.findOne({ where: { id: req.body.cardId } });
     await card.removeUsers(req.body.userId);
-    res.json();
+    card = await Card.findOne({ 
+      where: { id: req.body.cardId }, 
+      // attributes: ['id', 'cardId'],
+      include: User
+    });
+    res.json(card);
   } catch (error) {
     next(error);
   }
