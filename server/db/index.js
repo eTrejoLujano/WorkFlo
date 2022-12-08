@@ -6,6 +6,7 @@ const Project = require("./models/Project");
 const Card = require("./models/Card");
 const User = require("./models/User");
 const List = require("./models/List");
+const Message = require("./models/Message");
 const UserCards = require("./models/UserCards");
 const UserProjects = require("./models/UserProjects");
 const Invite = require("./models/Invite");
@@ -24,13 +25,17 @@ List.belongsTo(Project);
 List.hasMany(Card);
 Card.belongsTo(List);
 
-
 Project.hasMany(Invite);
 Invite.belongsTo(Project);
 
 Whiteboard.belongsTo(Project);
 Project.hasMany(Whiteboard);
 
+User.hasMany(Message);
+Message.belongsTo(User);
+
+Project.hasMany(Message);
+Message.belongsTo(Project);
 
 module.exports = {
   db,
@@ -43,5 +48,6 @@ module.exports = {
     UserProjects,
     Invite,
     Whiteboard,
+    Message,
   },
 };
