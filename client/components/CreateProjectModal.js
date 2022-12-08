@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { connect, useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { ClassNames } from "@emotion/react";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import Box from '@mui/material/Box';
 import { Button, Typography } from "@mui/material";
 import MUIModal from "@mui/material/Modal";
 import TextField from '@mui/material/TextField';
 
 import { createProject, fetchProjects } from "../store/projectSlice";
 import { toggleModal } from "../store/uiSlice";
-import { addInvitedUser } from "../store/copyLinkSlice";
-import { compareHash } from "../store/copyLinkSlice";
-import socket from "../socket";
 
 export const CreateProjectModal = () => {
   const dispatch = useDispatch();
