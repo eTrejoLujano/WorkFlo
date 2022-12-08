@@ -49,7 +49,7 @@ const AuthForm = (props) => {
 
   return (
     <div>
-      {displayName === "Sign Up" ? (
+      {displayName === "Login" ? (
         <ThemeProvider theme={theme}>
           <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -188,14 +188,6 @@ const AuthForm = (props) => {
                       type="password"
                       id="password"
                       autoComplete="new-password"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox value="allowExtraEmails" color="primary" />
-                      }
-                      label="I want to receive inspiration, marketing promotions and updates via email."
                     />
                   </Grid>
                 </Grid>
