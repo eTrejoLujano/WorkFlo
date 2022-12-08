@@ -13,6 +13,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import { useSelector } from "react-redux";
 import WhiteboardDrawer from "./WhiteboardDrawer";
 import { Link } from "react-router-dom";
+import NewChat from "./NewChat";
 
 export default function TemporaryDrawer() {
   const { users, id } = useSelector((state) => state.project.selectedProject);
@@ -27,8 +28,8 @@ export default function TemporaryDrawer() {
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
+      event.type === "keydown"
+      // (event.key === "Tab" || event.key === "Shift")
     ) {
       return;
     }
@@ -78,6 +79,7 @@ export default function TemporaryDrawer() {
           <ListItem key={user.id} disablePadding>
             <ListItemButton>
               <ListItemText primary={user.firstName} />
+
               <div
                 style={{
                   borderRadius: "100px",
@@ -92,6 +94,7 @@ export default function TemporaryDrawer() {
             </ListItemButton>
           </ListItem>
         ))}
+        <NewChat />
       </List>
     </Box>
   );

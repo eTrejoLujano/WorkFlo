@@ -11,5 +11,9 @@ module.exports = (io) => {
       userPool[user] = socket.id;
       socket.broadcast.emit("user-joined", user);
     });
+
+    socket.on("send_message", (data) => {
+      socket.broadcast.emit("receive_message", data);
+    });
   });
 };
