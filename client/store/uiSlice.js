@@ -7,6 +7,7 @@ const initialState = {
   modalIsOpen: {
     card: false,
     footer: false,
+    createProject: false,
     whiteboard: false,
   },
   selectedCard: {},
