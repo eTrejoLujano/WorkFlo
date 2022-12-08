@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import history from "./history";
-import { Login, Signup } from "./components/AuthForm";
+import { Login, Signup } from "./components/Signin";
 import Home from "./components/Home";
 import Project from "./components/Project";
 import Whiteboard from "./components/Whiteboard/Whiteboard";
@@ -36,7 +36,6 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
 
             {/* <Redirect to="/" /> */}
-
           </Switch>
         )}
         {!history.location.pathname.startsWith("/chat") && <Footer />}
