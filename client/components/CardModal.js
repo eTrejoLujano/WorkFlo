@@ -49,7 +49,7 @@ const CardModal = () => {
 
   return (
     <div>
-      <Modal  modalName="card">
+      <Modal modalName="card">
         <form onSubmit={handleSubmit}>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <label htmlFor="title">Title</label>

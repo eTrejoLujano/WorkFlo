@@ -7,7 +7,6 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import { toggleModal, selectedCard } from "../store/uiSlice";
 import { Draggable } from "react-beautiful-dnd";
-import CardModal from "./CardModal2";
 
 const SingleCard = ({
   cardId,
@@ -34,13 +33,6 @@ const SingleCard = ({
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          {
-            // <CardModal
-            //   cardId={cardId}
-            //   title={title}
-            //   description={description}
-            // />
-          }
           <CardContent style={styles.cardContent}>
             <Typography>{title}</Typography>
           </CardContent>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReusableModal from "../components/ReusableModal";
 import styled from "styled-components";
-import { Modal } from "antd";
+import { Modal } from "antd"; 
 import { useSelector, useDispatch } from "react-redux";
 import { selectedCard, toggleModal } from "../store/uiSlice";
 import { useEffect } from "react";
@@ -19,20 +19,20 @@ const CardModal2 = () => {
   const userCard = useSelector((state) => state.userCard);
 
   const [cardVals, setCardVals] = useState({
-    title: "",
+    title: title,
   });
 
   const handleChange = (e) => {
     setCardVals({ ...cardVals, [e.target.name]: e.target.value });
   };
 
-  const usersOnTask = users?.map((u) => u.id);
+  const usersOnTask = users?.map((user) => user.id);
 
   const handleClick = (e, userId) => {
-    const card = { userId, cardId };
+    const userCard = { userId, cardId };
     !usersOnTask.includes(userId)
-      ? dispatch(assignToCard(card))
-      : dispatch(removeFromCard(card));
+      ? dispatch(assignToCard(userCard))
+      : dispatch(removeFromCard(userCard));
   };
 
   return (
@@ -55,7 +55,6 @@ const CardModal2 = () => {
         />
         <p>Assignees</p>
         <AssigneeBox>
-          {JSON.stringify(userCard)}
           {users &&
             users.map((u) => (
               <Assignee key={u.id}>
