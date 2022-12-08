@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { useDispatch, useSelector } from "react-redux";
 import socket from "../socket";
+import { sendMessage, receiveMessage } from "../store/chatSlice";
 
 function NewChat() {
+  const dispatch = useDispatch();
+  const { messageList } = useSelector((state) => state.chat);
   const [currentMessage, setCurrentMessage] = useState("");
-  const [messageList, setMessageList] = useState([]);
 
   const user = useSelector((state) => state.auth);
-
-  const sendMessage = async () => {
+  const { id } = useSelector((state) => state.project.selectedProject);
+  console.log("id :>> ", id);
+  const sendMsg = async () => {
     if (currentMessage !== "") {
       const messageData = {
         author: user.firstName,
@@ -18,17 +21,19 @@ function NewChat() {
           new Date(Date.now()).getHours() +
           ":" +
           new Date(Date.now()).getMinutes(),
+        projectId: id,
       };
 
+      dispatch(sendMessage(messageData));
       await socket.emit("send_message", messageData);
-      setMessageList((list) => [...list, messageData]);
+
       setCurrentMessage("");
     }
   };
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      setMessageList((list) => [...list, data]);
+      dispatch(receiveMessage(data));
     });
   }, [socket]);
 
@@ -69,10 +74,10 @@ function NewChat() {
             setCurrentMessage(event.target.value);
           }}
           onKeyPress={(event) => {
-            event.key === "Enter" && sendMessage();
+            event.key === "Enter" && sendMsg();
           }}
         />
-        <button onClick={sendMessage}>&#9658;</button>
+        <button onClick={sendMsg}>&#9658;</button>
       </div>
     </div>
   );
