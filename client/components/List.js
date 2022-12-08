@@ -7,6 +7,7 @@ import "../styles/list.css";
 import AddSingleCard from "./AddSingleCard";
 import SingleCard from "./SingleCard";
 import { fetchCards } from "../store/cardSlice";
+import { useState } from "react";
 
 function List(props) {
   const { title, listid, index, listHashId } = props;

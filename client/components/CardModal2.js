@@ -3,28 +3,36 @@ import ReusableModal from "../components/ReusableModal";
 import styled from "styled-components";
 import { Modal } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleModal } from "../store/uiSlice";
+import { selectedCard, toggleModal } from "../store/uiSlice";
 import { useEffect } from "react";
+import { assignToCard, removeFromCard } from "../store/userCardSlice";
 
 const CardModal2 = () => {
   const dispatch = useDispatch();
-
   const { modalIsOpen } = useSelector((state) => state.ui);
+  const { project } = useSelector((state) => state);
 
-  const project = useSelector((state) => state.project);
-  const { selectedCard } = useSelector((state) => state.ui);
+  const { users, cardId, title, description } = useSelector(
+    (state) => state.ui.selectedCard
+  );
+
+  const userCard = useSelector((state) => state.userCard);
+
   const [cardVals, setCardVals] = useState({
     title: "",
   });
-
-  const usersOnTask = selectedCard.users?.map((u) => u.firstName);
 
   const handleChange = (e) => {
     setCardVals({ ...cardVals, [e.target.name]: e.target.value });
   };
 
-  const handleClick = () => {
-    window.alert();
+  const usersOnTask = users?.map((u) => u.id);
+
+  const handleClick = (e, userId) => {
+    const card = { userId, cardId };
+    !usersOnTask.includes(userId)
+      ? dispatch(assignToCard(card))
+      : dispatch(removeFromCard(card));
   };
 
   return (
@@ -36,20 +44,21 @@ const CardModal2 = () => {
         <label>Title:</label>
         <input
           name="title"
-          value={cardVals.title || ""}
+          value={cardVals.title || title}
           onChange={handleChange}
         />
         <label>Description:</label>
         <input
           name="description"
-          value={cardVals.description || ""}
+          value={cardVals.description || description}
           onChange={handleChange}
         />
         <p>Assignees</p>
         <AssigneeBox>
-          {selectedCard.users &&
-            selectedCard.users.map((u) => (
-              <Assignee>
+          {JSON.stringify(userCard)}
+          {users &&
+            users.map((u) => (
+              <Assignee key={u.id}>
                 <Frame>
                   <img height="60px" width="60px" src={u.avatarURL} />
                 </Frame>
@@ -61,8 +70,8 @@ const CardModal2 = () => {
             return (
               <ProjectMember key={u.id}>
                 <p>{u.firstName}</p>
-                <button onClick={() => handleClick(u.firstName)}>
-                  {usersOnTask?.includes(u.firstName) ? "remove" : "add"}
+                <button onClick={(e) => handleClick(e, u.id)}>
+                  {usersOnTask?.includes(u.id) ? "remove" : "add"}
                 </button>
               </ProjectMember>
             );
@@ -70,15 +79,6 @@ const CardModal2 = () => {
         </ProjectMemberBox>
       </CardContainer>
     </Modal>
-    // <ReusableModal modalName="card">
-    //   <CardContainer>
-    //     <label>Title:</label>
-    //     <input />
-    //     <label>Description:</label>
-    //     <input />
-    //     <p>Assignees</p>
-    //   </CardContainer>
-    // </ReusableModal>
   );
 };
 
