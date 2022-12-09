@@ -38,7 +38,8 @@ class Routes extends Component {
             {/* <Redirect to="/" /> */}
           </Switch>
         )}
-        {!history.location.pathname.startsWith("/chat") && <Footer />}
+        {!history.location.pathname.startsWith("/chat") &&
+          !history.location.pathname.startsWith("/projects") && <Footer />}
       </div>
     );
   }

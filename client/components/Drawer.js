@@ -19,8 +19,11 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useEffect, useState } from "react";
 import CopyLinkModal from "./CopyLinkModal";
 import { useParams } from "react-router-dom";
+import { toggleModal } from "../store/uiSlice";
+import { useDispatch } from "react-redux";
 
 export default function TemporaryDrawer() {
+  const dispatch = useDispatch();
   const { users, id } = useSelector((state) => state.project.selectedProject);
   const { online } = useSelector((state) => state.chat);
   const params = useParams();
@@ -34,7 +37,7 @@ export default function TemporaryDrawer() {
   const [value, setValue] = useState("");
 
   const buttonClicked = () => {
-    setModalOpen(true);
+    dispatch(toggleModal("copyLink"));
     setValue(window.location.href);
   };
 
@@ -68,13 +71,13 @@ export default function TemporaryDrawer() {
                   + Invite
                 </p>
               )}
-              {modalOpen && (
+              {/* {modalOpen && (
                 <CopyLinkModal
                   setOpenModal={setModalOpen}
                   value={value}
                   projectId={params.projectId}
                 />
-              )}
+              )} */}
               {text === "Whiteboards" && <WhiteboardDrawer />}
             </ListItemButton>
           </ListItem>

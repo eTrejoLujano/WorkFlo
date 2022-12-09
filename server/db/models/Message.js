@@ -18,12 +18,12 @@ const Message = db.define(
     time: {
       type: Sequelize.STRING,
     },
-  },
-  {
-    defaultScope: {
-      include: [{ model: User }],
-    },
   }
+  // {
+  //   defaultScope: {
+  //     include: [{ model: User }],
+  //   },
+  // }
 );
 
 module.exports = Message;
