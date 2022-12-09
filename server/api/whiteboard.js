@@ -16,13 +16,21 @@ const requireToken = async (req, res, next) => {
 };
 
 router.post("/", requireToken, async (req, res, next) => {
-  const whiteboard = await Whiteboard.create(req.body);
-  res.json(whiteboard);
+  try {
+    const whiteboard = await Whiteboard.create(req.body);
+    res.json(whiteboard);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/:projectId", requireToken, async (req, res, next) => {
-  const whiteboards = await Whiteboard.findAll({
-    where: { projectId: req.params.projectId },
-  });
-  res.json(whiteboards);
+  try {
+    const whiteboards = await Whiteboard.findAll({
+      where: { projectId: req.params.projectId },
+    });
+    res.json(whiteboards);
+  } catch (error) {
+    next(error);
+  }
 });

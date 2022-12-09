@@ -9,8 +9,13 @@ import { fetchLists, updateList, movingList } from "../store/listSlice";
 import List from "./List";
 import AddList from "./AddList";
 import CopyLinkModal from "./CopyLinkModal";
-import { fetchProjects, fetchSelectedProject } from "../store/projectSlice";
+import {
+  fetchProjects,
+  fetchSelectedProject,
+  fetchWhiteboards,
+} from "../store/projectSlice";
 import CardModal2 from "./CardModal2";
+import WhiteboardModal from "./Whiteboard/WhiteboardModal";
 import CreateProjectModal from "./CreateProjectModal";
 
 import {
@@ -19,9 +24,11 @@ import {
   updateCardIndex,
   updateCards,
 } from "../store/cardSlice";
+import socket from "../socket";
 
 function Project() {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const lists = useSelector((state) => state.lists);
   const projects = useSelector((state) => state.project);
   const cards = useSelector((state) => state.cards);
@@ -32,6 +39,10 @@ function Project() {
     dispatch(fetchSelectedProject(params.projectId));
     dispatch(fetchLists(params.projectId));
     dispatch(fetchCards(params.projectId));
+    socket.emit("user-joined", {
+      userId: auth.id,
+      projectId: params.projectId,
+    });
   }, [params.projectId]);
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -133,6 +144,7 @@ function Project() {
   return (
     <div>
       <CardModal2 modalName="card" />
+      <WhiteboardModal />
       <CreateProjectModal modalName="createProject" />
       <Drawer />
       <div>

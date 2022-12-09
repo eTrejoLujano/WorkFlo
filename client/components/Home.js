@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 import { createProject, fetchProjects } from "../store/projectSlice";
 import { addInvitedUser } from "../store/copyLinkSlice";
 import { compareHash } from "../store/copyLinkSlice";
-import socket from "../socket";
+
 import { Button, Typography } from "@mui/material";
 import { ClassNames } from "@emotion/react";
 
@@ -45,7 +45,6 @@ export const Home = () => {
 
   useEffect(() => {
     dispatch(fetchProjects());
-    socket.emit("user-joined", firstName);
   }, []);
 
   // Add New Project
@@ -57,35 +56,43 @@ export const Home = () => {
     setTitleValue({ ...titleValue, [event.target.name]: event.target.value });
   };
 
-  const [titleError, setTitleError] = useState(false)
+  const [titleError, setTitleError] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setTitleError(false)
+    setTitleError(false);
 
-    if (titleValue.title === '') {
-      setTitleError(true)
+    if (titleValue.title === "") {
+      setTitleError(true);
       return;
     }
     dispatch(createProject(titleValue));
-    console.log('handleSubmit titleValue', titleValue)
+    console.log("handleSubmit titleValue", titleValue);
   };
 
-  return ( 
+  return (
     <HomeContainer>
-
       <NewTitleContainer>
-        <Typography variant="h6" component="h2">Project Title</Typography>
+        <Typography variant="h6" component="h2">
+          Project Title
+        </Typography>
         <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-          <TextField 
-            onChange={(event) => setTitleValue({...titleValue, [event.target.name]: event.target.value})}
+          <TextField
+            onChange={(event) =>
+              setTitleValue({
+                ...titleValue,
+                [event.target.name]: event.target.value,
+              })
+            }
             name="title"
             variant="outlined"
             placeholder="Project Title"
             required
             error={titleError}
           />
-          <Button type="submit" variant="contained">Add a New Project</Button>
+          <Button type="submit" variant="contained">
+            Add a New Project
+          </Button>
         </form>
       </NewTitleContainer>
 
@@ -117,7 +124,6 @@ const InputSubmit = styled.div`
   align-items: center;
 `;
 
-
 const NewTitleContainer = styled.div`
   display: flex;
   // flex-direction: column;
@@ -137,6 +143,3 @@ const ProjectContainer = styled.div`
   border-radius: 10px;
   padding: 10px;
 `;
-
-
-

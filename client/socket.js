@@ -6,8 +6,8 @@ const socket = io(window.location.origin);
 
 socket.on("connect", () => {
   console.log("I am now connected to the server!");
-  socket.on("user-joined", (user) => {
-    store.dispatch(userJoined(user));
+  socket.on("user-joined", (joiner) => {
+    store.dispatch(userJoined(joiner));
   });
 });
 
