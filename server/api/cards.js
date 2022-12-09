@@ -162,6 +162,8 @@ router.put("/cardindex/lists", requireToken, async (req, res, next) => {
       const cardsFromStarting = await Card.findOne({
         where: { cardindex: i, listId: req.body.startingListId },
       });
+      console.log('cardsFromStarting', cardsFromStarting)
+      console.log('i', i)
       await Card.update(
         {
           cardindex: Sequelize.literal("cardIndex - 1"),

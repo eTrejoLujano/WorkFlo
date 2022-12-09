@@ -8,128 +8,143 @@ const {
 
 const users = [
   {
-    firstName: "cody",
-    lastName: "smith",
+    firstName: "Cody",
+    lastName: "Smith",
     email: "cody@cody.com",
     password: "123",
     isAdmin: true,
-    avatarURL: "/images/profilePic/erik.jpeg",
+    avatarURL: "/images/profilePic/cody.jpeg",
   },
   {
-    firstName: "murphy",
-    lastName: "O'Neil",
+    firstName: "Murphy",
+    lastName: "Brown",
     email: "murphy@murphy.com",
     password: "123",
     isAdmin: false,
-    avatarURL: "/images/profilePic/jerral.jpeg",
+    avatarURL: "/images/profilePic/murphy.jpeg",
+  },
+  {
+    firstName: "Jonatha",
+    lastName: "Brooke",
+    email: "jonatha@jonatha.com",
+    password: "123",
+    isAdmin: false,
+    avatarURL: "/images/profilePic/jonatha.png",
+  },
+  {
+    firstName: "Katie",
+    lastName: "Crutchfield",
+    email: "katie@katie.com",
+    password: "123",
+    isAdmin: false,
+    avatarURL: "/images/profilePic/katie.jpeg",
+  },
+  {
+    firstName: "Jerry",
+    lastName: "Joseph",
+    email: "jerry@jerry.com",
+    password: "123",
+    isAdmin: false,
+    avatarURL: "/images/profilePic/jerry.jpeg",
+  },
+  {
+    firstName: "Maia",
+    lastName: "Sharpe",
+    email: "maia@maia.com",
+    password: "123",
+    isAdmin: false,
+    avatarURL: "/images/profilePic/maia.jpeg",
   },
 ];
 
 const projects = [
   {
-    title: "Project 1",
+    title: "Track List",
     complete: false,
-  },
-  {
-    title: "Project 2",
-  },
-  {
-    title: "Project 3",
-    complete: false,
-  },
-  {
-    title: "Project 4",
-    complete: true,
   },
 ];
 
 const lists = [
   {
-    title: "Pre Work",
+    title: "Record",
     projectId: 1,
     listindex: 0,
   },
   {
-    title: "Doing",
+    title: "Edit",
     projectId: 1,
     listindex: 1,
   },
   {
-    title: "Done",
+    title: "Finished",
     projectId: 1,
-    listindex: 2,
-  },
-  {
-    title: "To do",
-    projectId: 1,
-    listindex: 3,
-  },
-  {
-    title: "Prep Work",
-    projectId: 2,
-    listindex: 0,
-  },
-  {
-    title: "In Progress",
-    projectId: 2,
-    listindex: 1,
-  },
-  {
-    title: "Post Work",
-    projectId: 2,
     listindex: 2,
   },
 ];
 
 const cards = [
   {
-    title: "card1",
+    title: "Vocals",
     description: "description1",
     complete: false,
-    cardindex: 0,
+    cardindex: 1,
     listId: 1,
   },
   {
-    title: "card2",
+    title: "BGV",
     description: "description2",
     complete: false,
-    cardindex: 0,
+    cardindex: 2,
+    listId: 1,
+  },
+  {
+    title: "AcGtr",
+    description: "description3",
+    complete: true,
+    cardindex: 3,
+    listId: 1,
+  },
+  {
+    title: "ElGtr1",
+    description: "description4",
+    complete: true,
+    cardindex: 4,
+    listId: 1,
+  },
+  {
+    title: "ElGtr2",
+    description: "description5",
+    complete: false,
+    cardindex: 1,
     listId: 2,
   },
   {
-    title: "card3",
-    description: "description3",
+    title: "Organ",
+    description: "description6",
     complete: true,
+    cardindex: 2,
+    listId: 2,
+  },
+  {
+    title: "Rhodes",
+    description: "description7",
+    complete: false,
     cardindex: 0,
     listId: 3,
   },
   {
-    title: "card4",
-    description: "description4",
-    complete: true,
-    cardindex: 0,
-    listId: 4,
-  },
-  {
-    title: "card5",
-    description: "description5",
-    complete: false,
-    cardindex: 0,
-    listId: 5,
-  },
-  {
-    title: "card6",
+    title: "Bass",
     description: "description6",
     complete: true,
-    cardindex: 0,
-    listId: 6,
+    cardindex: 1,
+    listId: 3,
   },
   {
-    title: "card7",
+    title: "Drums",
     description: "description7",
     complete: false,
-    cardindex: 0,
-    listId: 7,
+    cardindex: 2,
+    listId: 3,
   },
 ];
 
@@ -139,24 +154,36 @@ const seeduserCards = [
     cardId: 1,
   },
   {
-    userId: 1,
+    userId: 2,
     cardId: 2,
   },
   {
-    userId: 1,
+    userId: 3,
     cardId: 3,
   },
   {
-    userId: 2,
+    userId: 4,
     cardId: 4,
   },
   {
-    userId: 2,
+    userId: 5,
     cardId: 5,
   },
   {
-    userId: 2,
+    userId: 6,
     cardId: 6,
+  },
+  {
+    userId: 4,
+    cardId: 7,
+  },
+  {
+    userId: 5,
+    cardId: 8,
+  },
+  {
+    userId: 6,
+    cardId: 9,
   },
 ];
 
@@ -166,17 +193,26 @@ const seeduserProjects = [
     projectId: 1,
   },
   {
-    userId: 1,
-    projectId: 2,
-  },
-  {
     userId: 2,
     projectId: 1,
   },
   {
-    userId: 2,
-    projectId: 2,
+    userId: 3,
+    projectId: 1,
   },
+  {
+    userId: 4,
+    projectId: 1,
+  },
+  {
+    userId: 5,
+    projectId: 1,
+  },
+  {
+    userId: 6,
+    projectId: 1,
+  },
+ 
 ];
 
 const seed = async () => {
