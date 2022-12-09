@@ -9,6 +9,8 @@ import Whiteboard from "./components/Whiteboard/Whiteboard";
 import Chat from "./components/Chat";
 import { me } from "./store/authSlice";
 import Footer from "./components/footer/Footer";
+
+import "./styles/Background.css";
 /**
  * COMPONENT
  */
@@ -20,7 +22,7 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
 
     return (
-      <div>
+      <div className="backgroundMain">
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />

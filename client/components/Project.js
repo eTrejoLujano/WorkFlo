@@ -25,6 +25,7 @@ import {
   updateCards,
 } from "../store/cardSlice";
 import socket from "../socket";
+import "../styles/Background.css";
 
 function Project() {
   const dispatch = useDispatch();
@@ -151,16 +152,6 @@ function Project() {
         <DragDropContext onDragEnd={onDragEnd}>
           <div className="workspace-heading">
             <h2>{projects.selectedProject?.title}</h2>
-            <button className="inviteBtn" onClick={buttonClicked}>
-              + Invite
-            </button>
-            {modalOpen && (
-              <CopyLinkModal
-                setOpenModal={setModalOpen}
-                value={value}
-                projectId={params.projectId}
-              />
-            )}
           </div>
           <Droppable droppableId="all-lists" direction="horizontal" type="list">
             {(provided) => (
