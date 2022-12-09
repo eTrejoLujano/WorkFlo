@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { createList } from "../store/listSlice";
+import "../styles/Board.css";
+import "../styles/AddList.css";
 
 const AddList = ({ projectid }) => {
   const dispatch = useDispatch();
@@ -26,43 +28,32 @@ const AddList = ({ projectid }) => {
     dispatch(createList({ ...titleValue, projectId: projectid }));
   };
   return (
-    <div style={styles.addList}>
+    <div className="Add-List">
       {showAddList ? (
         <div>
           <form onSubmit={handleSubmit}>
             <input
+              className="Add-List-Editor"
               name="title"
               value={titleValue.title}
               onChange={handleChange}
             />
-            <button type="submit">Add List</button>
+            <button type="submit" className="Add-List-Button">
+              Add List
+            </button>
           </form>
         </div>
       ) : (
-        <div>
-          <button onClick={() => setShowAddList(!showAddList)}>
-            Add Another List
-          </button>
+        <div
+          className="Add-List-Button"
+          onClick={() => setShowAddList(!showAddList)}
+        >
+          <ion-icon name="add" />
+          Add a List
         </div>
       )}
     </div>
   );
-};
-
-const styles = {
-  addList: {
-    backgroundColor: "rgba(0, 0, 0, 0.12)",
-    borderRadius: "10px",
-    cursor: "pointer",
-    // color: #fff,
-    display: " flex",
-    alignItems: "center",
-    minHeight: "32px",
-    padding: "5px 8px",
-    // transition: background-color 85ms ease-in, opacity 40ms ease-in,
-    //   border-color 85ms ease-in;
-    height: "fit-content",
-  },
 };
 
 export default AddList;
