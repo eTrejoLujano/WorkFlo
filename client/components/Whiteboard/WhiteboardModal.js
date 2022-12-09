@@ -6,7 +6,7 @@ import ReusableModal from "../ReusableModal";
 import { toggleModal } from "../../store/uiSlice";
 import { useParams } from "react-router-dom";
 
-const WhiteboardModal = ({ loadWhiteboards }) => {
+const WhiteboardModal = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -23,7 +23,6 @@ const WhiteboardModal = ({ loadWhiteboards }) => {
     dispatch(
       startWhiteboard({ ...formData, url, projectId: params.projectId })
     );
-    loadWhiteboards();
   };
 
   const handleChange = (e) => {
@@ -32,6 +31,7 @@ const WhiteboardModal = ({ loadWhiteboards }) => {
   return (
     <ReusableModal modalName="whiteboard">
       <div style={{ padding: 20, display: "flex", flexDirection: "column" }}>
+        <h1>Start a whiteboard</h1>
         <label htmlFor="title">Title:</label>
         <input
           name="title"
