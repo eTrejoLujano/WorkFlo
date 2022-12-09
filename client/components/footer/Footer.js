@@ -47,7 +47,7 @@ const Container = styled.div`
   width: 100%;
   margin-top: auto;
   color: rgb(252, 254, 255);
-  background-color: rgb(23, 23, 96);
+  background-color: #1976d2;
   height: 50px;
   display: flex;
   justify-content: center;

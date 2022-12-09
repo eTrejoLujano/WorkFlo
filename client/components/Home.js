@@ -40,7 +40,6 @@ export const Home = () => {
       ("invite link invalid");
     }
   }, [hash]);
-  // }
 
   useEffect(() => {
     dispatch(fetchProjects());

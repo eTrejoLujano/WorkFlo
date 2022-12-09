@@ -4,6 +4,7 @@ import { FaCopy } from "react-icons/fa";
 import { Tooltip } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import { copyLink } from "../store/copyLinkSlice";
+import { toggleModal } from "../store/uiSlice";
 
 function CopyLinkModal({ setOpenModal, value, projectId }) {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function CopyLinkModal({ setOpenModal, value, projectId }) {
         <div className="titleCloseBtn">
           <button
             onClick={() => {
-              setOpenModal(false);
+              dispatch(toggleModal("copyLink"));
             }}
           >
             X

@@ -25,7 +25,7 @@ import {
   updateCards,
 } from "../store/cardSlice";
 import socket from "../socket";
-import "../styles/Background.css";
+import { toggleModal } from "../store/uiSlice";
 
 function Project() {
   const dispatch = useDispatch();
@@ -33,6 +33,7 @@ function Project() {
   const lists = useSelector((state) => state.lists);
   const projects = useSelector((state) => state.project);
   const cards = useSelector((state) => state.cards);
+  const { modalIsOpen } = useSelector((state) => state.ui);
   const params = useParams();
 
   useEffect(() => {
@@ -68,13 +69,11 @@ function Project() {
       return;
     }
 
-    console.log("TYPE>>>", type);
-
     if (type === "list") {
       const [aListDrag] = lists.filter(
         (item) => item.listHashId === draggableId
       );
-      console.log("A LIST DRAG", aListDrag);
+
       dispatch(
         movingList({
           listDragId: aListDrag.id,
@@ -152,6 +151,16 @@ function Project() {
         <DragDropContext onDragEnd={onDragEnd}>
           <div className="workspace-heading">
             <h2>{projects.selectedProject?.title}</h2>
+            <button className="inviteBtn" onClick={buttonClicked}>
+              + Invite
+            </button>
+            {modalIsOpen["copyLink"] && (
+              <CopyLinkModal
+                setOpenModal={toggleModal("copyLink")}
+                value={value}
+                projectId={params.projectId}
+              />
+            )}
           </div>
           <Droppable droppableId="all-lists" direction="horizontal" type="list">
             {(provided) => (
