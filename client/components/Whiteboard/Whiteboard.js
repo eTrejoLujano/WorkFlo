@@ -27,8 +27,6 @@ const Whiteboard = () => {
 
   return (
     <div style={styles.container}>
-      <WhiteboardModal loadWhiteboards={loadWhiteboards} />
-
       <div style={styles.boardsContainer}>
         Project whiteboards
         {whiteboards.length > 0 &&

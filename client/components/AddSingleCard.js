@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { createCard } from "../store/cardSlice";
+import "../styles/Card.css";
+import "../styles/CardEditor.css";
+import "../styles/AddList.css";
 
 function AddSingleCard(props) {
   const { listid } = props;
@@ -26,24 +29,27 @@ function AddSingleCard(props) {
   return (
     <div>
       {showAddCard ? (
-        <div style={styles.buttonContainer}>
+        <div>
           <form onSubmit={handleSubmit}>
             <input
               name="title"
               value={titleValue.title}
               onChange={handleChange}
-            />
-            <button type="submit">Add Card</button>
+              className="Add-List-Editor"
+            ></input>
+
+            <button type="submit" className="Card-Button">
+              Add Card
+            </button>
           </form>
         </div>
       ) : (
-        <div>
-          <button
-            onClick={() => setShowAddCard(!showAddCard)}
-            style={styles.toggleAddCard}
-          >
-            Add Another Card
-          </button>
+        <div
+          className="Toggle-Add-Card"
+          onClick={() => setShowAddCard(!showAddCard)}
+        >
+          <ion-icon name="add" />
+          Add a Card
         </div>
       )}
     </div>

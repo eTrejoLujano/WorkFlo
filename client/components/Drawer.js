@@ -14,17 +14,29 @@ import { useSelector } from "react-redux";
 import WhiteboardDrawer from "./WhiteboardDrawer";
 import { Link } from "react-router-dom";
 import NewChat from "./NewChat";
+import IconButton from "@mui/material/IconButton";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useEffect, useState } from "react";
+import CopyLinkModal from "./CopyLinkModal";
+import { useParams } from "react-router-dom";
 
 export default function TemporaryDrawer() {
   const { users, id } = useSelector((state) => state.project.selectedProject);
   const { online } = useSelector((state) => state.chat);
-
+  const params = useParams();
   const [state, setState] = React.useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
   });
+  const [modalOpen, setModalOpen] = useState(false);
+  const [value, setValue] = useState("");
+
+  const buttonClicked = () => {
+    setModalOpen(true);
+    setValue(window.location.href);
+  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -52,14 +64,16 @@ export default function TemporaryDrawer() {
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon> */}
               {text === "Invite" && (
-                <p
-                  className="inviteBtn"
-                  onClick={() => {
-                    window.alert("You're in Jerral's hands now!");
-                  }}
-                >
+                <p className="inviteBtn" onClick={buttonClicked}>
                   + Invite
                 </p>
+              )}
+              {modalOpen && (
+                <CopyLinkModal
+                  setOpenModal={setModalOpen}
+                  value={value}
+                  projectId={params.projectId}
+                />
               )}
               {text === "Whiteboards" && <WhiteboardDrawer />}
             </ListItemButton>
@@ -103,7 +117,16 @@ export default function TemporaryDrawer() {
     <div>
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <IconButton
+            aria-label="more"
+            id="long-button"
+            aria-controls={open ? "long-menu" : undefined}
+            aria-expanded={open ? "true" : undefined}
+            aria-haspopup="true"
+            onClick={toggleDrawer(anchor, true)}
+          >
+            <MoreVertIcon />
+          </IconButton>
           <Drawer
             anchor={anchor}
             open={state[anchor]}

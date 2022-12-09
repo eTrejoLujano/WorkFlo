@@ -23,8 +23,13 @@ const CardModal2 = () => {
   const filterUsers = filterUserCard[filterIndex]?.users;
 
   const [cardVals, setCardVals] = useState({
-    title: title,
+    title: "",
+    description: "",
   });
+
+  useEffect(() => {
+    setCardVals({ title, description });
+  }, [cardId]);
 
   const handleChange = (e) => {
     setCardVals({ ...cardVals, [e.target.name]: e.target.value });
@@ -33,8 +38,6 @@ const CardModal2 = () => {
   const usersOnTask = (filterUsers ? filterUsers : users)?.map(
     (user) => user.id
   );
-
-  console.log("USERS ON TASK>>>>>", usersOnTask);
 
   const handleClick = (e, userId) => {
     const userCard = { userId, cardId };
@@ -50,15 +53,11 @@ const CardModal2 = () => {
     >
       <CardContainer>
         <label>Title:</label>
-        <input
-          name="title"
-          value={cardVals.title || title}
-          onChange={handleChange}
-        />
+        <input name="title" value={cardVals.title} onChange={handleChange} />
         <label>Description:</label>
         <input
           name="description"
-          value={cardVals.description || description}
+          value={cardVals.description}
           onChange={handleChange}
         />
         <p>Assignees</p>

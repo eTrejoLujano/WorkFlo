@@ -2,15 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import "../styles/list.css";
+import "../styles/Board.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Drawer from "../components/Drawer";
 import { fetchLists, updateList, movingList } from "../store/listSlice";
 import List from "./List";
 import AddList from "./AddList";
 import CopyLinkModal from "./CopyLinkModal";
-import { fetchProjects, fetchSelectedProject } from "../store/projectSlice";
+import {
+  fetchProjects,
+  fetchSelectedProject,
+  fetchWhiteboards,
+} from "../store/projectSlice";
 import CardModal2 from "./CardModal2";
+import WhiteboardModal from "./Whiteboard/WhiteboardModal";
 import CreateProjectModal from "./CreateProjectModal";
 
 import {
@@ -19,9 +24,11 @@ import {
   updateCardIndex,
   updateCards,
 } from "../store/cardSlice";
+import socket from "../socket";
 
 function Project() {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const lists = useSelector((state) => state.lists);
   const projects = useSelector((state) => state.project);
   const cards = useSelector((state) => state.cards);
@@ -32,6 +39,10 @@ function Project() {
     dispatch(fetchSelectedProject(params.projectId));
     dispatch(fetchLists(params.projectId));
     dispatch(fetchCards(params.projectId));
+    socket.emit("user-joined", {
+      userId: auth.id,
+      projectId: params.projectId,
+    });
   }, [params.projectId]);
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -131,6 +142,7 @@ function Project() {
   return (
     <div>
       <CardModal2 modalName="card" />
+      <WhiteboardModal />
       <CreateProjectModal modalName="createProject" />
       <Drawer />
       <div>
@@ -151,7 +163,7 @@ function Project() {
           <Droppable droppableId="all-lists" direction="horizontal" type="list">
             {(provided) => (
               <div
-                style={styles.listsContainer}
+                className="Board"
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >

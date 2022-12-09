@@ -8,6 +8,7 @@ export const startWhiteboard = createAsyncThunk(
   async (values, thunkAPI) => {
     try {
       const { data } = await axios.post("/api/whiteboard", values, sendToken());
+      thunkAPI.dispatch(startedWhiteboard(data));
     } catch (err) {
       console.log(err);
     }
@@ -78,6 +79,9 @@ const projectSlice = createSlice({
     loadWhiteboards: (state, action) => {
       state.whiteboards = action.payload;
     },
+    startedWhiteboard: (state, action) => {
+      state.whiteboards.push(action.payload);
+    },
   },
   extraReducers: {
     [fetchProjects.fulfilled]: (state, action) => {
@@ -93,5 +97,5 @@ const projectSlice = createSlice({
   },
 });
 
-export const { loadWhiteboards } = projectSlice.actions;
+export const { loadWhiteboards, startedWhiteboard } = projectSlice.actions;
 export default projectSlice.reducer;
