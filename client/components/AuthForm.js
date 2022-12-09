@@ -16,6 +16,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { connect } from "react-redux";
 import { authenticate } from "../store/authSlice";
 
+const theme = createTheme({});
+
 function Copyright(props) {
   return (
     <Typography
@@ -26,15 +28,13 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Brain Sceheme - maybe
+        WorkFlo
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
   );
 }
-
-const theme = createTheme();
 
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;

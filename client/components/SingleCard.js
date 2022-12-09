@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-i;
 import "../styles/Card.css";
 import "../styles/List.css";
 
