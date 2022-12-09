@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import AddIcon from '@mui/icons-material/Add';
@@ -28,6 +28,7 @@ const ProjectMenu = () => {
   // Open CreateProjectModal
   const handleOpen = () => {
     dispatch(toggleModal("createProject"));
+    handleClose();
   }
 
   return (
