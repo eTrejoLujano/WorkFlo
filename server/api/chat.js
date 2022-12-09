@@ -29,3 +29,12 @@ router.post("/", requireToken, async (req, res, next) => {
     next(error);
   }
 });
+
+router.get("/", requireToken, async (req, res, next) => {
+  try {
+    const message = await Message.findAll();
+    res.json(message);
+  } catch (error) {
+    next(error);
+  }
+});

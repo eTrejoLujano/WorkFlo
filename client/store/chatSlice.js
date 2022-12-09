@@ -10,7 +10,20 @@ export const sendMessage = createAsyncThunk(
       const { data } = await axios.post("/api/chat", message, sendToken());
       thunkAPI.dispatch(sentMessage(data));
     } catch (error) {
-      console.log(error);
+      console.error(error);
+    }
+  }
+);
+
+export const fetchMessages = createAsyncThunk(
+  "chat/fetchMessages",
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await axios.get("/api/chat", sendToken());
+      thunkAPI.dispatch(allMessages(data));
+      return data;
+    } catch (error) {
+      console.error(error);
     }
   }
 );
@@ -18,6 +31,7 @@ export const sendMessage = createAsyncThunk(
 const initialState = {
   online: [],
   messageList: [],
+  dbMessages: [],
 };
 
 const chatSlice = createSlice({
@@ -33,8 +47,12 @@ const chatSlice = createSlice({
     receiveMessage: (state, action) => {
       state.messageList.push(action.payload);
     },
+    allMessages: (state, action) => {
+      state.dbMessages.push(action.payload);
+    },
   },
 });
 
-export const { userJoined, sentMessage, receiveMessage } = chatSlice.actions;
+export const { userJoined, sentMessage, receiveMessage, allMessages } =
+  chatSlice.actions;
 export default chatSlice.reducer;

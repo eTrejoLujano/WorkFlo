@@ -56,13 +56,11 @@ function Project() {
       return;
     }
 
-    console.log("TYPE>>>", type);
-
     if (type === "list") {
       const [aListDrag] = lists.filter(
         (item) => item.listHashId === draggableId
       );
-      console.log("A LIST DRAG", aListDrag);
+
       dispatch(
         movingList({
           listDragId: aListDrag.id,

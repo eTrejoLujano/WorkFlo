@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { useDispatch, useSelector } from "react-redux";
 import socket from "../socket";
-import { sendMessage, receiveMessage } from "../store/chatSlice";
+import { sendMessage, receiveMessage, fetchMessages } from "../store/chatSlice";
 
 function NewChat() {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ function NewChat() {
 
   const user = useSelector((state) => state.auth);
   const { id } = useSelector((state) => state.project.selectedProject);
-  console.log("id :>> ", id);
+
   const sendMsg = async () => {
     if (currentMessage !== "") {
       const messageData = {
@@ -26,7 +26,6 @@ function NewChat() {
 
       dispatch(sendMessage(messageData));
       await socket.emit("send_message", messageData);
-
       setCurrentMessage("");
     }
   };
@@ -35,6 +34,7 @@ function NewChat() {
     socket.on("receive_message", (data) => {
       dispatch(receiveMessage(data));
     });
+    dispatch(fetchMessages());
   }, [socket]);
 
   return (

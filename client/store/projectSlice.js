@@ -58,7 +58,7 @@ export const fetchSelectedProject = createAsyncThunk(
 export const createProject = createAsyncThunk(
   "project/createProject",
   async (title) => {
-    console.log('slice project title', title)
+    console.log("slice project title", title);
     const { data } = await axios.post("/api/projects", title, sendToken());
     history.push(`/projects/${data.projectId}`);
     return data;
