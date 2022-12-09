@@ -11,6 +11,7 @@ import { me } from "./store/authSlice";
 import Footer from "./components/footer/Footer";
 import LandingPage from "./components/LandingPage";
 import { Lan } from "@mui/icons-material";
+
 /**
  * COMPONENT
  */

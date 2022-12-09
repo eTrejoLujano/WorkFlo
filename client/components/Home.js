@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 import { createProject, fetchProjects } from "../store/projectSlice";
 import { addInvitedUser } from "../store/copyLinkSlice";
 import { compareHash } from "../store/copyLinkSlice";
-
-import { Button, Typography } from "@mui/material";
-import { ClassNames } from "@emotion/react";
+import ProjectCard from "./ProjectCard";
+import { Button, Typography, Grid } from "@mui/material";
+import { styled as usedStyles } from "@mui/material/styles";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -69,12 +68,11 @@ export const Home = () => {
     console.log("handleSubmit titleValue", titleValue);
   };
 
+  const classes = styling();
+
   return (
-    <HomeContainer>
+    <HomeContainer className="backgroundMain">
       <NewTitleContainer>
-        <Typography variant="h6" component="h2">
-          Project Title
-        </Typography>
         <form noValidate autoComplete="off" onSubmit={handleSubmit}>
           <TextField
             onChange={(event) =>
@@ -94,14 +92,19 @@ export const Home = () => {
           </Button>
         </form>
       </NewTitleContainer>
-
       <ProjectContainer>
-        {userProjects.length &&
-          userProjects.map((project) => (
-            <Link key={project.id} to={`/projects/${project.id}`}>
-              {project.title}
-            </Link>
-          ))}
+        <Grid container spacing={5}>
+          {userProjects?.length &&
+            userProjects?.map((project) => (
+              <Grid xs={9} sm={4} className={classes.container}>
+                <ProjectCard
+                  projectId={project.id}
+                  title={project.title}
+                  created={project.createdAt}
+                />
+              </Grid>
+            ))}
+        </Grid>
       </ProjectContainer>
     </HomeContainer>
   );
@@ -126,19 +129,23 @@ const InputSubmit = styled.div`
 const NewTitleContainer = styled.div`
   display: flex;
   // flex-direction: column;
-  border: 1px solid black;
   height: 200px;
   width: 80%;
-  border-radius: 10px;
   padding: 10px;
+  // align-items: flex-start;
+  margin-left: auto;
 `;
 
 const ProjectContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
   height: 200px;
   width: 80%;
-  border-radius: 10px;
-  padding: 10px;
 `;
+
+const styling = usedStyles({
+  container: {
+    overFlow: "scroll",
+    marginBottom: "10px",
+  },
+});
