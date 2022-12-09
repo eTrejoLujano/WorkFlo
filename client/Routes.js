@@ -9,6 +9,8 @@ import Whiteboard from "./components/Whiteboard/Whiteboard";
 import Chat from "./components/Chat";
 import { me } from "./store/authSlice";
 import Footer from "./components/footer/Footer";
+import LandingPage from "./components/LandingPage";
+import { Lan } from "@mui/icons-material";
 /**
  * COMPONENT
  */
@@ -31,11 +33,11 @@ class Routes extends Component {
           </Switch>
         ) : (
           <Switch>
-            <Route path="/" exact component={Login} />
+            <Route path="/" exact component={LandingPage} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
 
-            {/* <Redirect to="/" /> */}
+            <Redirect to="/" />
           </Switch>
         )}
         {!history.location.pathname.startsWith("/chat") && <Footer />}
