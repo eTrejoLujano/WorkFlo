@@ -25,6 +25,7 @@ import {
   updateCards,
 } from "../store/cardSlice";
 import socket from "../socket";
+import { toggleModal } from "../store/uiSlice";
 
 function Project() {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function Project() {
   const lists = useSelector((state) => state.lists);
   const projects = useSelector((state) => state.project);
   const cards = useSelector((state) => state.cards);
+  const { modalIsOpen } = useSelector((state) => state.ui);
   const params = useParams();
 
   useEffect(() => {
@@ -152,9 +154,9 @@ function Project() {
             <button className="inviteBtn" onClick={buttonClicked}>
               + Invite
             </button>
-            {modalOpen && (
+            {modalIsOpen["copyLink"] && (
               <CopyLinkModal
-                setOpenModal={setModalOpen}
+                setOpenModal={toggleModal("copyLink")}
                 value={value}
                 projectId={params.projectId}
               />

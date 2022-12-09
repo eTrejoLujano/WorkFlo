@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { message } = require("antd");
 const {
   models: { User, Message },
 } = require("../db");
@@ -32,8 +33,13 @@ router.post("/", requireToken, async (req, res, next) => {
 
 router.get("/", requireToken, async (req, res, next) => {
   try {
-    const message = await Message.findAll();
-    res.json(message);
+    const messages = await Message.findAll({
+      where: {
+        userId: req.user.id,
+      },
+    });
+    console.log("messages==>", messages);
+    res.json(messages);
   } catch (error) {
     next(error);
   }

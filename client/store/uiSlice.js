@@ -9,6 +9,7 @@ const initialState = {
     footer: false,
     createProject: false,
     whiteboard: false,
+    copyLink: false,
   },
   selectedCard: {},
 };

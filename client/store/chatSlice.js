@@ -48,7 +48,7 @@ const chatSlice = createSlice({
       state.messageList.push(action.payload);
     },
     allMessages: (state, action) => {
-      state.dbMessages.push(action.payload);
+      state.messageList = action.payload;
     },
   },
 });

@@ -34,8 +34,11 @@ function NewChat() {
     socket.on("receive_message", (data) => {
       dispatch(receiveMessage(data));
     });
-    dispatch(fetchMessages());
   }, [socket]);
+
+  useEffect(() => {
+    dispatch(fetchMessages());
+  }, []);
 
   return (
     <div className="chat-window">
