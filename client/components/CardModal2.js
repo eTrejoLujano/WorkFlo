@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReusableModal from "../components/ReusableModal";
 import styled from "styled-components";
-import { Modal } from "antd";
+import { Avatar, Modal } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { selectedCard, toggleModal } from "../store/uiSlice";
 import { useEffect } from "react";
@@ -48,6 +48,9 @@ const CardModal2 = () => {
       : dispatch(removeFromCard(userCard));
   };
 
+  let randomColor = Math.floor(Math.random() * 16777215).toString(16);
+  const pickedColor = "#" + randomColor;
+
   return (
     // <Modal
     //   open={modalIsOpen["card"]}
@@ -79,9 +82,16 @@ const CardModal2 = () => {
         <AssigneeBox>
           {(filterUsers ? filterUsers : users)?.map((u) => (
             <Assignee key={u.id}>
-              <Frame>
-                <img height="60px" width="60px" src={u.avatarURL} />
-              </Frame>
+              {u.avatarURL ? (
+                <Frame>
+                  <img height="60px" width="60px" src={u.avatarURL} />
+                </Frame>
+              ) : (
+                <Avatar sx={{ bgcolor: pickedColor, width: 40, height: 40 }}>
+                  {u.firstName.charAt(0).toUpperCase()}
+                  {u.lastName.charAt(0).toUpperCase()}
+                </Avatar>
+              )}
             </Assignee>
           ))}
         </AssigneeBox>
@@ -111,6 +121,7 @@ export default CardModal2;
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
+  border-radius: 50px;
 `;
 
 const Assignee = styled.div`

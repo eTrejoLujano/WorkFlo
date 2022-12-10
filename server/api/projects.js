@@ -18,9 +18,6 @@ const requireToken = async (req, res, next) => {
 
 const getProjectsByUser = async (req, res, next) => {
   try {
-    // const projects = await UserProjects.findAll({
-    //   where: { userId: req.user.id },
-    // });
     const user = await User.findByPk(req.user.id, {
       include: Project,
     });
@@ -51,12 +48,21 @@ const getSingleProject = async (req, res, next) => {
       include: User,
       where: { userId: userProject.userId },
     });
-    // res.redirect("/login");
     res.send(project);
   } catch (err) {
     next(err);
   }
 };
+
+// GET /api/projects/users
+router.get("/users", requireToken, async (req, res, next) => {
+  try {
+    const projects = await UserProjects.findAll();
+    res.json(projects);
+  } catch (error) {
+    next(error);
+  }
+});
 
 //hash get route
 router.get("/:projectId/invite/:hash", requireToken, async (req, res, next) => {

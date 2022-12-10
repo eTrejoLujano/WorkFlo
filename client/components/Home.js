@@ -4,7 +4,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 
-import { createProject, fetchProjects } from "../store/projectSlice";
+import {
+  createProject,
+  fetchProjects,
+  fetchTheUsersProjects,
+} from "../store/projectSlice";
 import { addInvitedUser } from "../store/copyLinkSlice";
 import { compareHash } from "../store/copyLinkSlice";
 import ProjectCard from "./ProjectCard";
@@ -43,6 +47,7 @@ export const Home = () => {
 
   useEffect(() => {
     dispatch(fetchProjects());
+    dispatch(fetchTheUsersProjects());
   }, []);
 
   // Add New Project

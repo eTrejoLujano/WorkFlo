@@ -47,6 +47,18 @@ export const fetchProjects = createAsyncThunk(
   }
 );
 
+export const fetchTheUsersProjects = createAsyncThunk(
+  "project/fetchTheUsersProjects",
+  async () => {
+    try {
+      const { data } = await axios.get("/api/projects/users", sendToken());
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const fetchSelectedProject = createAsyncThunk(
   "project/fetchSelectedProject",
   async (id, thunkAPI) => {
@@ -68,6 +80,7 @@ export const createProject = createAsyncThunk(
 
 const initialState = {
   userProjects: [],
+  assignedProjects: [],
   selectedProject: {},
   whiteboards: [],
 };
@@ -93,6 +106,9 @@ const projectSlice = createSlice({
     [createProject.fulfilled]: (state, action) => {
       state.userProjects.push(action.payload);
       state.selectedProject = action.payload;
+    },
+    [fetchTheUsersProjects.fulfilled]: (state, action) => {
+      state.assignedProjects = action.payload;
     },
   },
 });
