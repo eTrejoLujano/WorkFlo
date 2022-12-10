@@ -18,9 +18,7 @@ import { useSelector } from "react-redux";
 const drawerWidth = 240;
 
 export default function Chat() {
-  const { users, title } = useSelector(
-    (state) => state.project.selectedProject
-  );
+  const { users } = useSelector((state) => state.project.selectedProject);
   const { online } = useSelector((state) => state.chat);
   return (
     <Box sx={{ display: "flex" }}>
@@ -32,7 +30,7 @@ export default function Chat() {
           ml: `${drawerWidth}px`,
         }}
       >
-        <Toolbar>{title} Chat Room</Toolbar>
+        <Toolbar>Chat Room</Toolbar>
       </AppBar>
       <Drawer
         sx={{

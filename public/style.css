@@ -35,7 +35,7 @@ form div {
   margin-top: auto;
   color: rgb(252, 254, 255);
   background-color: #1976d2;
-  height: 50px;
+  /* height: 50px; */
   display: flex;
   justify-content: center;
   align-items: center;

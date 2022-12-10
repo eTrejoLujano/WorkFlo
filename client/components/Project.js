@@ -8,7 +8,7 @@ import Drawer from "../components/Drawer";
 import { fetchLists, updateList, movingList } from "../store/listSlice";
 import List from "./List";
 import AddList from "./AddList";
-import CopyLinkModal from "./CopyLinkModal";
+import CopyLinkModal from "./CopyLinkModal2";
 import {
   fetchProjects,
   fetchSelectedProject,
@@ -146,6 +146,7 @@ function Project() {
       <CardModal2 modalName="card" />
       <WhiteboardModal />
       <CreateProjectModal modalName="createProject" />
+      <CopyLinkModal />
       <Drawer />
       <div>
         <DragDropContext onDragEnd={onDragEnd}>

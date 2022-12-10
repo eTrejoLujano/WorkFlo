@@ -16,8 +16,6 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-// POST /api/userCards
-// Assign user to card
 router.post("/", requireToken, async (req, res, next) => {
   try {
     const newMessage = await Message.create({
@@ -31,14 +29,12 @@ router.post("/", requireToken, async (req, res, next) => {
   }
 });
 
-router.get("/", requireToken, async (req, res, next) => {
+router.get("/:projectId", requireToken, async (req, res, next) => {
   try {
     const messages = await Message.findAll({
-      where: {
-        userId: req.user.id,
-      },
+      where: { projectId: req.params.projectId },
     });
-    console.log("messages==>", messages);
+
     res.json(messages);
   } catch (error) {
     next(error);

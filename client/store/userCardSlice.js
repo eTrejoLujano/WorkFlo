@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { sendToken } from "./helperFunctions";
 import { selectedCard } from "./uiSlice";
-
+import socket from "../socket";
 // api/userCards
 // Assign user to card
 export const assignToCard = createAsyncThunk(
@@ -10,8 +10,9 @@ export const assignToCard = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       const { data } = await axios.post(`/api/userCards`, value, sendToken());
-      data.cardId = data.id
+      data.cardId = data.id;
       thunkAPI.dispatch(selectedCard(data));
+
       return data;
     } catch (err) {
       console.error(err);
@@ -26,7 +27,7 @@ export const removeFromCard = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       const { data } = await axios.put(`/api/userCards`, value, sendToken());
-      data.cardId = data.id
+      data.cardId = data.id;
       thunkAPI.dispatch(selectedCard(data));
       return data;
     } catch (err) {
