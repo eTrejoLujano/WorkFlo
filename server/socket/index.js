@@ -1,5 +1,6 @@
-// const Message = require("../db/models/message");
-// const Channel = require("../db/models/channel");
+//userPool collects the userId and tracks who is in which project and makes a map for their socketIds so individuals (or all members of a specific project) can be targeted for direct messages/notifications
+
+//const userPool={ProjectID:{UserId:SocketId}}
 
 const userPool = {};
 
@@ -15,7 +16,7 @@ module.exports = (io) => {
         userPool[joiner.projectId][joiner.userId] = socket.id;
       }
 
-      socket.broadcast.emit("user-joined", joiner);
+      io.emit("user-joined", joiner);
     });
 
     socket.on("send_message", (data) => {

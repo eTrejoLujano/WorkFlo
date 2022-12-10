@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectedCard, toggleModal } from "../store/uiSlice";
 import { useEffect } from "react";
 import { assignToCard, removeFromCard } from "../store/userCardSlice";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 const CardModal2 = () => {
   const dispatch = useDispatch();
@@ -47,21 +49,33 @@ const CardModal2 = () => {
   };
 
   return (
-    <Modal
-      open={modalIsOpen["card"]}
-      onCancel={() => dispatch(toggleModal("card"))}
-    >
+    // <Modal
+    //   open={modalIsOpen["card"]}
+    //   onCancel={() => dispatch(toggleModal("card"))}
+    // >
+    <ReusableModal modalName="card">
       <CardContainer>
-        <label>Title:</label>
-
-        <input name="title" value={cardVals.title} onChange={handleChange} />
-        <label>Description:</label>
-        <input
-          name="description"
+        <TextField
+          style={{ margin: "10px" }}
+          value={cardVals.title}
+          onChange={handleChange}
+          id="outlined-basic"
+          label="Title"
+          name="title"
+          variant="outlined"
+          required
+        />
+        <TextField
+          style={{ margin: "10px" }}
           value={cardVals.description}
           onChange={handleChange}
+          id="outlined-basic"
+          label="Description"
+          name="description"
+          variant="outlined"
+          required
         />
-        <p>Assignees</p>
+        <h2 style={{ textAlign: "center" }}>Assignees</h2>
         <AssigneeBox>
           {(filterUsers ? filterUsers : users)?.map((u) => (
             <Assignee key={u.id}>
@@ -71,20 +85,24 @@ const CardModal2 = () => {
             </Assignee>
           ))}
         </AssigneeBox>
+        <hr />
         <ProjectMemberBox>
           {project.selectedProject.users?.map((u) => {
             return (
               <ProjectMember key={u.id}>
                 <p>{u.firstName}</p>
-                <button onClick={(e) => handleClick(e, u.id)}>
+                <Button
+                  variant="contained"
+                  onClick={(e) => handleClick(e, u.id)}
+                >
                   {usersOnTask?.includes(u.id) ? "remove" : "add"}
-                </button>
+                </Button>
               </ProjectMember>
             );
           })}
         </ProjectMemberBox>
       </CardContainer>
-    </Modal>
+    </ReusableModal>
   );
 };
 
@@ -100,12 +118,17 @@ const Assignee = styled.div`
   flex-basis: row;
 `;
 
-const AssigneeBox = styled.div``;
-
-const ProjectMemberBox = styled.div`
-  border: 1px solid black;
+const AssigneeBox = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+`;
+
+const ProjectMemberBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 const ProjectMember = styled.div`
