@@ -105,8 +105,10 @@ export default function TemporaryDrawer() {
             border: "1px solid grey",
             borderRadius: "10px",
             height: "430px",
-            marginBottom: "5px",
+            margin: "5px",
+            backgroundColor: "whitesmoke",
             overflowY: "scroll",
+            filter: "drop-shadow(-5px 5px 4px grey)",
           }}
         >
           {users?.map((user, index) => (
