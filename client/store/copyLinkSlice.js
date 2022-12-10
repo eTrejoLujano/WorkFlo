@@ -54,6 +54,9 @@ const linkSlice = createSlice({
     },
     [compareHash.fulfilled]: (state, action) => {
       state = action.payload;
+      if (!state) {
+        return;
+      }
       state = state.filter((item) => item.hash === window.localStorage.invite);
       return state[0];
     },

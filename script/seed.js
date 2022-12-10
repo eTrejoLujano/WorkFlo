@@ -108,7 +108,7 @@ const cards = [
     title: "ElGtr1",
     description: "description4",
     complete: true,
-    cardindex: 4,
+    cardindex: 0,
     listId: 1,
   },
   {
@@ -122,7 +122,7 @@ const cards = [
     title: "Organ",
     description: "description6",
     complete: true,
-    cardindex: 2,
+    cardindex: 0,
     listId: 2,
   },
   {
@@ -212,7 +212,6 @@ const seeduserProjects = [
     userId: 6,
     projectId: 1,
   },
- 
 ];
 
 const seed = async () => {
