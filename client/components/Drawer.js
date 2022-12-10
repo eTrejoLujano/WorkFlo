@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -27,6 +27,8 @@ export default function TemporaryDrawer() {
   const { users, id } = useSelector((state) => state.project.selectedProject);
   const { online } = useSelector((state) => state.chat);
   const params = useParams();
+
+  const [chatbox, setChatbox] = useState(false);
 
   const onlineInProj = online
     .filter((user) => user.projectId === params.projectId)
@@ -57,6 +59,9 @@ export default function TemporaryDrawer() {
     setState({ ...state, [anchor]: open });
   };
 
+  const toggleChat = () => {
+    setChatbox(!chatbox);
+  };
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
@@ -95,26 +100,47 @@ export default function TemporaryDrawer() {
             textAlign: "center",
           }}
         ></div>
-        {/* {users?.map((user, index) => (
-          <ListItem key={user.id} disablePadding>
-            <ListItemButton>
-              <ListItemText primary={user.firstName} />
+        <div
+          style={{
+            border: "1px solid grey",
+            borderRadius: "10px",
+            height: "430px",
+            marginBottom: "5px",
+            overflowY: "scroll",
+          }}
+        >
+          {users?.map((user, index) => (
+            <ListItem key={user.id} disablePadding>
+              <ListItemButton>
+                <ListItemText primary={user.firstName} />
 
-              <div
-                style={{
-                  borderRadius: "100px",
-                  border: "1px groove grey",
-                  height: "10px",
-                  width: "10px",
-                  backgroundColor: onlineInProj.includes(user.id)
-                    ? "green"
-                    : "red",
-                }}
-              ></div>
-            </ListItemButton>
-          </ListItem>
-        ))} */}
-        <NewChat />
+                <div
+                  style={{
+                    borderRadius: "100px",
+                    border: "1px groove grey",
+                    height: "10px",
+                    width: "10px",
+                    backgroundColor: onlineInProj.includes(user.id)
+                      ? "green"
+                      : "red",
+                  }}
+                ></div>
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </div>
+
+        {chatbox ? (
+          <NewChat toggleChat={toggleChat} />
+        ) : (
+          <Button
+            style={{ width: "100%" }}
+            onClick={toggleChat}
+            variant="contained"
+          >
+            Chat
+          </Button>
+        )}
       </List>
     </Box>
   );

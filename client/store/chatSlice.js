@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import socket from "../socket";
 import history from "../history";
 import { sendToken } from "./helperFunctions";
 
@@ -8,6 +9,7 @@ export const sendMessage = createAsyncThunk(
   async (message, thunkAPI) => {
     try {
       const { data } = await axios.post("/api/chat", message, sendToken());
+      socket.emit("send_message", message);
       thunkAPI.dispatch(sentMessage(data));
     } catch (error) {
       console.error(error);

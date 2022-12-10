@@ -6,7 +6,7 @@ import { sendMessage, receiveMessage, fetchMessages } from "../store/chatSlice";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-function NewChat() {
+function NewChat({ toggleChat }) {
   const params = useParams();
 
   const dispatch = useDispatch();
@@ -16,7 +16,6 @@ function NewChat() {
   const user = useSelector((state) => state.auth);
   const { id } = useSelector((state) => state.project.selectedProject);
 
-  console.log("params.projectId :>> ", params.projectId);
   const sendMsg = async () => {
     if (currentMessage !== "") {
       const messageData = {
@@ -30,7 +29,7 @@ function NewChat() {
       };
 
       dispatch(sendMessage(messageData));
-      await socket.emit("send_message", messageData);
+
       setCurrentMessage("");
     }
   };
@@ -48,7 +47,7 @@ function NewChat() {
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <p>Chat</p>
+        <p onClick={toggleChat}>Chat</p>
       </div>
       <div className="chat-body">
         <ScrollToBottom className="message-container">

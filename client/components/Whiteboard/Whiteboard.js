@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { sendToken } from "../../store/helperFunctions";
 import WhiteboardModal from "./WhiteboardModal";
+import Button from "@mui/material/Button";
 
 const Whiteboard = () => {
   const params = useParams();
@@ -31,7 +32,9 @@ const Whiteboard = () => {
         Project whiteboards
         {whiteboards.length > 0 &&
           whiteboards.map((w) => (
-            <button
+            <Button
+              variant="outlined"
+              title={w.description}
               key={w.title}
               onClick={() =>
                 window.open(
@@ -41,11 +44,8 @@ const Whiteboard = () => {
                 )
               }
             >
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <p>title: {w.title}</p>
-                <p>description: {w.description}</p>
-              </div>
-            </button>
+              {w.title}
+            </Button>
           ))}
       </div>
       <button onClick={() => dispatch(toggleModal("whiteboard"))}>
