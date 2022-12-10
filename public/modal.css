@@ -20,7 +20,7 @@
 }
 
 .modalContainer .title {
-  display: inline-block;
+  /* display: inline-block; */
   text-align: center;
   margin-top: 10px;
 }

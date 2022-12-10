@@ -27,6 +27,11 @@ export default function TemporaryDrawer() {
   const { users, id } = useSelector((state) => state.project.selectedProject);
   const { online } = useSelector((state) => state.chat);
   const params = useParams();
+
+  const onlineInProj = online
+    .filter((user) => user.projectId === params.projectId)
+    .map((u) => u.userId);
+
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -89,10 +94,8 @@ export default function TemporaryDrawer() {
           style={{
             textAlign: "center",
           }}
-        >
-          <Link to={`/chat/${id}`}>Chat</Link>
-        </div>
-        {users?.map((user, index) => (
+        ></div>
+        {/* {users?.map((user, index) => (
           <ListItem key={user.id} disablePadding>
             <ListItemButton>
               <ListItemText primary={user.firstName} />
@@ -103,14 +106,14 @@ export default function TemporaryDrawer() {
                   border: "1px groove grey",
                   height: "10px",
                   width: "10px",
-                  backgroundColor: online.includes(user.firstName)
+                  backgroundColor: onlineInProj.includes(user.id)
                     ? "green"
                     : "red",
                 }}
               ></div>
             </ListItemButton>
           </ListItem>
-        ))}
+        ))} */}
         <NewChat />
       </List>
     </Box>

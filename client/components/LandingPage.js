@@ -6,20 +6,28 @@ const LandingPage = () => {
   return (
     <Container>
       <Box>
-        <h2>
-          Improve your productivity with with top of the line task management
-          tool
-        </h2>
-        <h3>Introducing WorkFlo</h3>
-        <img
+        <div
+          style={{
+            width: "100%",
+            textAlign: "center",
+            color: "white",
+            backgroundColor: "rgba(20,20,20,.3)",
+          }}
+        >
+          <h2>Improve Productivity</h2>
+
+          <h3>Introducing WorkFlo</h3>
+        </div>
+
+        {/* <img
+          height="100%"
+          width="100%"
           src="https://img.freepik.com/free-photo/water-splash-isolated-white-background_1112-2043.jpg?w=2000"
-          height="504px"
-          width="inherit"
-        />
+        /> */}
       </Box>
       <Link to="/login">
         <Button variant="contained" size="large">
-          Getting Started
+          Get Started
         </Button>
       </Link>
     </Container>
@@ -41,16 +49,19 @@ const Container = styled.div`
   );
   justify-content: center;
   align-items: center;
+  height: calc(100vh - 150px);
 `;
 const Box = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid black;
-  height: 504px;
-  width: 60vw;
-  background-size: contain;
-  background-repeat: no-repeat;
+  border-radius: 15px;
   justify-content: center;
   align-items: center;
   font-family: Ubuntu;
+  height: 30vh;
+  filter: drop-shadow(10px 10px 4px black);
+  width: 50vw;
+  margin-bottom: 20px;
+  background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20201030/pngtree-blue-water-flow-like-a-river-image_447481.jpg");
 `;

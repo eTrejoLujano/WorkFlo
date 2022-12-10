@@ -7,7 +7,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { toggleModal } from "../store/uiSlice";
-
+import Button from "@mui/material/Button";
 export default function SimpleAccordion() {
   const dispatch = useDispatch();
 
@@ -38,9 +38,12 @@ export default function SimpleAccordion() {
               <p>description: {wb.description}</p>
             </button>
           ))}
-          <button onClick={() => dispatch(toggleModal("whiteboard"))}>
+          <Button
+            variant="contained"
+            onClick={() => dispatch(toggleModal("whiteboard"))}
+          >
             new whiteboard
-          </button>
+          </Button>
         </AccordionDetails>
       </Accordion>
     </div>
