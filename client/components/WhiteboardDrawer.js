@@ -24,7 +24,9 @@ export default function SimpleAccordion() {
         </AccordionSummary>
         <AccordionDetails>
           {whiteboards.map((wb) => (
-            <button
+            <Button
+              variant="outlined"
+              title={wb.description}
               key={wb.id}
               onClick={() =>
                 window.open(
@@ -34,10 +36,10 @@ export default function SimpleAccordion() {
                 )
               }
             >
-              <p>title: {wb.title}</p>
-              <p>description: {wb.description}</p>
-            </button>
+              {wb.title}
+            </Button>
           ))}
+
           <Button
             variant="contained"
             onClick={() => dispatch(toggleModal("whiteboard"))}

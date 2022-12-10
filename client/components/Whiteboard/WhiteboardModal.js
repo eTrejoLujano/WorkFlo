@@ -53,7 +53,7 @@ const WhiteboardModal = () => {
         />
         <TextField
           style={{ margin: "10px" }}
-          value={formData.title}
+          value={formData.description}
           onChange={handleChange}
           id="outlined-basic"
           label="Description"
