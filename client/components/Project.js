@@ -151,16 +151,6 @@ function Project() {
         <DragDropContext onDragEnd={onDragEnd}>
           <div className="workspace-heading">
             <h2>{projects.selectedProject?.title}</h2>
-            <button className="inviteBtn" onClick={buttonClicked}>
-              + Invite
-            </button>
-            {modalIsOpen["copyLink"] && (
-              <CopyLinkModal
-                setOpenModal={toggleModal("copyLink")}
-                value={value}
-                projectId={params.projectId}
-              />
-            )}
           </div>
           <Droppable droppableId="all-lists" direction="horizontal" type="list">
             {(provided) => (
