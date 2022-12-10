@@ -40,6 +40,7 @@ const ProjectMenu = () => {
         aria-expanded={open ? 'true' : undefined}
         endIcon={<KeyboardArrowDownIcon />}
         onClick={handleClick}
+        sx={{ color: 'white' }}
       >
         PROJECTS
       </Button>
