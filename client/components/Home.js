@@ -89,8 +89,8 @@ export const Home = () => {
               required
               error={titleError}
               sx={{
-                width: "100%"
-            }}
+                width: "100%",
+              }}
             />
             <Button type="submit" variant="contained">
               Add a New Project
@@ -102,7 +102,12 @@ export const Home = () => {
         <Grid container spacing={5}>
           {userProjects?.length &&
             userProjects?.map((project) => (
-              <Grid xs={9} sm={4} className={classes.container}>
+              <Grid
+                xs={9}
+                sm={4}
+                className={classes.container}
+                key={project.id}
+              >
                 <ProjectCard
                   projectId={project.id}
                   title={project.title}
