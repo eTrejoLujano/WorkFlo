@@ -62,6 +62,7 @@ const styles = {
     // borderRadius: 5,
     minHeight: "100",
     padding: "8px",
+    boxShadow: "4px 4px 4px grey",
     // flexGrow: ,
     // marginRight: 8,
     // position: "static",
