@@ -35,10 +35,6 @@ const ReusableModal = ({ children, modalName }) => {
       open={modalIsOpen[modalName]}
       onClose={() => dispatch(toggleModal(modalName))}
     >
-      {/* <div style={{ backgroundColor: "white", padding: 10 }}>
-        <p style={{ textAlign: "right" }}>
-          <button onClick={() => dispatch(toggleModal(modalName))}>X</button>
-        </p> */}
       <Box sx={style}>
         {/* <Typography id="modal-modal-title" variant="h6" component="h2">
 
@@ -46,7 +42,6 @@ const ReusableModal = ({ children, modalName }) => {
         {children}
         {/* <Children>{children}</Children> */}
       </Box>
-      {/* </div> */}
     </MUIModal>
   );
 };
