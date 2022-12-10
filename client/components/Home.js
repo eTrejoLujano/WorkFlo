@@ -71,28 +71,34 @@ export const Home = () => {
   const classes = styling();
 
   return (
+    // Whole page
     <HomeContainer className="backgroundMain">
-      <NewTitleContainer>
+      <NewProjectContainer>
         <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-          <TextField
-            onChange={(event) =>
-              setTitleValue({
-                ...titleValue,
-                [event.target.name]: event.target.value,
-              })
-            }
-            name="title"
-            variant="outlined"
-            placeholder="Project Title"
-            required
-            error={titleError}
-          />
-          <Button type="submit" variant="contained">
-            Add a New Project
-          </Button>
+          <FormContainer>
+            <TextField
+              onChange={(event) =>
+                setTitleValue({
+                  ...titleValue,
+                  [event.target.name]: event.target.value,
+                })
+              }
+              name="title"
+              variant="outlined"
+              placeholder="Project Title"
+              required
+              error={titleError}
+              sx={{
+                width: "100%"
+            }}
+            />
+            <Button type="submit" variant="contained">
+              Add a New Project
+            </Button>
+          </FormContainer>
         </form>
-      </NewTitleContainer>
-      <ProjectContainer>
+      </NewProjectContainer>
+      <SingleProjectContainer>
         <Grid container spacing={5}>
           {userProjects?.length &&
             userProjects?.map((project) => (
@@ -105,7 +111,7 @@ export const Home = () => {
               </Grid>
             ))}
         </Grid>
-      </ProjectContainer>
+      </SingleProjectContainer>
     </HomeContainer>
   );
 };
@@ -119,24 +125,21 @@ const HomeContainer = styled.div`
   align-items: center;
 `;
 
-const InputSubmit = styled.div`
+const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
-const NewTitleContainer = styled.div`
-  display: flex;
-  // flex-direction: column;
-  height: 200px;
-  width: 80%;
-  padding: 10px;
-  // align-items: flex-start;
-  margin-left: auto;
+const NewProjectContainer = styled.div`
+  height: 150px;
+  width: 30%;
+  // padding: 10px;
+  margin-bottom: 70px;
 `;
 
-const ProjectContainer = styled.div`
+const SingleProjectContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 200px;
