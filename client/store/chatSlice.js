@@ -17,9 +17,9 @@ export const sendMessage = createAsyncThunk(
 
 export const fetchMessages = createAsyncThunk(
   "chat/fetchMessages",
-  async (_, thunkAPI) => {
+  async (projectId, thunkAPI) => {
     try {
-      const { data } = await axios.get("/api/chat", sendToken());
+      const { data } = await axios.get(`/api/chat/${projectId}`, sendToken());
       thunkAPI.dispatch(allMessages(data));
       return data;
     } catch (error) {

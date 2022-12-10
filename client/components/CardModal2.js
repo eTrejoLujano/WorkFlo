@@ -53,6 +53,7 @@ const CardModal2 = () => {
     >
       <CardContainer>
         <label>Title:</label>
+
         <input name="title" value={cardVals.title} onChange={handleChange} />
         <label>Description:</label>
         <input
