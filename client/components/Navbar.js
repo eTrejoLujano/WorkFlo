@@ -5,20 +5,17 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ProjectMenu from "./ProjectMenu";
 import { logout } from "../store/authSlice";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import AirIcon from "@mui/icons-material/Air";
-import styled from "styled-components";
 
 const theme = createTheme({
   typography: {
@@ -45,7 +42,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
     setAnchorElUser(null);
   };
   const dispatch = useDispatch();
-  const { selectedProject } = useSelector((state) => state.project);
+  const user = useSelector((state) => state.auth);
 
   const url = window.location.href.split("/");
   const hash = url.splice(-1)[0];
@@ -57,6 +54,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
       window.localStorage.setItem("projectId", projectId);
     }
   }, []);
+
+  let randomColor = Math.floor(Math.random() * 16777215).toString(16);
+  const pickedColor = "#" + randomColor;
 
   return (
     <div>
@@ -76,7 +76,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
                   variant="h6"
                   noWrap
                   component="a"
-                  href="/"
+                  href="/home"
                   sx={{
                     mr: 2,
                     display: "flex",
@@ -85,14 +85,12 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
                     color: "inherit",
                     textDecoration: "none",
                     fontSize: 40,
-                    marginRight: "30%",
+                    marginRight: "29%",
                   }}
                 >
                   WORKFLO
                 </Typography>
               </ThemeProvider>
-              {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
-
               <ProjectMenu />
               <Box
                 sx={{
@@ -103,9 +101,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
-                    />
+                      sx={{ bgcolor: pickedColor, width: 40, height: 40 }}
+                    >
+                      {user.firstName.charAt(0).toUpperCase()}
+                      {user.lastName.charAt(0).toUpperCase()}
+                    </Avatar>
                   </IconButton>
                 </Tooltip>
                 <Menu
@@ -143,37 +143,42 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
       ) : (
         <AppBar position="static">
           <Container maxWidth="xl">
-            <Toolbar disableGutters>
-              <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <Toolbar disableGutters sx={{ justifyContent: "flex-end" }}>
+              <AirIcon
+                sx={{
+                  display: "flex",
+                  mr: 1,
+                  fontSize: "70px",
+                }}
+              />
               <ThemeProvider theme={theme}>
                 <Typography
                   variant="h6"
                   noWrap
                   component="a"
-                  href="/"
+                  href="/home"
                   sx={{
                     mr: 2,
-                    display: { xs: "none", md: "flex" },
+                    display: "flex",
                     fontWeight: 700,
                     letterSpacing: ".3rem",
                     color: "inherit",
                     textDecoration: "none",
+                    fontSize: 40,
+                    marginRight: "20%",
                   }}
                 >
                   WORKFLO
                 </Typography>
               </ThemeProvider>
-
-              <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-
               <Typography
                 variant="h5"
                 noWrap
                 component="a"
                 sx={{
                   mr: 2,
-                  display: { xs: "flex", md: "none" },
-                  flexGrow: 1,
+                  display: "flex",
+
                   fontFamily: "monospace",
                   fontWeight: 700,
                   letterSpacing: ".3rem",
@@ -191,27 +196,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
                 component="a"
                 sx={{
                   mr: 2,
-                  display: { xs: "flex", md: "none" },
-                  flexGrow: 1,
-                  fontWeight: 700,
-                  letterSpacing: ".3rem",
-                  color: "inherit",
-                  textDecoration: "none",
-                }}
-                href="/profile"
-                textAlign="center"
-              >
-                PROFILE
-              </Typography>
-              <Typography
-                variant="h5"
-                noWrap
-                component="a"
-                sx={{
-                  mr: 2,
-                  display: { xs: "flex", md: "none" },
-                  flexGrow: 1,
+                  display: "flex",
                   fontFamily: "monospace",
+                  marginLeft: 10,
                   fontWeight: 700,
                   letterSpacing: ".3rem",
                   color: "inherit",
@@ -220,7 +207,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
                 href="/login"
                 textAlign="center"
               >
-                LOGOUT
+                LOGIN
               </Typography>
             </Toolbar>
           </Container>
@@ -229,13 +216,6 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
     </div>
   );
 };
-
-const TitleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
 
 const mapState = (state) => {
   return {

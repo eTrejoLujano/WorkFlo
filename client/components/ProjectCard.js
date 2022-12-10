@@ -49,37 +49,6 @@ const ProjectCard = (props) => {
         <CardActions disableSpacing></CardActions>
       </Card>
     </Link>
-    // <Link to={`/projects/${props.projectId}`}>
-    //   <Card
-    //     sx={{
-    //   maxWidth: 290,
-    //   maxHeight: 300,
-    //   bgcolor: "#607d8b",
-    //   borderRadius: "16px",
-    //   pb: 2,
-    //     }}
-    //     className={classes.gridContainer}
-    //   >
-    // <CardHeader
-    //   sx={{ maxHeight: 20 }}
-    //   title={props.title}
-    //   subheader={props.created}
-    // />
-    // <CardMedia
-    //   component="img"
-    //   height="300"
-    //   image="/images/ProjectIcon/WF.jpg"
-    // />
-
-    //     <CardContent>
-    //       <Typography variant="body2" color="text.secondary">
-    //         This impressive paella is a perfect party dish and a fun meal to
-    //         cook together with your guests. Add 1 cup of frozen peas along with
-    //         the mussels, if you like.
-    //       </Typography>
-    //     </CardContent>
-    //   </Card>
-    // </Link>
   );
 };
 
