@@ -43,6 +43,9 @@ const chatSlice = createSlice({
     userJoined: (state, action) => {
       state.online = action.payload;
     },
+    userLeft: (state, action) => {
+      state.online = action.payload;
+    },
     sentMessage: (state, action) => {
       state.messageList.push(action.payload);
     },
@@ -55,6 +58,11 @@ const chatSlice = createSlice({
   },
 });
 
-export const { userJoined, sentMessage, receiveMessage, allMessages } =
-  chatSlice.actions;
+export const {
+  userJoined,
+  userLeft,
+  sentMessage,
+  receiveMessage,
+  allMessages,
+} = chatSlice.actions;
 export default chatSlice.reducer;

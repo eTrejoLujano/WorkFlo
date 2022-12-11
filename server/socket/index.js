@@ -18,9 +18,10 @@ module.exports = (io) => {
       }
 
       socket.join(joiner.projectId);
+      console.log("joiner.projectId", joiner.projectId);
       io.to(joiner.projectId).emit(
         "user-joined",
-        Object.keys(userPool[joiner.projectId]).map((item) => +item)
+        Object.keys(userPool[joiner.projectId]).map((userId) => +userId)
       );
     });
 
@@ -32,6 +33,7 @@ module.exports = (io) => {
         Object.keys(userPool[leaver.projectId]).map((item) => +item)
       );
     });
+
     socket.on("send_message", (data) => {
       socket.broadcast.emit("receive_message", data);
     });
