@@ -24,6 +24,7 @@ import {
   updateCardIndex,
   updateCards,
 } from "../store/cardSlice";
+import "../styles/Project.css";
 import socket from "../socket";
 import { toggleModal } from "../store/uiSlice";
 import { flexbox } from "@mui/system";
@@ -143,17 +144,19 @@ function Project() {
   };
 
   return (
-    <div>
+    <div className="Project-Container">
       <CardModal2 modalName="card" />
       <WhiteboardModal />
       <CreateProjectModal modalName="createProject" />
       <CopyLinkModal />
-      <Drawer />
+      <div className="Drawer-Title">
+        <Drawer />
+        <div className="Title">
+          <h2>{projects.selectedProject?.title}</h2>
+        </div>
+      </div>
       <div>
         <DragDropContext onDragEnd={onDragEnd}>
-          <div style={styles.title}>
-            <h2>{projects.selectedProject?.title}</h2>
-          </div>
           <Droppable droppableId="all-lists" direction="horizontal" type="list">
             {(provided) => (
               <div
@@ -183,20 +186,5 @@ function Project() {
     </div>
   );
 }
-
-const styles = {
-  listsContainer: {
-    height: "92%",
-    display: "flex",
-    overflowX: "auto",
-  },
-  title: {
-    color: "#5A5A5A",
-    fontFamily: "Ubuntu",
-    fontSize: "25px",
-    marginLeft: "5%",
-    paddingBottom: "25px"
-  }
-};
 
 export default Project;

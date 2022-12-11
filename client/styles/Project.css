@@ -1,0 +1,25 @@
+
+
+  .Drawer-Title {
+    display: flex;
+    margin-top: 20px;
+  }
+
+  .Lists-Container {
+    height: 92%;
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .Title {
+    color: #5A5A5A;
+    font-family: Ubuntu;
+    font-size: 25px;
+    margin-left: 5%;
+    padding-bottom: 15px;
+  }
+
+  .Project-Container {
+    display: flex;
+    flex-direction: column;
+  }

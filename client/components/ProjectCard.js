@@ -46,8 +46,7 @@ const ProjectCard = (props) => {
               <span>{" at "}</span>
               <span>{time}</span>
             </Typography>
-           }
-          
+           }  
         />
         <CardMedia
           component="img"
@@ -61,7 +60,6 @@ const ProjectCard = (props) => {
             sx={{ fontFamily: "Ubutu", fontSize: 18, textAlign:"center" }}
           >
             {props.heading && props.heading} <p/>
-            
           </Typography>
           <Typography 
             variant="body2"
