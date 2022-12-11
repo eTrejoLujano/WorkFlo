@@ -18,17 +18,19 @@ module.exports = (io) => {
       }
 
       socket.join(joiner.projectId);
-      console.log("joiner.projectId", joiner.projectId);
-      io.to(joiner.projectId).emit(
+
+      io.in(joiner.projectId).emit(
         "user-joined",
         Object.keys(userPool[joiner.projectId]).map((userId) => +userId)
       );
+      console.log("joiner :>> ", joiner);
     });
 
     socket.on("user-left", (leaver) => {
       delete userPool[leaver.projectId][leaver.userId];
       socket.leave(leaver.projectId);
-      io.to(leaver.projectId).emit(
+
+      io.in(leaver.projectId).emit(
         "user-left",
         Object.keys(userPool[leaver.projectId]).map((item) => +item)
       );

@@ -64,17 +64,13 @@ const ProjectMenu = () => {
               project.id && (
                 <MenuItem
                   onClick={() => {
-                    console.log("selectedProject.id :>> ", selectedProject.id);
                     if (selectedProject.id) {
+                      console.log("here");
                       socket.emit("user-left", {
                         userId: auth.id,
                         projectId: selectedProject.id,
                       });
                     }
-                    socket.emit("user-joined", {
-                      userId: auth.id,
-                      projectId: project.id,
-                    });
                   }}
                   key={project.id}
                 >

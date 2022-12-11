@@ -10,6 +10,7 @@ socket.on("connect", () => {
     store.dispatch(userJoined(userIdsOnline));
   });
   socket.on("user-left", (userIdsOnline) => {
+    console.log("userLeft");
     store.dispatch(userLeft(userIdsOnline));
   });
 });
