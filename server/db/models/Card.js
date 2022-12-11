@@ -25,6 +25,28 @@ const Card = db.define("card", {
     isUUID: 4,
     defaultValue: Sequelize.UUIDV4,
   },
+  createdAt: {
+    type: Sequelize.DATE,                  
+    get() {
+      let options = { 
+        day: '2-digit', month: 'short', year: 'numeric', 
+        hour: 'numeric', minute: 'numeric' 
+      };
+      let dtFormat = new Intl.DateTimeFormat('en-US', options);
+      return dtFormat.format(this.dataValues.createdAt)
+    },
+  },
+  updatedAt: {
+    type: Sequelize.DATE,                  
+    get() {
+      let options = { 
+        day: '2-digit', month: 'short', year: 'numeric', 
+        hour: 'numeric', minute: 'numeric' 
+      };
+      let dtFormat = new Intl.DateTimeFormat('en-US', options);
+      return dtFormat.format(this.dataValues.createdAt)
+    },
+  },
 });
 
 module.exports = Card;

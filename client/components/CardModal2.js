@@ -115,6 +115,21 @@ const CardModal2 = () => {
             );
           })}
         </ProjectMemberBox>
+        <hr />
+        <CreatedAtBox>
+           {/* <Typography sx={{ fontFamily: "Ubutu" }} >
+              <span>{"Created "}</span>
+              <span>{date}</span>
+              <span>{" at "}</span>
+              <span>{time}</span>
+            </Typography>
+           <Typography sx={{ fontFamily: "Ubutu" }} >
+              <span>{"Updated "}</span>
+              <span>{date}</span>
+              <span>{" at "}</span>
+              <span>{time}</span>
+            </Typography> */}
+        </CreatedAtBox>
       </CardContainer>
     </ReusableModal>
   );
@@ -140,6 +155,12 @@ const AssigneeBox = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: 10px;
+`;
+
+const CreatedAtBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 `;
 
 const ProjectMemberBox = styled.div`
