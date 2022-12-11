@@ -41,7 +41,7 @@ const chatSlice = createSlice({
   initialState,
   reducers: {
     userJoined: (state, action) => {
-      state.online.push(action.payload);
+      state.online = action.payload;
     },
     sentMessage: (state, action) => {
       state.messageList.push(action.payload);
