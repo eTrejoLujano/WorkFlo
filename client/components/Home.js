@@ -117,6 +117,8 @@ export const Home = () => {
                   projectId={project.id}
                   title={project.title}
                   created={project.createdAt}
+                  heading={project.heading}
+                  subHeading={project.subHeading}
                 />
               </Grid>
             ))}
