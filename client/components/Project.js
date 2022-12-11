@@ -26,6 +26,7 @@ import {
 } from "../store/cardSlice";
 import socket from "../socket";
 import { toggleModal } from "../store/uiSlice";
+import { flexbox } from "@mui/system";
 
 function Project() {
   const dispatch = useDispatch();
@@ -150,7 +151,7 @@ function Project() {
       <Drawer />
       <div>
         <DragDropContext onDragEnd={onDragEnd}>
-          <div className="workspace-heading">
+          <div style={styles.title}>
             <h2>{projects.selectedProject?.title}</h2>
           </div>
           <Droppable droppableId="all-lists" direction="horizontal" type="list">
@@ -189,6 +190,12 @@ const styles = {
     display: "flex",
     overflowX: "auto",
   },
+  title: {
+    fontFamily: "Ubuntu",
+    fontSize: "25px",
+    marginLeft: "10%",
+    paddingBottom: "25px"
+  }
 };
 
 export default Project;

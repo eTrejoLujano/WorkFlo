@@ -10,9 +10,12 @@
 }
 
 .List-Title {
+  display: flex;
   cursor: pointer;
   padding: 10px;
   overflow-wrap: break-word;
+  align-items: center;
+  justify-content: center;
 }
 
 .Toggle-Add-Card {

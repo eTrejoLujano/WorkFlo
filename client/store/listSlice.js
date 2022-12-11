@@ -25,7 +25,7 @@ export const movingList = createAsyncThunk(
   "list/movingList",
   async (movingInfo) => {
     try {
-      console.log(movingInfo);
+      // console.log(movingInfo);
       const { data } = await axios.put(
         "/api/lists/order",
         movingInfo,

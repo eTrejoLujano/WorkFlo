@@ -28,9 +28,9 @@ const ProjectCard = (props) => {
   const classes = styles();
   return (
     <Link to={`/projects/${props.projectId}`}>
-      <Card sx={{ maxWidth: 345, borderRadius: "20px" }}>
+      <Card sx={{ maxWidth: 345, borderRadius: "20px", textAlign:"center" }}>
         <CardHeader
-          sx={{ maxHeight: 20 }}
+          sx={{ maxHeight: 20, padding: 4 }}
           title={props.title}
           subheader={props.created}
         />
@@ -40,10 +40,13 @@ const ProjectCard = (props) => {
           image="/images/ProjectIcon/WF.jpg"
         />
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
+          <Typography 
+            variant="body2" 
+            color="text.secondary"
+            sx={{ textAlign:"center" }}
+          >
+            Artist: August Is Falling <p/>
+            Album: "The Simple Plan"
           </Typography>
         </CardContent>
         <CardActions disableSpacing></CardActions>

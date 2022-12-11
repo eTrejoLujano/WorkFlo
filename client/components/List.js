@@ -13,7 +13,6 @@ function List(props) {
   const filterCards = cards.filter((item) => item.listId === listid);
 
   return (
-    // <div style={styles.lists}>
     <Draggable draggableId={listHashId} index={index}>
       {(provided, snapshot) => (
         <div
@@ -35,7 +34,6 @@ function List(props) {
                   filterCards.map((card, index) => (
                     <SingleCard
                       key={card.id}
-                      // id={card.id}
                       cardId={card.id}
                       title={card.title}
                       description={card.description}
@@ -52,20 +50,17 @@ function List(props) {
         </div>
       )}
     </Draggable>
-    // </div>
   );
 }
 
 const styles = {
   container: {
+    display: "flex",
+    flexDirection: "column",
     backgroundColor: "lightblue",
-    // borderRadius: 5,
     minHeight: "100",
     padding: "8px",
     boxShadow: "4px 4px 4px grey",
-    // flexGrow: ,
-    // marginRight: 8,
-    // position: "static",
   },
 };
 
