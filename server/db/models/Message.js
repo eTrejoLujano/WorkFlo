@@ -18,12 +18,13 @@ const Message = db.define(
     time: {
       type: Sequelize.STRING,
     },
+  },
+  {
+    // isRead: {
+    //   type: Sequelize.ENUM(["true", "false"]),
+    //   defultValue: false,
+    // },
   }
-  // {
-  //   defaultScope: {
-  //     include: [{ model: User }],
-  //   },
-  // }
 );
 
 module.exports = Message;

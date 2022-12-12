@@ -22,7 +22,7 @@ import { useParams } from "react-router-dom";
 import { toggleModal } from "../store/uiSlice";
 import { useDispatch } from "react-redux";
 
-export default function TemporaryDrawer() {
+export default function TemporaryDrawer({ setMessageCounter }) {
   const dispatch = useDispatch();
   const { users, id } = useSelector((state) => state.project.selectedProject);
   const { online } = useSelector((state) => state.chat);
@@ -55,7 +55,7 @@ export default function TemporaryDrawer() {
     ) {
       return;
     }
-
+    setMessageCounter(0);
     setState({ ...state, [anchor]: open });
   };
 

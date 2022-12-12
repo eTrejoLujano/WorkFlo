@@ -258,3 +258,17 @@ form div {
 .hide {
   opacity: 0 !important;
 }
+.unread {
+  display: inline-block;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  /* line-height: 20px; */
+  border-radius: 50%;
+  font-size: 11px;
+  text-align: center;
+  padding: 5px;
+  background-color: rgb(31, 211, 7);
+  color: #222;
+  margin: 0px 20px;
+}
