@@ -14,6 +14,7 @@ import { compareHash } from "../store/copyLinkSlice";
 import ProjectCard from "./ProjectCard";
 import { Button, Typography, Grid } from "@mui/material";
 import { styled as usedStyles } from "@mui/material/styles";
+import Footer from "./footer/Footer";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -77,54 +78,57 @@ export const Home = () => {
 
   return (
     // Whole page
-    <HomeContainer className="backgroundMain">
-      <NewProjectContainer>
-        <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-          <FormContainer>
-            <TextField
-              onChange={(event) =>
-                setTitleValue({
-                  ...titleValue,
-                  [event.target.name]: event.target.value,
-                })
-              }
-              name="title"
-              variant="outlined"
-              placeholder="Project Title"
-              required
-              error={titleError}
-              sx={{
-                width: "100%",
-              }}
-            />
-            <Button type="submit" variant="contained">
-              Add a New Project
-            </Button>
-          </FormContainer>
-        </form>
-      </NewProjectContainer>
-      <SingleProjectContainer>
-        <Grid container spacing={5}>
-          {userProjects?.length &&
-            userProjects?.map((project) => (
-              <Grid
-                xs={9}
-                sm={4}
-                className={classes.container}
-                key={project.id}
-              >
-                <ProjectCard
-                  projectId={project.id}
-                  title={project.title}
-                  created={project.createdAt}
-                  heading={project.heading}
-                  subHeading={project.subHeading}
-                />
-              </Grid>
-            ))}
-        </Grid>
-      </SingleProjectContainer>
-    </HomeContainer>
+
+    <div>
+      <HomeContainer className="backgroundMain">
+        <NewProjectContainer>
+          <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+            <FormContainer>
+              <TextField
+                onChange={(event) =>
+                  setTitleValue({
+                    ...titleValue,
+                    [event.target.name]: event.target.value,
+                  })
+                }
+                name="title"
+                variant="outlined"
+                placeholder="Project Title"
+                required
+                error={titleError}
+                sx={{
+                  width: "100%",
+                }}
+              />
+              <Button type="submit" variant="contained">
+                Add a New Project
+              </Button>
+            </FormContainer>
+          </form>
+        </NewProjectContainer>
+        <SingleProjectContainer>
+          <Grid container spacing={2}>
+            {userProjects?.length &&
+              userProjects?.map((project) => (
+                <Grid
+                  xs={9}
+                  sm={4}
+                  className={classes.container}
+                  key={project.id}
+                  sx={{ paddingBottom: 15 }}
+                >
+                  <ProjectCard
+                    projectId={project.id}
+                    title={project.title}
+                    created={project.createdAt}
+                  />
+                </Grid>
+              ))}
+          </Grid>
+        </SingleProjectContainer>
+        <Footer />
+      </HomeContainer>
+    </div>
   );
 };
 

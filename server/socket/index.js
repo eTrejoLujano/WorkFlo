@@ -9,6 +9,7 @@ module.exports = (io) => {
     console.log(socket.id, " has made a persistent connection to the server!");
 
     socket.on("user-joined", (joiner) => {
+      //this is probably something socket will do for you. intended to be able to target specific users in a project for DMs...which we probably will not implement.
       if (userPool[joiner.projectId]) {
         userPool[joiner.projectId][joiner.userId] = socket.id;
       } else {
@@ -16,7 +17,23 @@ module.exports = (io) => {
         userPool[joiner.projectId][joiner.userId] = socket.id;
       }
 
-      io.emit("user-joined", joiner);
+      socket.join(joiner.projectId);
+
+      io.in(joiner.projectId).emit(
+        "user-joined",
+        Object.keys(userPool[joiner.projectId]).map((userId) => +userId)
+      );
+      console.log("joiner :>> ", joiner);
+    });
+
+    socket.on("user-left", (leaver) => {
+      delete userPool[leaver.projectId][leaver.userId];
+      socket.leave(leaver.projectId);
+
+      io.in(leaver.projectId).emit(
+        "user-left",
+        Object.keys(userPool[leaver.projectId]).map((item) => +item)
+      );
     });
 
     socket.on("send_message", (data) => {
