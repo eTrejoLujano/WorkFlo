@@ -4,7 +4,7 @@ import { FaGithub, FaLinkedin, FaRegCopyright } from "react-icons/fa";
 import Modal from "../ReusableModal";
 
 const teamInfo = {
-  matt: {
+  Matt: {
     content: "Hi, I am Matt's content",
     linkedIn: "https://www.linkedin.com/in/matt-bruer/",
     github: "https://github.com/mattbruer",
