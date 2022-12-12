@@ -45,7 +45,7 @@ function Project() {
     dispatch(fetchCards(params.projectId));
     socket.emit("user-joined", {
       userId: auth.id,
-      projectId: params.projectId,
+      projectId: +params.projectId,
     });
   }, [params.projectId]);
 
