@@ -21,6 +21,7 @@ import CopyLinkModal from "./CopyLinkModal";
 import { useParams } from "react-router-dom";
 import { toggleModal } from "../store/uiSlice";
 import { useDispatch } from "react-redux";
+import { resetCounter } from "../store/chatSlice";
 
 export default function TemporaryDrawer({ setMessageCounter }) {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ export default function TemporaryDrawer({ setMessageCounter }) {
     ) {
       return;
     }
-    setMessageCounter(0);
+    dispatch(resetCounter());
     setState({ ...state, [anchor]: open });
   };
 
@@ -113,7 +114,7 @@ export default function TemporaryDrawer({ setMessageCounter }) {
         >
           {users?.map((user, index) => (
             <ListItem key={user.id} disablePadding>
-              <ListItemButton >
+              <ListItemButton>
                 <ListItemText primary={user.firstName} />
                 <div
                   style={{
@@ -136,7 +137,7 @@ export default function TemporaryDrawer({ setMessageCounter }) {
             style={{ width: "100%" }}
             onClick={toggleChat}
             variant="contained"
-            sx={{ fontFamily: "Ubutu"}}
+            sx={{ fontFamily: "Ubutu" }}
           >
             Chat
           </Button>
