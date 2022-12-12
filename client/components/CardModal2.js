@@ -43,7 +43,13 @@ const CardModal2 = () => {
   );
 
   const handleClick = (e, userId) => {
-    const userCard = { userId, cardId };
+    const userCard = {
+      userId,
+      cardId,
+      task: title,
+      projectId: project.selectedProject.id,
+      projectTitle: project.selectedProject.title,
+    };
     !usersOnTask?.includes(userId)
       ? dispatch(assignToCard(userCard))
       : dispatch(removeFromCard(userCard));
@@ -60,7 +66,10 @@ const CardModal2 = () => {
     <ReusableModal modalName="card">
       <CardContainer>
         <TextField
-          style={{ margin: "10px" }}
+          style={{
+            margin: "10px",
+            backgroundColor: "white",
+          }}
           value={cardVals.title}
           onChange={handleChange}
           id="outlined-basic"
@@ -71,7 +80,7 @@ const CardModal2 = () => {
           inputProps={{ style: {fontFamily: "Ubutu" } }}
         />
         <TextField
-          style={{ margin: "10px" }}
+          style={{ margin: "10px", backgroundColor: "white" }}
           value={cardVals.description}
           onChange={handleChange}
           id="outlined-basic"
@@ -104,7 +113,16 @@ const CardModal2 = () => {
           {project.selectedProject.users?.map((u) => {
             return (
               <ProjectMember key={u.id}>
-                <Typography sx={{ fontFamily: "Ubutu" }}>{u.firstName}</Typography>
+                <div
+                  style={{
+                    backgroundColor: "whitesmoke",
+                    borderRadius: "10px",
+                    textAlign: "center",
+                  }}
+                >
+                 <Typography sx={{ fontFamily: "Ubutu" }}>{u.firstName}</Typography>
+                </div>
+
                 <Button
                   variant="contained"
                   onClick={(e) => handleClick(e, u.id)}

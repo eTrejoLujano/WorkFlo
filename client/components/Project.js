@@ -27,7 +27,12 @@ import {
 import "../styles/Project.css";
 import socket from "../socket";
 import { toggleModal } from "../store/uiSlice";
-import { flexbox } from "@mui/system";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+//import { flexbox } from "@mui/system";
+
 
 function Project() {
   const dispatch = useDispatch();
@@ -149,6 +154,10 @@ function Project() {
       <WhiteboardModal />
       <CreateProjectModal modalName="createProject" />
       <CopyLinkModal />
+
+      <ToastContainer />
+    
+
       <div className="Drawer-Title">
         <Drawer />
         <div className="Title">
