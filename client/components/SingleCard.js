@@ -4,7 +4,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import "../styles/Card.css";
-import "../styles/List.css";
 
 import { toggleModal, selectedCard } from "../store/uiSlice";
 import { Draggable } from "react-beautiful-dnd";
