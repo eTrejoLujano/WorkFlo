@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
+import { styled as styling } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -15,8 +15,10 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
 
-const styles = styled({
+const styles = styling({
   gridContainer: {
     paddingLeft: "20px",
     paddingRight: "20px",
@@ -24,32 +26,83 @@ const styles = styled({
   },
 });
 
+let randomColor = Math.floor(Math.random() * 16777215).toString(16);
+const pickedColor = "#" + randomColor;
+
 const ProjectCard = (props) => {
+  const usersWithProjects = useSelector(
+    (state) => state.project.assignedProjects
+  );
+
+  const projectUsers = usersWithProjects.filter(
+    (project) => project.id === props.projectId
+  );
+
+  // console.log(
+  //   `USER WITH PROJECTS ${props.projectId} >>>>`,
+  //   projectUsers[0].users
+  // );
   const classes = styles();
   return (
     <Link to={`/projects/${props.projectId}`}>
-      <Card sx={{ maxWidth: 345, borderRadius: "20px" }}>
-        <CardHeader
-          sx={{ maxHeight: 20 }}
-          title={props.title}
-          subheader={props.created}
-        />
-        <CardMedia
-          component="img"
-          height="300"
-          image="/images/ProjectIcon/WF.jpg"
-        />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing></CardActions>
-      </Card>
+      <div>
+        <Card sx={{ maxWidth: 345, borderRadius: "20px" }}>
+          <CardHeader sx={{ maxHeight: 20 }} title={props.title} />
+          <CardMedia
+            component="img"
+            height="300"
+            image="/images/ProjectIcon/WF.jpg"
+          />
+          <CardContent>
+            <h2 style={{ textAlign: "center" }}>Members</h2>
+            <AssigneeBox>
+              {projectUsers[0]?.users.map((user) => (
+                <Assignee key={user.id}>
+                  {user.avatarURL ? (
+                    <Frame>
+                      <img height="60px" width="60px" src={user.avatarURL} />
+                    </Frame>
+                  ) : (
+                    <Avatar
+                      sx={{
+                        bgcolor: pickedColor,
+                        width: "59px",
+                        height: "59px",
+                      }}
+                    >
+                      {user.firstName.charAt(0).toUpperCase()}
+                      {user.lastName.charAt(0).toUpperCase()}
+                    </Avatar>
+                  )}
+                </Assignee>
+              ))}
+            </AssigneeBox>
+          </CardContent>
+          <CardActions disableSpacing></CardActions>
+        </Card>
+      </div>
     </Link>
   );
 };
 
 export default ProjectCard;
+
+const Frame = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  overflow: hidden;
+`;
+
+const Assignee = styled.div`
+  display: flex;
+  flex-basis: row;
+`;
+
+const AssigneeBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+`;

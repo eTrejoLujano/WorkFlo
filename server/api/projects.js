@@ -57,7 +57,7 @@ const getSingleProject = async (req, res, next) => {
 // GET /api/projects/users
 router.get("/users", requireToken, async (req, res, next) => {
   try {
-    const projects = await UserProjects.findAll();
+    const projects = await Project.findAll({ include: { model: User } });
     res.json(projects);
   } catch (error) {
     next(error);

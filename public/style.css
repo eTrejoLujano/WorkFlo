@@ -29,17 +29,15 @@ form div {
 }
 
 .footer {
-  position: fixed;
-  bottom: 0;
+  position: absolute;
   width: 100%;
-  margin-top: auto;
+  margin-top: 1000000px;
   color: rgb(252, 254, 255);
   background-color: #1976d2;
   /* height: 50px; */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 25px 0;
   font-size: 12px;
 }
 
