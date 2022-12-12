@@ -22,8 +22,14 @@ import {
   updateCardIndex,
   updateCards,
 } from "../store/cardSlice";
+import "../styles/Project.css";
 import socket from "../socket";
 import { toggleModal } from "../store/uiSlice";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+//import { flexbox } from "@mui/system";
 
 function Project() {
   const dispatch = useDispatch();
@@ -45,12 +51,13 @@ function Project() {
 
     socket.emit("user-joined", {
       userId: auth.id,
-      projectId: params.projectId,
+      projectId: +params.projectId,
     });
   }, [params.projectId]);
-  let num = 0;
+  //todo
+  let num = messageCounter;
   useEffect(() => {
-    socket.on("receive_message", (data) => {
+    socket.on("receive_message", () => {
       num += 1;
       setMessageCounter(num);
     });
@@ -143,20 +150,24 @@ function Project() {
   };
 
   return (
-    <div>
+    <div className="Project-Container">
       <CardModal2 modalName="card" />
       <WhiteboardModal />
       <CreateProjectModal modalName="createProject" />
       <CopyLinkModal />
-      <span className={messageCounter ? "unread" : ""}>
-        {messageCounter === 0 ? "" : messageCounter}
-      </span>
-      <Drawer setMessageCounter={setMessageCounter} />
+
+      <ToastContainer />
+      <div className="Drawer-Title">
+        <span className={messageCounter ? "unread" : ""}>
+          {messageCounter === 0 ? "" : messageCounter}
+        </span>
+        <Drawer setMessageCounter={setMessageCounter} />
+        <div className="Title">
+          <h2>{projects.selectedProject?.title}</h2>
+        </div>
+      </div>
       <div>
         <DragDropContext onDragEnd={onDragEnd}>
-          <div className="workspace-heading">
-            <h2>{projects.selectedProject?.title}</h2>
-          </div>
           <Droppable droppableId="all-lists" direction="horizontal" type="list">
             {(provided) => (
               <div
@@ -186,13 +197,5 @@ function Project() {
     </div>
   );
 }
-
-const styles = {
-  listsContainer: {
-    height: "92%",
-    display: "flex",
-    overflowX: "auto",
-  },
-};
 
 export default Project;

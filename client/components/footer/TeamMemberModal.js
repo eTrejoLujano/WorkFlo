@@ -34,7 +34,16 @@ const TeamMemberModal = ({ member }) => {
           width="150px"
           src={`/images/profilePic/${member}.jpeg`}
         />
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          style={{
+            backgroundColor: "rgba(255,255,255,.8)",
+            width: "100%",
+            display: "flex",
+            borderRadius: "10px",
+            textAlign: "center",
+            flexDirection: "column",
+          }}
+        >
           <div>
             <a href={teamInfo[member].linkedIn} target="blank">
               <FaLinkedin size="50" />

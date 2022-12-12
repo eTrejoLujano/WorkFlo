@@ -30,9 +30,9 @@ export default function TemporaryDrawer({ setMessageCounter }) {
 
   const [chatbox, setChatbox] = useState(false);
 
-  const onlineInProj = online
-    .filter((user) => user.projectId === params.projectId)
-    .map((u) => u.userId);
+  // const onlineInProj = online
+  //   .filter((user) => user.projectId === params.projectId)
+  //   .map((u) => u.userId);
 
   const [state, setState] = React.useState({
     top: false,
@@ -113,18 +113,15 @@ export default function TemporaryDrawer({ setMessageCounter }) {
         >
           {users?.map((user, index) => (
             <ListItem key={user.id} disablePadding>
-              <ListItemButton>
+              <ListItemButton >
                 <ListItemText primary={user.firstName} />
-
                 <div
                   style={{
                     borderRadius: "100px",
                     border: "1px groove grey",
                     height: "10px",
                     width: "10px",
-                    backgroundColor: onlineInProj.includes(user.id)
-                      ? "green"
-                      : "red",
+                    backgroundColor: online.includes(user.id) ? "green" : "red",
                   }}
                 ></div>
               </ListItemButton>
@@ -139,6 +136,7 @@ export default function TemporaryDrawer({ setMessageCounter }) {
             style={{ width: "100%" }}
             onClick={toggleChat}
             variant="contained"
+            sx={{ fontFamily: "Ubutu"}}
           >
             Chat
           </Button>

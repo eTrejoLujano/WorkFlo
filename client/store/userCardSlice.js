@@ -3,6 +3,7 @@ import axios from "axios";
 import { sendToken } from "./helperFunctions";
 import { selectedCard } from "./uiSlice";
 import socket from "../socket";
+
 // api/userCards
 // Assign user to card
 export const assignToCard = createAsyncThunk(
@@ -13,6 +14,12 @@ export const assignToCard = createAsyncThunk(
       data.cardId = data.id;
       thunkAPI.dispatch(selectedCard(data));
 
+      socket.emit("user-assigned-task", {
+        userId: value.userId,
+        task: data.title,
+        projectId: value.projectId,
+        projectTitle: value.projectTitle,
+      });
       return data;
     } catch (err) {
       console.error(err);
@@ -29,6 +36,12 @@ export const removeFromCard = createAsyncThunk(
       const { data } = await axios.put(`/api/userCards`, value, sendToken());
       data.cardId = data.id;
       thunkAPI.dispatch(selectedCard(data));
+      socket.emit("user-removed-from-task", {
+        userId: value.userId,
+        task: data.title,
+        projectId: value.projectId,
+        projectTitle: value.projectTitle,
+      });
       return data;
     } catch (err) {
       console.error(err);
