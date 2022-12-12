@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-
 import "../styles/Board.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Drawer from "../components/Drawer";
@@ -17,7 +16,6 @@ import {
 import CardModal2 from "./CardModal2";
 import WhiteboardModal from "./Whiteboard/WhiteboardModal";
 import CreateProjectModal from "./CreateProjectModal";
-
 import {
   fetchCards,
   movingCardLists,
@@ -34,26 +32,29 @@ function Project() {
   const projects = useSelector((state) => state.project);
   const cards = useSelector((state) => state.cards);
   const { modalIsOpen } = useSelector((state) => state.ui);
+  const { messageList } = useSelector((state) => state.chat);
+
   const params = useParams();
+  const [messageCounter, setMessageCounter] = useState(0);
 
   useEffect(() => {
     dispatch(fetchProjects());
     dispatch(fetchSelectedProject(params.projectId));
     dispatch(fetchLists(params.projectId));
     dispatch(fetchCards(params.projectId));
+
     socket.emit("user-joined", {
       userId: auth.id,
       projectId: params.projectId,
     });
   }, [params.projectId]);
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const [value, setValue] = useState("");
-
-  const buttonClicked = () => {
-    setModalOpen(true);
-    setValue(window.location.href);
-  };
+  let num = 0;
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      num += 1;
+      setMessageCounter(num);
+    });
+  }, [socket]);
 
   const onDragEnd = async (result) => {
     const { destination, source, draggableId, type } = result;
@@ -147,7 +148,10 @@ function Project() {
       <WhiteboardModal />
       <CreateProjectModal modalName="createProject" />
       <CopyLinkModal />
-      <Drawer />
+      <span className={messageCounter ? "unread" : ""}>
+        {messageCounter === 0 ? "" : messageCounter}
+      </span>
+      <Drawer setMessageCounter={setMessageCounter} />
       <div>
         <DragDropContext onDragEnd={onDragEnd}>
           <div className="workspace-heading">
