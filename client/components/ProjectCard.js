@@ -45,15 +45,18 @@ const ProjectCard = (props) => {
   const classes = styles();
   return (
     <Link to={`/projects/${props.projectId}`}>
-      <div>
-        <Card sx={{ maxWidth: 345, borderRadius: "20px" }}>
-          <CardHeader sx={{ maxHeight: 20 }} title={props.title} />
-          <CardMedia
-            component="img"
-            height="300"
-            image="/images/ProjectIcon/WF.jpg"
-          />
-          <CardContent>
+      <Card sx={{ maxWidth: 345, borderRadius: "20px", textAlign:"center" }}>
+        <CardHeader
+          sx={{ maxHeight: 20, padding: 4 }}
+          title={props.title}
+          subheader={props.created}
+        />
+        <CardMedia
+          component="img"
+          height="300"
+          image="/images/ProjectIcon/WF.jpg"
+        />
+        <CardContent>
             <h2 style={{ textAlign: "center" }}>Members</h2>
             <AssigneeBox>
               {projectUsers[0]?.users.map((user) => (
@@ -77,10 +80,9 @@ const ProjectCard = (props) => {
                 </Assignee>
               ))}
             </AssigneeBox>
-          </CardContent>
-          <CardActions disableSpacing></CardActions>
-        </Card>
-      </div>
+        </CardContent>
+        <CardActions disableSpacing></CardActions>
+      </Card>
     </Link>
   );
 };

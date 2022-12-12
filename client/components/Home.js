@@ -71,7 +71,7 @@ export const Home = () => {
       return;
     }
     dispatch(createProject(titleValue));
-    console.log("handleSubmit titleValue", titleValue);
+    // console.log("handleSubmit titleValue", titleValue);
   };
 
   const classes = styling();

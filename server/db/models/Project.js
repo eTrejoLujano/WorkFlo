@@ -11,6 +11,19 @@ const Project = db.define("project", {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  createdAt: {
+    type: Sequelize.DATE,                  
+    get() {
+      let options = { 
+        year: 'numeric', month: 'short', day: 'numeric', 
+        hour: 'numeric', minute: 'numeric' 
+      };
+      let dtFormat = new Intl.DateTimeFormat('en-US', options);
+      return dtFormat.format(this.dataValues.createdAt)
+    },
+  },
 });
+
+
 
 module.exports = Project;
