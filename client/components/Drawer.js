@@ -113,9 +113,8 @@ export default function TemporaryDrawer() {
         >
           {users?.map((user, index) => (
             <ListItem key={user.id} disablePadding>
-              <ListItemButton>
+              <ListItemButton >
                 <ListItemText primary={user.firstName} />
-
                 <div
                   style={{
                     borderRadius: "100px",
@@ -137,6 +136,7 @@ export default function TemporaryDrawer() {
             style={{ width: "100%" }}
             onClick={toggleChat}
             variant="contained"
+            sx={{ fontFamily: "Ubutu"}}
           >
             Chat
           </Button>

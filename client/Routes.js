@@ -42,6 +42,7 @@ class Routes extends Component {
           </Switch>
         )}
         {!history.location.pathname.startsWith("/chat") &&
+          !history.location.pathname.startsWith("/home") &&
           !history.location.pathname.startsWith("/projects") && <Footer />}
       </div>
     );

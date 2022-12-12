@@ -32,7 +32,7 @@ const getProjectsByUser = async (req, res, next) => {
 const createProject = async (req, res, next) => {
   try {
     const project = await Project.create({ ...req.body, id: req.user.id });
-    console.log("projects.js project****", project);
+    // console.log("projects.js project****", project);
     res.json(project);
   } catch (error) {
     next(error);
@@ -57,7 +57,7 @@ const getSingleProject = async (req, res, next) => {
 // GET /api/projects/users
 router.get("/users", requireToken, async (req, res, next) => {
   try {
-    const projects = await UserProjects.findAll();
+    const projects = await Project.findAll({ include: { model: User } });
     res.json(projects);
   } catch (error) {
     next(error);
@@ -82,7 +82,7 @@ router.get("/:projectId/invite/:hash", requireToken, async (req, res, next) => {
 router.post("/:projectId/invite", requireToken, async (req, res, next) => {
   try {
     const invite = await UserProjects.create(req.body);
-    console.log("invite", invite);
+    // console.log("invite", invite);
     res.json(invite);
   } catch (error) {
     next(error);

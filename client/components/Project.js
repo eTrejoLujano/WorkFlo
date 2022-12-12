@@ -24,10 +24,15 @@ import {
   updateCardIndex,
   updateCards,
 } from "../store/cardSlice";
+import "../styles/Project.css";
 import socket from "../socket";
 import { toggleModal } from "../store/uiSlice";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+//import { flexbox } from "@mui/system";
+
 
 function Project() {
   const dispatch = useDispatch();
@@ -144,18 +149,23 @@ function Project() {
   };
 
   return (
-    <div>
+    <div className="Project-Container">
       <CardModal2 modalName="card" />
       <WhiteboardModal />
       <CreateProjectModal modalName="createProject" />
       <CopyLinkModal />
+
       <ToastContainer />
-      <Drawer />
+    
+
+      <div className="Drawer-Title">
+        <Drawer />
+        <div className="Title">
+          <h2>{projects.selectedProject?.title}</h2>
+        </div>
+      </div>
       <div>
         <DragDropContext onDragEnd={onDragEnd}>
-          <div className="workspace-heading">
-            <h2>{projects.selectedProject?.title}</h2>
-          </div>
           <Droppable droppableId="all-lists" direction="horizontal" type="list">
             {(provided) => (
               <div
@@ -185,13 +195,5 @@ function Project() {
     </div>
   );
 }
-
-const styles = {
-  listsContainer: {
-    height: "92%",
-    display: "flex",
-    overflowX: "auto",
-  },
-};
 
 export default Project;

@@ -116,8 +116,6 @@ router.put("/order", requireToken, async (req, res, next) => {
         const list = await List.findOne({
           where: { listindex: i, projectId: req.body.projectId },
         });
-        console.log("REQ BODY >>>>>>", req.body);
-        console.log("LISTTT >>>>>", list);
         await List.update(
           {
             listindex: Sequelize.literal("listIndex + 1"),

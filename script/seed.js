@@ -59,8 +59,10 @@ const users = [
 
 const projects = [
   {
-    title: "Track List",
+    title: "Mad This Summer",
     complete: false,
+    heading: "Artist: August Is Falling",
+    subHeading: "Album: The Simple Plan"
   },
 ];
 
@@ -85,63 +87,63 @@ const lists = [
 const cards = [
   {
     title: "Vocals",
-    description: "description1",
+    description: "TLM105, LA2A",
     complete: false,
     cardindex: 1,
     listId: 1,
   },
   {
     title: "BGV",
-    description: "description2",
+    description: "Maia & Jonatha through C1 into Warm Audio WA4, Distressor, Studer 800",
     complete: false,
     cardindex: 2,
     listId: 1,
   },
   {
     title: "AcGtr",
-    description: "description3",
+    description: "KM184 spaced pair",
     complete: true,
     cardindex: 3,
     listId: 1,
   },
   {
     title: "ElGtr1",
-    description: "description4",
+    description: "Direct through Slate TH-U",
     complete: true,
     cardindex: 0,
     listId: 1,
   },
   {
-    title: "ElGtr2",
-    description: "description5",
+    title: "Drums",
+    description: "Glyn John's technique. Sonar kit with Auto-Align",
     complete: false,
     cardindex: 1,
     listId: 2,
   },
   {
-    title: "Organ",
-    description: "description6",
+    title: "Bass",
+    description: "Precision Bass through Avalon in VMR and VTM",
     complete: true,
     cardindex: 0,
     listId: 2,
   },
   {
     title: "Rhodes",
-    description: "description7",
+    description: "Blues Driver through Fender Deluxe",
     complete: false,
     cardindex: 0,
     listId: 3,
   },
   {
-    title: "Bass",
-    description: "description6",
+    title: "Organ",
+    description: "Hammond C3 through Leslie 125",
     complete: true,
     cardindex: 1,
     listId: 3,
   },
   {
-    title: "Drums",
-    description: "description7",
+    title: "ElGtr2",
+    description: "Les Paul - Crybaby Wah - Tube Screamer - Ampeg Reverberocket",
     complete: false,
     cardindex: 2,
     listId: 3,

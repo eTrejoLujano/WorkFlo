@@ -58,7 +58,7 @@ const ProjectMenu = () => {
           "aria-labelledby": "projects-button",
         }}
       >
-        {userProjects.length &&
+        {userProjects?.length &&
           userProjects.map(
             (project) =>
               project.id && (

@@ -4,7 +4,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import "../styles/Card.css";
-import "../styles/List.css";
 
 import { toggleModal, selectedCard } from "../store/uiSlice";
 import { Draggable } from "react-beautiful-dnd";
@@ -33,9 +32,10 @@ const SingleCard = ({
           onClick={handleClick}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
+          sx={{ display: "flex", justifyContent: "center" }}
         >
           <CardContent>
-            <Typography>{title}</Typography>
+            <Typography sx={{ fontFamily: "Ubuntu" }}>{title}</Typography>
           </CardContent>
         </Card>
       )}
@@ -43,19 +43,4 @@ const SingleCard = ({
   );
 };
 
-const styles = {
-  cardContent: {
-    cursor: "pointer",
-    display: "flex",
-    justifyContent: "space-between",
-    // justifyContent: "flex-end",
-    // backgroundColor: "green"
-  },
-  editIcon: {
-    cursor: "pointer",
-    height: 18,
-    width: 18,
-    // justifyContent: "flex-end"
-  },
-};
 export default SingleCard;
