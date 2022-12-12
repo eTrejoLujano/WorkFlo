@@ -1,6 +1,7 @@
 .App {
   background: rgb(75, 191, 107);
   height: 100vh;
+  font-family: "Ubuntu";
 }
 
 .Header {

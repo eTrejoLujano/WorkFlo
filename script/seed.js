@@ -61,6 +61,8 @@ const projects = [
   {
     title: "Mad This Summer",
     complete: false,
+    heading: "Artist: August Is Falling",
+    subHeading: "Album: The Simple Plan"
   },
 ];
 

@@ -43,13 +43,28 @@ const ProjectCard = (props) => {
   //   projectUsers[0].users
   // );
   const classes = styles();
+  const date = props.created.slice(0,12)
+  const time = props.created.slice(14)
+
   return (
     <Link to={`/projects/${props.projectId}`}>
-      <Card sx={{ maxWidth: 345, borderRadius: "20px", textAlign:"center" }}>
+      <Card sx={{ maxWidth: 345, borderRadius: "20px", textAlign:"center", fontFamily: "Ubutu" }}>
         <CardHeader
-          sx={{ maxHeight: 20, padding: 4 }}
-          title={props.title}
-          subheader={props.created}
+          sx={{ maxHeight: 20, padding: 4, color: "text.secondary", fontFamily: "Ubutu" }}
+          title={
+            <Typography sx={{ fontFamily: "Ubutu", fontSize: 28 }} >
+              {props.title}
+            </Typography>
+          }
+          subheader={
+            <Typography sx={{ fontFamily: "Ubutu" }} >
+              <span>{"Created "}</span>
+              <span>{date}</span>
+              <span>{" at "}</span>
+              <span>{time}</span>
+            </Typography>
+           }
+          
         />
         <CardMedia
           component="img"
@@ -57,6 +72,22 @@ const ProjectCard = (props) => {
           image="/images/ProjectIcon/WF.jpg"
         />
         <CardContent>
+          // <Typography 
+          //   variant="body2"
+           //  color="text.secondary"
+           //  sx={{ fontFamily: "Ubutu", fontSize: 18, textAlign:"center" }}
+          // >
+           //  {props.heading && props.heading} <p/>
+            
+          // </Typography>
+          // <Typography 
+            // variant="body2"
+            // color="text.secondary"
+            // sx={{ fontFamily: "Ubutu", fontSize: 16, textAlign:"center" }}
+          // >
+            // {props.subHeading && props.subHeading} 
+           //</Typography>
+           
             <h2 style={{ textAlign: "center" }}>Members</h2>
             <AssigneeBox>
               {projectUsers[0]?.users.map((user) => (

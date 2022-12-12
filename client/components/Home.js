@@ -78,6 +78,7 @@ export const Home = () => {
 
   return (
     // Whole page
+
     <div>
       <HomeContainer className="backgroundMain">
         <NewProjectContainer>

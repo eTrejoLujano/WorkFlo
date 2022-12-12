@@ -191,9 +191,10 @@ const styles = {
     overflowX: "auto",
   },
   title: {
+    color: "#5A5A5A",
     fontFamily: "Ubuntu",
     fontSize: "25px",
-    marginLeft: "10%",
+    marginLeft: "5%",
     paddingBottom: "25px"
   }
 };

@@ -33,9 +33,10 @@ const SingleCard = ({
           onClick={handleClick}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
+          sx={{ display: "flex", justifyContent: "center"}}
         >
           <CardContent>
-            <Typography>{title}</Typography>
+            <Typography sx={{fontFamily: "Ubuntu"}}>{title}</Typography>
           </CardContent>
         </Card>
       )}
@@ -43,19 +44,4 @@ const SingleCard = ({
   );
 };
 
-const styles = {
-  cardContent: {
-    cursor: "pointer",
-    display: "flex",
-    justifyContent: "space-between",
-    // justifyContent: "flex-end",
-    // backgroundColor: "green"
-  },
-  editIcon: {
-    cursor: "pointer",
-    height: 18,
-    width: 18,
-    // justifyContent: "flex-end"
-  },
-};
 export default SingleCard;

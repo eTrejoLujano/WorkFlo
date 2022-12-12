@@ -26,6 +26,7 @@
 
 .Add-List-Button:hover {
   background-color: rgba(0, 0, 0, 0.24);
+  background-color: 5A5A5A;
 }
 
 .Add-List-Button ion-icon {

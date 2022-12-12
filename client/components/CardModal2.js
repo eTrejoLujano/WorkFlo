@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { assignToCard, removeFromCard } from "../store/userCardSlice";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { Typography } from "@mui/material";
 
 const CardModal2 = () => {
   const dispatch = useDispatch();
@@ -67,6 +68,7 @@ const CardModal2 = () => {
           name="title"
           variant="outlined"
           required
+          inputProps={{ style: {fontFamily: "Ubutu" } }}
         />
         <TextField
           style={{ margin: "10px" }}
@@ -77,6 +79,7 @@ const CardModal2 = () => {
           name="description"
           variant="outlined"
           required
+          inputProps={{ style: {fontFamily: "Ubutu" } }}
         />
         <h2 style={{ textAlign: "center" }}>Assignees</h2>
         <AssigneeBox>
@@ -92,6 +95,7 @@ const CardModal2 = () => {
                   {u.lastName.charAt(0).toUpperCase()}
                 </Avatar>
               )}
+              <Typography sx={{ fontFamily: "Ubutu" }}>{u.firstName}</Typography>
             </Assignee>
           ))}
         </AssigneeBox>
@@ -100,7 +104,7 @@ const CardModal2 = () => {
           {project.selectedProject.users?.map((u) => {
             return (
               <ProjectMember key={u.id}>
-                <p>{u.firstName}</p>
+                <Typography sx={{ fontFamily: "Ubutu" }}>{u.firstName}</Typography>
                 <Button
                   variant="contained"
                   onClick={(e) => handleClick(e, u.id)}
@@ -126,7 +130,9 @@ const CardContainer = styled.div`
 
 const Assignee = styled.div`
   display: flex;
-  flex-basis: row;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const AssigneeBox = styled.div`
@@ -143,6 +149,10 @@ const ProjectMemberBox = styled.div`
 `;
 
 const ProjectMember = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   margin: 5px;
 `;
 
