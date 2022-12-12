@@ -65,7 +65,10 @@ const CardModal2 = () => {
     <ReusableModal modalName="card">
       <CardContainer>
         <TextField
-          style={{ margin: "10px" }}
+          style={{
+            margin: "10px",
+            backgroundColor: "white",
+          }}
           value={cardVals.title}
           onChange={handleChange}
           id="outlined-basic"
@@ -75,7 +78,7 @@ const CardModal2 = () => {
           required
         />
         <TextField
-          style={{ margin: "10px" }}
+          style={{ margin: "10px", backgroundColor: "white" }}
           value={cardVals.description}
           onChange={handleChange}
           id="outlined-basic"
@@ -106,7 +109,16 @@ const CardModal2 = () => {
           {project.selectedProject.users?.map((u) => {
             return (
               <ProjectMember key={u.id}>
-                <p>{u.firstName}</p>
+                <div
+                  style={{
+                    backgroundColor: "whitesmoke",
+                    borderRadius: "10px",
+                    textAlign: "center",
+                  }}
+                >
+                  <p>{u.firstName}</p>
+                </div>
+
                 <Button
                   variant="contained"
                   onClick={(e) => handleClick(e, u.id)}

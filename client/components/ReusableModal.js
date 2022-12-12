@@ -25,7 +25,11 @@ const ReusableModal = ({ children, modalName }) => {
     transform: "translate(-50%, -50%)",
     width: 400,
     bgcolor: "background.paper",
-    border: "2px solid #5A5A5A",
+    backgroundImage:
+      "url('https://www.muralesyvinilos.com/murales/ola_de_agua_muralesyvinilos_9700450_XL.jpg')",
+    backgroundSize: "cover",
+    borderRadius: "50px",
+    border: "7px groove aqua",
     boxShadow: 24,
     p: 4,
   };
