@@ -33,10 +33,10 @@ const SingleCard = ({
           onClick={handleClick}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          sx={{ display: "flex", justifyContent: "center"}}
+          sx={{ display: "flex", justifyContent: "center" }}
         >
           <CardContent>
-            <Typography sx={{fontFamily: "Ubuntu"}}>{title}</Typography>
+            <Typography sx={{ fontFamily: "Ubuntu" }}>{title}</Typography>
           </CardContent>
         </Card>
       )}
