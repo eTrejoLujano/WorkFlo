@@ -63,8 +63,7 @@ const ProjectCard = (props) => {
               <span>{" at "}</span>
               <span>{time}</span>
             </Typography>
-           }
-          
+           }  
         />
         <CardMedia
           component="img"
