@@ -43,27 +43,39 @@ const ProjectCard = (props) => {
   //   projectUsers[0].users
   // );
   const classes = styles();
-  const date = props.created.slice(0,12)
-  const time = props.created.slice(14)
+  const date = props.created.slice(0, 12);
+  const time = props.created.slice(14);
 
   return (
     <Link to={`/projects/${props.projectId}`}>
-      <Card sx={{ maxWidth: 345, borderRadius: "20px", textAlign:"center", fontFamily: "Ubutu" }}>
+      <Card
+        sx={{
+          maxWidth: 345,
+          borderRadius: "20px",
+          textAlign: "center",
+          fontFamily: "Ubutu",
+        }}
+      >
         <CardHeader
-          sx={{ maxHeight: 20, padding: 4, color: "text.secondary", fontFamily: "Ubutu" }}
+          sx={{
+            maxHeight: 20,
+            padding: 4,
+            color: "text.secondary",
+            fontFamily: "Ubutu",
+          }}
           title={
-            <Typography sx={{ fontFamily: "Ubutu", fontSize: 28 }} >
+            <Typography sx={{ fontFamily: "Ubutu", fontSize: 28 }}>
               {props.title}
             </Typography>
           }
           subheader={
-            <Typography sx={{ fontFamily: "Ubutu" }} >
+            <Typography sx={{ fontFamily: "Ubutu" }}>
               <span>{"Created "}</span>
               <span>{date}</span>
               <span>{" at "}</span>
               <span>{time}</span>
             </Typography>
-           }  
+          }
         />
         <CardMedia
           component="img"
@@ -71,7 +83,7 @@ const ProjectCard = (props) => {
           image="/images/ProjectIcon/WF.jpg"
         />
         <CardContent>
-          // <Typography 
+          {/* // <Typography 
           //   variant="body2"
            //  color="text.secondary"
            //  sx={{ fontFamily: "Ubutu", fontSize: 18, textAlign:"center" }}
@@ -85,31 +97,31 @@ const ProjectCard = (props) => {
             // sx={{ fontFamily: "Ubutu", fontSize: 16, textAlign:"center" }}
           // >
             // {props.subHeading && props.subHeading} 
-           //</Typography>
-           
-            <h2 style={{ textAlign: "center" }}>Members</h2>
-            <AssigneeBox>
-              {projectUsers[0]?.users.map((user) => (
-                <Assignee key={user.id}>
-                  {user.avatarURL ? (
-                    <Frame>
-                      <img height="60px" width="60px" src={user.avatarURL} />
-                    </Frame>
-                  ) : (
-                    <Avatar
-                      sx={{
-                        bgcolor: pickedColor,
-                        width: "59px",
-                        height: "59px",
-                      }}
-                    >
-                      {user.firstName.charAt(0).toUpperCase()}
-                      {user.lastName.charAt(0).toUpperCase()}
-                    </Avatar>
-                  )}
-                </Assignee>
-              ))}
-            </AssigneeBox>
+           //</Typography> */}
+
+          <h2 style={{ textAlign: "center" }}>Members</h2>
+          <AssigneeBox>
+            {projectUsers[0]?.users.map((user) => (
+              <Assignee key={user.id}>
+                {user.avatarURL ? (
+                  <Frame>
+                    <img height="60px" width="60px" src={user.avatarURL} />
+                  </Frame>
+                ) : (
+                  <Avatar
+                    sx={{
+                      bgcolor: pickedColor,
+                      width: "59px",
+                      height: "59px",
+                    }}
+                  >
+                    {user.firstName.charAt(0).toUpperCase()}
+                    {user.lastName.charAt(0).toUpperCase()}
+                  </Avatar>
+                )}
+              </Assignee>
+            ))}
+          </AssigneeBox>
         </CardContent>
         <CardActions disableSpacing></CardActions>
       </Card>
