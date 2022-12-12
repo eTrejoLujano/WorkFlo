@@ -42,7 +42,13 @@ const CardModal2 = () => {
   );
 
   const handleClick = (e, userId) => {
-    const userCard = { userId, cardId };
+    const userCard = {
+      userId,
+      cardId,
+      task: title,
+      projectId: project.selectedProject.id,
+      projectTitle: project.selectedProject.title,
+    };
     !usersOnTask?.includes(userId)
       ? dispatch(assignToCard(userCard))
       : dispatch(removeFromCard(userCard));

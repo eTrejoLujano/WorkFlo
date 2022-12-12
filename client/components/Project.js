@@ -26,6 +26,8 @@ import {
 } from "../store/cardSlice";
 import socket from "../socket";
 import { toggleModal } from "../store/uiSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Project() {
   const dispatch = useDispatch();
@@ -147,6 +149,7 @@ function Project() {
       <WhiteboardModal />
       <CreateProjectModal modalName="createProject" />
       <CopyLinkModal />
+      <ToastContainer />
       <Drawer />
       <div>
         <DragDropContext onDragEnd={onDragEnd}>

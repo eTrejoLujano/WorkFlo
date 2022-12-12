@@ -36,6 +36,23 @@ module.exports = (io) => {
       );
     });
 
+    socket.on("user-assigned-task", (task) => {
+      if (userPool[task.projectId] && userPool[task.projectId][task.userId]) {
+        io.to(userPool[task.projectId][task.userId]).emit(
+          "user-assigned-task",
+          task
+        );
+      }
+    });
+
+    socket.on("user-removed-from-task", (task) => {
+      if (userPool[task.projectId] && userPool[task.projectId][task.userId]) {
+        io.to(userPool[task.projectId][task.userId]).emit(
+          "user-removed-from-task",
+          task
+        );
+      }
+    });
     socket.on("send_message", (data) => {
       socket.broadcast.emit("receive_message", data);
     });
