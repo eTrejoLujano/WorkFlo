@@ -38,10 +38,6 @@ const ProjectCard = (props) => {
     (project) => project.id === props.projectId
   );
 
-  // console.log(
-  //   `USER WITH PROJECTS ${props.projectId} >>>>`,
-  //   projectUsers[0].users
-  // );
   const classes = styles();
   const date = props.created.slice(0, 12);
   const time = props.created.slice(14);

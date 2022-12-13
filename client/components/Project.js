@@ -14,7 +14,6 @@ import {
   fetchSelectedProject,
   fetchWhiteboards,
 } from "../store/projectSlice";
-// import CardModal2 from "./CardModal2";
 import CardModalNew from "./CardModalNew";
 import WhiteboardModal from "./Whiteboard/WhiteboardModal";
 import CreateProjectModal from "./CreateProjectModal";
@@ -31,8 +30,6 @@ import { toggleModal } from "../store/uiSlice";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-//import { flexbox } from "@mui/system";
 
 
 function Project() {
@@ -151,14 +148,11 @@ function Project() {
 
   return (
     <div className="Project-Container">
-      {/* <CardModal2 modalName="card" /> */}
       <CardModalNew modalName="card" />
       <WhiteboardModal />
       <CreateProjectModal modalName="createProject" />
       <CopyLinkModal />
       <ToastContainer />
-    
-
       <div className="Drawer-Title">
         <Drawer />
         <div className="Title">

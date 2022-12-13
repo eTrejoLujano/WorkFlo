@@ -5,6 +5,7 @@ import { Avatar, } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import MUIModal from "@mui/material/Modal";
+import { assignToCard, removeFromCard } from "../store/userCardSlice";
 import { selectedCard, toggleModal } from "../store/uiSlice";
 import { fetchCards, updateCard } from "../store/cardSlice";
 import { useEffect } from "react";
@@ -14,15 +15,13 @@ import { Typography } from "@mui/material";
 
 const CardModalNew = () => {
   const dispatch = useDispatch();
-  const { modalIsOpen } = useSelector((state) => state.ui);
+  const { modalIsOpen, selectedCard } = useSelector((state) => state.ui);
   const { selectedProject } = useSelector((state) => state.project);
   const { project } = useSelector((state) => state);
 
   const { users, cardId, title, description } = useSelector(
     (state) => state.ui.selectedCard
   );
-
-  console.log("cardId", cardId)
 
   const userCard = useSelector((state) => state.userCard);
   
@@ -48,7 +47,7 @@ const CardModalNew = () => {
     (user) => user.id
   );
   
-  const handleClick = (userId) => {
+  const handleClick = (e, userId) => {
     const userCard = {
       userId,
       cardId,
@@ -69,6 +68,10 @@ const CardModalNew = () => {
 
   let randomColor = Math.floor(Math.random() * 16777215).toString(16);
   const pickedColor = "#" + randomColor;
+
+  const date = selectedCard.updatedAt?.slice(0, 12);
+  const time = selectedCard.updatedAt?.slice(14);
+
 
   const styles = {
     root: {
@@ -149,7 +152,6 @@ const CardModalNew = () => {
                 <ProjectMember key={u.id}>
                   <div
                     style={{
-                      backgroundColor: "whitesmoke",
                       borderRadius: "10px",
                       textAlign: "center",
                     }}
@@ -168,18 +170,12 @@ const CardModalNew = () => {
           </ProjectMemberBox>
           <hr />
           <CreatedAtBox>
-            {/* <Typography sx={{ fontFamily: "Ubutu" }} >
-                <span>{"Created "}</span>
-                <span>{date}</span>
-                <span>{" at "}</span>
+            <Typography display="flex" sx={{ fontFamily: "Ubutu", justifyContent: "center" }} >
+                <span>{"Updated at "}</span>
                 <span>{time}</span>
+                <span>{" on "}</span>
+                <span>{date}</span>
               </Typography>
-            <Typography sx={{ fontFamily: "Ubutu" }} >
-                <span>{"Updated "}</span>
-                <span>{date}</span>
-                <span>{" at "}</span>
-                <span>{time}</span>
-              </Typography> */}
           </CreatedAtBox>
         </CardContainer>
       </Box>

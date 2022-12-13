@@ -55,14 +55,6 @@ const CardModal2 = () => {
       : dispatch(removeFromCard(userCard));
   };
 
-  const handleClose = (e) => {
-    console.log('***HANDLE CLOSE***')
-    // e.preventDefault();
-    // dispatch(updateCard({ ...formVals, title: formVals.title, description: formVals.description, cardId: formVals.cardId }));
-    // dispatch(toggleModal("card"));
-    // dispatch(fetchCards(selectedProject.id));
-  };
-
   let randomColor = Math.floor(Math.random() * 16777215).toString(16);
   const pickedColor = "#" + randomColor;
 
