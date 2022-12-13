@@ -23,7 +23,7 @@ module.exports = (io) => {
         "user-joined",
         Object.keys(userPool[joiner.projectId]).map((userId) => +userId)
       );
-      console.log("joiner :>> ", joiner);
+      // console.log("joiner :>> ", joiner);
     });
 
     socket.on("user-left", (leaver) => {

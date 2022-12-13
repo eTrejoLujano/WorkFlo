@@ -14,7 +14,8 @@ import {
   fetchSelectedProject,
   fetchWhiteboards,
 } from "../store/projectSlice";
-import CardModal2 from "./CardModal2";
+// import CardModal2 from "./CardModal2";
+import CardModalNew from "./CardModalNew";
 import WhiteboardModal from "./Whiteboard/WhiteboardModal";
 import CreateProjectModal from "./CreateProjectModal";
 
@@ -150,11 +151,11 @@ function Project() {
 
   return (
     <div className="Project-Container">
-      <CardModal2 modalName="card" />
+      {/* <CardModal2 modalName="card" /> */}
+      <CardModalNew modalName="card" />
       <WhiteboardModal />
       <CreateProjectModal modalName="createProject" />
       <CopyLinkModal />
-
       <ToastContainer />
     
 

@@ -60,21 +60,19 @@ router.post("/", requireToken, async (req, res, next) => {
   }
 });
 
-// PUT /api/cards
+// PUT /api/cards/update
 // Edit a cards title and/or description
-// router.put("/", requireToken, async (req, res, next) => {
-//   try {
-//     const card = await Card.update(
-//       { title: req.body.title, description: req.body.description },
-//       {
-//         where: { id: req.body.id, listId: req.body.listId },
-//       }
-//     );
-//     res.json(card);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+router.put("/update", requireToken, async (req, res, next) => {
+  try {
+    const card = await Card.update(
+      { title: req.body.title, description: req.body.description },
+      { where: { id: req.body.id,  }}
+    );
+    res.json(card);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // PUT /api/cards/cardIndex
 // Edit a cards Index in a list
