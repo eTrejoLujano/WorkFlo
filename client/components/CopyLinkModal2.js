@@ -43,10 +43,16 @@ const CopyLinkModal2 = () => {
 
   return (
     <ReusableModal modalName="copyLink">
-      <div className="title">
-        <h1>Invite</h1>
+      <div
+        classname="inviteContainer"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <h3>Share link to invite memeber to project</h3>
       </div>
-      <div className="body">
+      <div
+        className="body"
+        style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
+      >
         <input value={window.location.href} onChange={handleChange} />
 
         <Tooltip title="Copy">
@@ -55,8 +61,6 @@ const CopyLinkModal2 = () => {
           </button>
         </Tooltip>
       </div>
-      {/* </div>
-      </div> */}
     </ReusableModal>
   );
 };
