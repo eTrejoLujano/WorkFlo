@@ -8,20 +8,20 @@ const {
 
 const users = [
   {
-    firstName: "Cody",
-    lastName: "Smith",
-    email: "cody@cody.com",
+    firstName: "Erik",
+    lastName: "Trejo",
+    email: "erik@erik.com",
     password: "123",
     isAdmin: true,
-    avatarURL: "/images/profilePic/cody.jpeg",
+    avatarURL: "/images/profilePic/erik.jpeg",
   },
   {
-    firstName: "Murphy",
+    firstName: "Matt",
     lastName: "Brown",
-    email: "murphy@murphy.com",
+    email: "matt@matt.com",
     password: "123",
     isAdmin: false,
-    avatarURL: "/images/profilePic/murphy.jpeg",
+    avatarURL: "/images/profilePic/matt.jpeg",
   },
   {
     firstName: "Jonatha",
@@ -40,26 +40,32 @@ const users = [
     avatarURL: "/images/profilePic/katie.jpeg",
   },
   {
-    firstName: "Jerry",
-    lastName: "Joseph",
-    email: "jerry@jerry.com",
+    firstName: "Jerral",
+    lastName: "Graham",
+    email: "jerral@jerral.com",
     password: "123",
     isAdmin: false,
-    avatarURL: "/images/profilePic/jerry.jpeg",
+    avatarURL: "/images/profilePic/jerral.jpeg",
   },
   {
-    firstName: "Maia",
-    lastName: "Sharpe",
-    email: "maia@maia.com",
+    firstName: "Peter",
+    lastName: "Rodocker",
+    email: "peter@peter.com",
     password: "123",
     isAdmin: false,
-    avatarURL: "/images/profilePic/maia.jpeg",
+    avatarURL: "/images/profilePic/peter.jpeg",
   },
 ];
 
 const projects = [
   {
     title: "Mad This Summer",
+    complete: false,
+    heading: "Artist: August Is Falling",
+    subHeading: "Album: The Simple Plan"
+  },
+  {
+    title: "Track List",
     complete: false,
     heading: "Artist: August Is Falling",
     subHeading: "Album: The Simple Plan"
@@ -82,6 +88,21 @@ const lists = [
     projectId: 1,
     listindex: 2,
   },
+  {
+    title: "To Record",
+    projectId: 2,
+    listindex: 0,
+  },
+  {
+    title: "Recording",
+    projectId: 2,
+    listindex: 1,
+  },
+  {
+    title: "Mixed",
+    projectId: 2,
+    listindex: 2,
+  },
 ];
 
 const cards = [
@@ -94,7 +115,7 @@ const cards = [
   },
   {
     title: "BGV",
-    description: "Maia & Jonatha through C1 into Warm Audio WA4, Distressor, Studer 800",
+    description: "C1 into Warm Audio WA4, Distressor, Studer 800",
     complete: false,
     cardindex: 2,
     listId: 1,
@@ -148,6 +169,71 @@ const cards = [
     cardindex: 2,
     listId: 3,
   },
+
+
+  {
+    title: "Mad This Summer",
+    description: "",
+    complete: false,
+    cardindex: 1,
+    listId: 4,
+  },
+  {
+    title: "August Is Falling",
+    description: "",
+    complete: false,
+    cardindex: 0,
+    listId: 4,
+  },
+  {
+    title: "Btgg",
+    description: "",
+    complete: true,
+    cardindex: 3,
+    listId: 5,
+  },
+  {
+    title: "The Simple Plan",
+    description: "",
+    complete: true,
+    cardindex: 4,
+    listId: 5,
+  },
+  {
+    title: "Don't Click the Link",
+    description: "",
+    complete: false,
+    cardindex: 1,
+    listId: 5,
+  },
+  {
+    title: "Too Much Time",
+    description: "",
+    complete: true,
+    cardindex: 0,
+    listId: 5,
+  },
+  {
+    title: "All Roads",
+    description: "",
+    complete: false,
+    cardindex: 2,
+    listId: 5,
+  },
+  {
+    title: "Is This All",
+    description: "",
+    complete: true,
+    cardindex: 1,
+    listId: 6,
+  },
+  {
+    title: "Probably",
+    description: "",
+    complete: false,
+    cardindex: 0,
+    listId: 6,
+  },
 ];
 
 const seeduserCards = [
@@ -187,6 +273,43 @@ const seeduserCards = [
     userId: 6,
     cardId: 9,
   },
+
+  {
+    userId: 1,
+    cardId: 10,
+  },
+  {
+    userId: 2,
+    cardId: 11,
+  },
+  {
+    userId: 3,
+    cardId: 12,
+  },
+  {
+    userId: 4,
+    cardId: 13,
+  },
+  {
+    userId: 5,
+    cardId: 14,
+  },
+  {
+    userId: 6,
+    cardId: 15,
+  },
+  {
+    userId: 4,
+    cardId: 16,
+  },
+  {
+    userId: 5,
+    cardId: 17,
+  },
+  {
+    userId: 6,
+    cardId: 18,
+  },
 ];
 
 const seeduserProjects = [
@@ -213,6 +336,31 @@ const seeduserProjects = [
   {
     userId: 6,
     projectId: 1,
+  },
+
+  {
+    userId: 1,
+    projectId: 2,
+  },
+  {
+    userId: 2,
+    projectId: 2,
+  },
+  {
+    userId: 3,
+    projectId: 2,
+  },
+  {
+    userId: 4,
+    projectId: 2,
+  },
+  {
+    userId: 5,
+    projectId: 2,
+  },
+  {
+    userId: 6,
+    projectId: 2,
   },
 ];
 
