@@ -39,6 +39,7 @@ function List(props) {
                       description={card.description}
                       cardHashId={card.cardHashId}
                       index={index}
+                      updatedAt={card.updatedAt}
                       users={card.users}
                     />
                   ))}

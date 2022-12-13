@@ -13,13 +13,14 @@ const SingleCard = ({
   title,
   description,
   index,
+  updatedAt,
   users,
   cardHashId,
 }) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(selectedCard({ cardId, title, description, users }));
+    dispatch(selectedCard({ cardId, title, description, updatedAt, users }));
     dispatch(toggleModal("card"));
   };
 

@@ -30,6 +30,8 @@ const ReusableModal = ({ children, modalName }) => {
     boxShadow: 24,
     p: 4,
   };
+
+
   return (
     <MUIModal
       style={styles.root}

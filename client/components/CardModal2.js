@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReusableModal from "../components/ReusableModal";
 import styled from "styled-components";
-import { Avatar, Modal } from "antd";
+import { Avatar, } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { selectedCard, toggleModal } from "../store/uiSlice";
 import { useEffect } from "react";
@@ -59,11 +59,10 @@ const CardModal2 = () => {
   const pickedColor = "#" + randomColor;
 
   return (
-    // <Modal
-    //   open={modalIsOpen["card"]}
-    //   onCancel={() => dispatch(toggleModal("card"))}
-    // >
-    <ReusableModal modalName="card">
+    <ReusableModal 
+      modalName="card"
+      onClose={(handleClose)}
+    >
       <CardContainer>
         <TextField
           style={{

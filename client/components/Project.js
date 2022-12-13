@@ -13,7 +13,7 @@ import {
   fetchSelectedProject,
   fetchWhiteboards,
 } from "../store/projectSlice";
-import CardModal2 from "./CardModal2";
+import CardModalNew from "./CardModalNew";
 import WhiteboardModal from "./Whiteboard/WhiteboardModal";
 import CreateProjectModal from "./CreateProjectModal";
 import {
@@ -27,8 +27,6 @@ import socket from "../socket";
 import { incrementMessageCounter } from "../store/chatSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-//import { flexbox } from "@mui/system";
 
 function Project() {
   const dispatch = useDispatch();
@@ -145,11 +143,10 @@ function Project() {
 
   return (
     <div className="Project-Container">
-      <CardModal2 modalName="card" />
+      <CardModalNew modalName="card" />
       <WhiteboardModal />
       <CreateProjectModal modalName="createProject" />
       <CopyLinkModal />
-
       <ToastContainer />
       <div className="Drawer-Title">
         <span className={messagesNumber ? "unread" : ""}>

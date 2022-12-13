@@ -38,10 +38,6 @@ const ProjectCard = (props) => {
     (project) => project.id === props.projectId
   );
 
-  // console.log(
-  //   `USER WITH PROJECTS ${props.projectId} >>>>`,
-  //   projectUsers[0].users
-  // );
   const classes = styles();
   const date = props.created.slice(0, 12);
   const time = props.created.slice(14);
@@ -60,20 +56,12 @@ const ProjectCard = (props) => {
           sx={{
             maxHeight: 20,
             padding: 4,
-            color: "text.secondary",
+            // color: "text.secondary",
             fontFamily: "Ubutu",
           }}
           title={
             <Typography sx={{ fontFamily: "Ubutu", fontSize: 28 }}>
               {props.title}
-            </Typography>
-          }
-          subheader={
-            <Typography sx={{ fontFamily: "Ubutu" }}>
-              <span>{"Created "}</span>
-              <span>{date}</span>
-              <span>{" at "}</span>
-              <span>{time}</span>
             </Typography>
           }
         />
@@ -83,22 +71,6 @@ const ProjectCard = (props) => {
           image="/images/ProjectIcon/WF.jpg"
         />
         <CardContent>
-          {/* // <Typography 
-          //   variant="body2"
-           //  color="text.secondary"
-           //  sx={{ fontFamily: "Ubutu", fontSize: 18, textAlign:"center" }}
-          // >
-           //  {props.heading && props.heading} <p/>
-            
-          // </Typography>
-          // <Typography 
-            // variant="body2"
-            // color="text.secondary"
-            // sx={{ fontFamily: "Ubutu", fontSize: 16, textAlign:"center" }}
-          // >
-            // {props.subHeading && props.subHeading} 
-           //</Typography> */}
-
           <h2 style={{ textAlign: "center" }}>Members</h2>
           <AssigneeBox>
             {projectUsers[0]?.users.map((user) => (
@@ -123,6 +95,12 @@ const ProjectCard = (props) => {
             ))}
           </AssigneeBox>
         </CardContent>
+          {/* <Typography sx={{ fontFamily: "Ubutu", fontSize: 18 }}>
+            <span>{"Created at "}</span>
+            <span>{time}</span>
+            <span>{" on "}</span>
+            <span>{date}</span>
+          </Typography> */}
         <CardActions disableSpacing></CardActions>
       </Card>
     </Link>
