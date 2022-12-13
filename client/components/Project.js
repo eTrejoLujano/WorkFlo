@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-
 import "../styles/Board.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Drawer from "../components/Drawer";
@@ -17,7 +16,6 @@ import {
 import CardModalNew from "./CardModalNew";
 import WhiteboardModal from "./Whiteboard/WhiteboardModal";
 import CreateProjectModal from "./CreateProjectModal";
-
 import {
   fetchCards,
   movingCardLists,
@@ -26,11 +24,9 @@ import {
 } from "../store/cardSlice";
 import "../styles/Project.css";
 import socket from "../socket";
-import { toggleModal } from "../store/uiSlice";
-
+import { incrementMessageCounter } from "../store/chatSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 function Project() {
   const dispatch = useDispatch();
@@ -38,7 +34,7 @@ function Project() {
   const lists = useSelector((state) => state.lists);
   const projects = useSelector((state) => state.project);
   const cards = useSelector((state) => state.cards);
-  const { modalIsOpen } = useSelector((state) => state.ui);
+  const { messagesNumber } = useSelector((state) => state.chat);
   const params = useParams();
 
   useEffect(() => {
@@ -46,19 +42,18 @@ function Project() {
     dispatch(fetchSelectedProject(params.projectId));
     dispatch(fetchLists(params.projectId));
     dispatch(fetchCards(params.projectId));
+
     socket.emit("user-joined", {
       userId: auth.id,
       projectId: +params.projectId,
     });
   }, [params.projectId]);
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const [value, setValue] = useState("");
-
-  const buttonClicked = () => {
-    setModalOpen(true);
-    setValue(window.location.href);
-  };
+  useEffect(() => {
+    socket.on("receive_message", () => {
+      dispatch(incrementMessageCounter());
+    });
+  }, [socket]);
 
   const onDragEnd = async (result) => {
     const { destination, source, draggableId, type } = result;
@@ -154,6 +149,9 @@ function Project() {
       <CopyLinkModal />
       <ToastContainer />
       <div className="Drawer-Title">
+        <span className={messagesNumber ? "unread" : ""}>
+          {messagesNumber === 0 ? "" : messagesNumber}
+        </span>
         <Drawer />
         <div className="Title">
           <h2>{projects.selectedProject?.title}</h2>
