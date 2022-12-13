@@ -86,6 +86,12 @@ const AuthForm = (props) => {
                   id="password"
                   autoComplete="current-password"
                 />
+
+                {error && (
+                  <p style={{ color: "red", textAlign: "center" }}>
+                    Please try again, incorrect Email/Password!
+                  </p>
+                )}
                 <Button
                   type="submit"
                   fullWidth
