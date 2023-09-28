@@ -1,6 +1,6 @@
 "use strict";
 
-const { green, red } = require("chalk");
+// const { green, red } = require("chalk");
 const {
   db,
   models: { User, Project, List, Card, UserCards, UserProjects },
@@ -62,13 +62,13 @@ const projects = [
     title: "Mad This Summer",
     complete: false,
     heading: "Artist: August Is Falling",
-    subHeading: "Album: The Simple Plan"
+    subHeading: "Album: The Simple Plan",
   },
   {
     title: "Track List",
     complete: false,
     heading: "Artist: August Is Falling",
-    subHeading: "Album: The Simple Plan"
+    subHeading: "Album: The Simple Plan",
   },
 ];
 
@@ -169,7 +169,6 @@ const cards = [
     cardindex: 2,
     listId: 3,
   },
-
 
   {
     title: "Mad This Summer",
@@ -405,11 +404,11 @@ const seed = async () => {
 if (require.main === module) {
   seed()
     .then(() => {
-      console.log(green("Seeding success!"));
+      // console.log(green("Seeding success!"));
       db.close();
     })
     .catch((err) => {
-      console.error(red("Oh noes! Something went wrong!"));
+      // console.error(red("Oh noes! Something went wrong!"));
       console.error(err);
       db.close();
     });
