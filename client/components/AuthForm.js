@@ -12,12 +12,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import { authenticate } from "../store/authSlice";
 
 const theme = createTheme({});
-
 function Copyright(props) {
   return (
     <Typography
@@ -37,7 +36,9 @@ function Copyright(props) {
 }
 
 const AuthForm = (props) => {
+  console.log(props.name);
   const { name, displayName, handleSubmit, error } = props;
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -108,6 +109,22 @@ const AuthForm = (props) => {
                     </Link>
                   </Grid>
                 </Grid>
+                <Button
+                  onClick={() =>
+                    dispatch(
+                      authenticate({
+                        email: "erik@erik.com",
+                        password: "123",
+                        formName: "login",
+                      })
+                    )
+                  }
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Continue as guest (demo)
+                </Button>
               </Box>
             </Box>
             <Copyright sx={{ mt: 8, mb: 4 }} />
@@ -197,6 +214,22 @@ const AuthForm = (props) => {
                     </Link>
                   </Grid>
                 </Grid>
+                <Button
+                  onClick={() =>
+                    dispatch(
+                      authenticate({
+                        email: "erik@erik.com",
+                        password: "123",
+                        formName: "login",
+                      })
+                    )
+                  }
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Continue as guest (demo)
+                </Button>
               </Box>
             </Box>
             <Copyright sx={{ mt: 5 }} />
